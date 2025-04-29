@@ -14,7 +14,7 @@ Feito com 💖 usando Laravel, Vue.js e Inertia.js.
 ## Funcionalidades
 - 📄 Abertura e controle de chamados
 - 🏷️ Prioridades e setores
-- 🔔 Notificações automáticas
+- 🔔 Notificações automáticas (em desenvolvimento)
 - 👥 Controle de perfis de acesso
 - 📊 Painel de administração
 
