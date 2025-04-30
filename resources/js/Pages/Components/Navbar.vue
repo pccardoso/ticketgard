@@ -198,9 +198,65 @@
 
       <div class="p-8 sm:ml-64 h-screen">
 
-         <div class="inline-flex">
-            <p class="inline-flex mb-2 text-white bg-blue-600 rounded-2xl p-1 pl-3 pr-3 shadow-lg"><IconUser class="text-color-500"/>{{ user.name }}</p>
-            <p v-if="user.vip" class="inline-flex ml-2 mb-2 text-white bg-yellow-400 rounded-2xl p-1 pl-3 pr-3 shadow-lg" title="Seu usuário é VIP"><img src="../../../img/vip.png.png" class="w-5 mr-1">Usuário VIP</p>
+         <div class="flex flex-row space-x-2">
+
+            <div class="inline-flex mb-2 text-white bg-blue-600 rounded-2xl p-1 pl-3 pr-3 shadow-lg"><IconUser class="text-color-500"/>{{ user.name }}</div>
+            
+            <div v-if="user.vip" class="inline-flex ml-2 mb-2 text-white bg-yellow-400 rounded-2xl p-1 pl-3 pr-3 shadow-lg" title="Seu usuário é VIP"><img src="../../../img/vip.png.png" class="w-5 mr-1">Usuário VIP</div>
+            
+            <div class="">
+
+               <svg @click="actionShowNotification()" class="w-8 h-8" :class="showNotification ? 'text-blue-600':'text-blue-400'" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M17.133 12.632v-1.8a5.407 5.407 0 0 0-4.154-5.262.955.955 0 0 0 .021-.106V3.1a1 1 0 0 0-2 0v2.364a.933.933 0 0 0 .021.106 5.406 5.406 0 0 0-4.154 5.262v1.8C6.867 15.018 5 15.614 5 16.807 5 17.4 5 18 5.538 18h12.924C19 18 19 17.4 19 16.807c0-1.193-1.867-1.789-1.867-4.175Zm-13.267-.8a1 1 0 0 1-1-1 9.424 9.424 0 0 1 2.517-6.391A1.001 1.001 0 1 1 6.854 5.8a7.43 7.43 0 0 0-1.988 5.037 1 1 0 0 1-1 .995Zm16.268 0a1 1 0 0 1-1-1A7.431 7.431 0 0 0 17.146 5.8a1 1 0 0 1 1.471-1.354 9.424 9.424 0 0 1 2.517 6.391 1 1 0 0 1-1 .995ZM8.823 19a3.453 3.453 0 0 0 6.354 0H8.823Z"/>
+               </svg>
+
+               <!--
+               <div v-if="showNotification" class="bg-white border-2 border-blue-500 rounded-lg absolute mt-2 p-2 shadow-sm w-80">
+                  
+                  <div class="h-100 overflow-auto">
+
+                     <div class="bg-green-500 text-white p-1 rounded-sm m-1">
+                        Nova Mensagem: Leo Junior
+                     </div>
+
+                     <div class="bg-green-500 text-white p-1 rounded-sm m-1">
+                        Nova Mensagem: Leo Junior
+                     </div>
+
+                     <div class="bg-green-500 text-white p-1 rounded-sm m-1">
+                        Nova Mensagem: Leo Junior
+                     </div>
+
+                     <div class="bg-green-500 text-white p-1 rounded-sm m-1">
+                        Nova Mensagem: Leo Junior
+                     </div>
+
+                     <div class="bg-red-500 text-white p-1 rounded-sm m-1">
+                        Nova Mensagem: Leo Junior
+                     </div>
+                     
+                     <div class="bg-red-500 text-white p-1 rounded-sm m-1">
+                        Nova Mensagem: Leo Junior
+                     </div>
+
+                     <div class="bg-red-500 text-white p-1 rounded-sm m-1">
+                        Nova Mensagem: Leo Junior
+                     </div>
+
+                     <div class="bg-green-500 text-white p-1 rounded-sm m-1">
+                        Nova Mensagem: Leo Junior
+                     </div>
+
+                  </div>
+
+                  <div class="">
+                     <button class="bg-blue-500 text-white p-1 rounded-sm text-sm">Ler Todos</button>
+                  </div>
+                  
+               </div>
+               -->
+            </div>
+
          </div>
 
          <div class="pb-30" style="font-size: 10pt;"><slot></slot></div>
@@ -208,16 +264,30 @@
       </div>
    </div>
 
-   <div class="fixed top-5 right-5 px-4 py-2 z-50">
+   <div class="fixed top-5 right-4 px-4 py-2 z-50">
       
-      <div class="bg-green-500 text-white p-2 border-gray-400 w-80 rounded-sm mb-4 shadow-sm">
-         <p class="font-bold">Nova Mensagem</p>
+      <div class="bg-blue-400 text-white p-2 border-gray-400 w-80 rounded-sm mb-4 shadow-sm">
+         <p class="font-bold inline-flex">
+            
+            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+            <path fill-rule="evenodd" d="M4 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h1v2a1 1 0 0 0 1.707.707L9.414 13H15a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H4Z" clip-rule="evenodd"/>
+            <path fill-rule="evenodd" d="M8.023 17.215c.033-.03.066-.062.098-.094L10.243 15H15a3 3 0 0 0 3-3V8h2a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-1v2a1 1 0 0 1-1.707.707L14.586 18H9a1 1 0 0 1-.977-.785Z" clip-rule="evenodd"/>
+            </svg>
+            Você tem 5 nova(s) mensagem...</p>
+
          <p>Paulo Cesar Costa Cardoso</p>
       </div>
 
-      <div class="bg-red-500 text-white p-2 border-gray-400 w-80 rounded-sm mb-4 shadow-sm">
-         <p class="font-bold">Novo Ticket</p>
-         <p>Paulo Cesar Costa Cardoso</p>
+      <div class="bg-red-400 text-white p-2 border-gray-400 w-80 rounded-sm mb-4 shadow-sm">
+         <p class="font-bold inline-flex">
+            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+               <path d="M11.209 3.816a1 1 0 0 0-1.966.368l.325 1.74a5.338 5.338 0 0 0-2.8 5.762l.276 1.473.055.296c.258 1.374-.228 2.262-.63 2.998-.285.52-.527.964-.437 1.449.11.586.22 1.173.75 1.074l12.7-2.377c.528-.1.418-.685.308-1.27-.103-.564-.636-1.123-1.195-1.711-.606-.636-1.243-1.306-1.404-2.051-.233-1.085-.275-1.387-.303-1.587-.009-.063-.016-.117-.028-.182a5.338 5.338 0 0 0-5.353-4.39l-.298-1.592Z"/>
+               <path fill-rule="evenodd" d="M6.539 4.278a1 1 0 0 1 .07 1.412c-1.115 1.23-1.705 2.605-1.83 4.26a1 1 0 0 1-1.995-.15c.16-2.099.929-3.893 2.342-5.453a1 1 0 0 1 1.413-.069Z" clip-rule="evenodd"/>
+               <path d="M8.95 19.7c.7.8 1.7 1.3 2.8 1.3 1.6 0 2.9-1.1 3.3-2.5l-6.1 1.2Z"/>
+            </svg>
+
+            Novo Ticket</p>
+         <p>Seu departamento tem 5 novo (s) ticket(s).</p>
       </div>
   
    </div>
@@ -227,6 +297,30 @@
          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
       </svg>
    </Link>
+
+   <!-- MODAL VISUALIZAR PENDÊNCIA -->
+
+   <div v-if="showNotification" class="relative z-40" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+
+<div class="fixed inset-0 bg-gray-500/75 transition-opacity" aria-hidden="true"></div>
+
+    <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+        <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+
+            <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                <div class="bg-blue-600 px-4 py-3 sm:flex sm:px-6">
+                    <label for="forTitle" class="text-[14pt] text-white">Notificações</label>
+                </div>
+                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+
+                </div>
+                <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                    <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs ring-1 ring-gray-300 ring-inset hover:bg-gray-50 sm:mt-0 sm:w-auto" @click="actionShowNotification()">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 </template>
 
@@ -248,7 +342,8 @@
          return{
             permissao:[],
             user:Object,
-            status: 0
+            status: 0,
+            showNotification: false
          }
       },
       components:{
@@ -266,6 +361,15 @@
       },
       beforeUnmount(){
          //clearInterval(this.status)
+      },
+      methods:{
+         actionShowNotification(){
+            this.showNotification = !this.showNotification
+
+            setTimeout(() => {
+               this.showNotification = false
+            }, 3000);
+         }
       }
    }
 
