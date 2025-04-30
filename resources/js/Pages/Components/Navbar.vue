@@ -211,50 +211,47 @@
                </svg>
 
                <!--
-               <div v-if="showNotification" class="bg-white border-2 border-blue-500 rounded-lg absolute mt-2 p-2 shadow-sm w-80">
+               <div v-if="showNotification" class="bg-blue-100 border-2 border-blue-400 rounded-lg absolute mt-2 p-2 shadow-sm w-80">
                   
-                  <div class="h-100 overflow-auto">
+                  <div class="h-50 overflow-auto space-x-5">
 
-                     <div class="bg-green-500 text-white p-1 rounded-sm m-1">
+                     <div class="bg-blue-400 text-white p-1 rounded-sm m-1">
                         Nova Mensagem: Leo Junior
                      </div>
 
-                     <div class="bg-green-500 text-white p-1 rounded-sm m-1">
+                     <div class="bg-blue-400 text-white p-1 rounded-sm m-1">
                         Nova Mensagem: Leo Junior
                      </div>
 
-                     <div class="bg-green-500 text-white p-1 rounded-sm m-1">
+                     <div class="bg-blue-400 text-white p-1 rounded-sm m-1">
                         Nova Mensagem: Leo Junior
                      </div>
 
-                     <div class="bg-green-500 text-white p-1 rounded-sm m-1">
+                     <div class="bg-blue-400 text-white p-1 rounded-sm m-1">
                         Nova Mensagem: Leo Junior
                      </div>
 
-                     <div class="bg-red-500 text-white p-1 rounded-sm m-1">
+                     <div class="bg-red-400 text-white p-1 rounded-sm m-1">
                         Nova Mensagem: Leo Junior
                      </div>
                      
-                     <div class="bg-red-500 text-white p-1 rounded-sm m-1">
+                     <div class="bg-red-400 text-white p-1 rounded-sm m-1">
                         Nova Mensagem: Leo Junior
                      </div>
 
-                     <div class="bg-red-500 text-white p-1 rounded-sm m-1">
+                     <div class="bg-red-400 text-white p-1 rounded-sm m-1">
                         Nova Mensagem: Leo Junior
                      </div>
 
-                     <div class="bg-green-500 text-white p-1 rounded-sm m-1">
+                     <div class="bg-blue-400 text-white p-1 rounded-sm m-1">
                         Nova Mensagem: Leo Junior
                      </div>
 
-                  </div>
-
-                  <div class="">
-                     <button class="bg-blue-500 text-white p-1 rounded-sm text-sm">Ler Todos</button>
                   </div>
                   
                </div>
                -->
+
             </div>
 
          </div>
@@ -297,30 +294,6 @@
          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
       </svg>
    </Link>
-
-   <!-- MODAL VISUALIZAR PENDÊNCIA -->
-
-   <div v-if="showNotification" class="relative z-40" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-
-<div class="fixed inset-0 bg-gray-500/75 transition-opacity" aria-hidden="true"></div>
-
-    <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
-        <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-
-            <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-                <div class="bg-blue-600 px-4 py-3 sm:flex sm:px-6">
-                    <label for="forTitle" class="text-[14pt] text-white">Notificações</label>
-                </div>
-                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-
-                </div>
-                <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                    <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs ring-1 ring-gray-300 ring-inset hover:bg-gray-50 sm:mt-0 sm:w-auto" @click="actionShowNotification()">Fechar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 </template>
 
@@ -366,9 +339,7 @@
          actionShowNotification(){
             this.showNotification = !this.showNotification
 
-            setTimeout(() => {
-               this.showNotification = false
-            }, 3000);
+
          }
       }
    }
