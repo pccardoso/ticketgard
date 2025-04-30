@@ -208,14 +208,8 @@
       </div>
    </div>
 
-   <!--
    <div class="fixed top-5 right-5 px-4 py-2 z-50">
-  
-      <div class="bg-green-500 text-white p-2 border-gray-400 w-80 rounded-sm mb-4 shadow-sm animate-pulse hover:animate-none">
-         <p class="font-bold">Nova Mensagem</p>
-         <p>Paulo Cesar Costa Cardoso</p>
-      </div>
-
+      
       <div class="bg-green-500 text-white p-2 border-gray-400 w-80 rounded-sm mb-4 shadow-sm">
          <p class="font-bold">Nova Mensagem</p>
          <p>Paulo Cesar Costa Cardoso</p>
@@ -227,8 +221,6 @@
       </div>
   
    </div>
-   -->
-
 
    <Link title="Abrir Novo Ticket" href="/cad/chamado" class="fixed bottom-6 right-6 bg-blue-500 hover:bg-blue-700 text-white p-4 rounded-full shadow-2xl">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
