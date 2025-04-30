@@ -9,14 +9,17 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
+
     public function up(): void
     {
         Schema::create('notificacao', function (Blueprint $table) {
             $table->id("id_notificacao");
             $table->string("descricao_notificacao");
             $table->integer("tipo_notificacao");
-            $table->timestamp("data_cadastro_notificacao");
-            $table->timestamp("data_atualizacao_notificacao");
+            $table->unsignedBigInteger("id_chamado_notificacao");
+            $table->foreign("id_chamado_notificacao")->references("id_chamados")->on("chamados")->onUpdate("cascade")->onDelete("cascade");
+            $table->timestamp("data_cadastro_notificacao")->nullable();
+            $table->timestamp("data_atualizacao_notificacao")->nullable();
         });
     }
 
