@@ -8,6 +8,7 @@ use App\Models\Manifestacao;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth;
 
 class ChamadoController extends Controller
@@ -15,8 +16,7 @@ class ChamadoController extends Controller
     /**
      * Display a listing of the resource.
      */
-
-
+    
     public function dataen($data){
 
         return explode("/", $data)[2]."-".explode("/", $data)[1]."-".explode("/", $data)[0];
@@ -318,6 +318,12 @@ class ChamadoController extends Controller
 
         }
 
+        $this->sendEmail([
+            "codigo" => $chamado->id_chamados,
+            "mensagem" => "Olá, registro de novo ticket. Aguarde as próximas atualizações ou confira pelo sistema do Ticket Gard!",
+            "status" => "Aberto"
+        ]);
+
         return to_route("form.cad.chamado");
     }
 
@@ -415,6 +421,12 @@ class ChamadoController extends Controller
 
             $res = [1, "Chamado assumido com sucesso"];
 
+            $this->sendEmail([
+                "codigo" => $request->input("id_chamados"),
+                "mensagem" => "Olá, o ticket foi aderido por um responsável. Aguarde as próximas atualizações ou confira pelo sistema do Ticket Gard!",
+                "status" => "Encaminhado"
+            ]);
+
         }else{
 
             $res = [0, "Chamado já assumido por outro colaborador, favor, atualize novamente sua pesquisa!"];
@@ -489,6 +501,17 @@ class ChamadoController extends Controller
         $lista = DB::select($sql);
 
         return compact("lista");
+
+    }
+
+    public function sendEmail(array $props){
+
+        Http::post("https://webhooks.dantlab.com/webhook/testePobre", [
+            "email" => "paulo.cardoso2408@gmail.com",
+            "msg" => $props['mensagem'],
+            "status" => $props['status'],
+            "codigo" => $props['codigo']
+        ]);
 
     }
 }

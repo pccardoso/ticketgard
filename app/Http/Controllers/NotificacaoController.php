@@ -23,6 +23,10 @@ class NotificacaoController extends Controller
         //
     }
 
+    public function createEmail(){
+        
+    }
+
     /**
      * Store a newly created resource in storage.
      */
