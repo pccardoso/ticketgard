@@ -1,5 +1,3 @@
-
-
 <template>
 
    <div class="bg-gray">
@@ -261,21 +259,9 @@
       </div>
    </div>
 
-   <div class="fixed top-5 right-4 px-4 py-2 z-50">
-      
-      <div class="bg-blue-400 text-white p-2 border-gray-400 w-80 rounded-sm mb-4 shadow-sm">
-         <p class="font-bold inline-flex">
-            
-            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-            <path fill-rule="evenodd" d="M4 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h1v2a1 1 0 0 0 1.707.707L9.414 13H15a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H4Z" clip-rule="evenodd"/>
-            <path fill-rule="evenodd" d="M8.023 17.215c.033-.03.066-.062.098-.094L10.243 15H15a3 3 0 0 0 3-3V8h2a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-1v2a1 1 0 0 1-1.707.707L14.586 18H9a1 1 0 0 1-.977-.785Z" clip-rule="evenodd"/>
-            </svg>
-            Você tem 5 nova(s) mensagem...</p>
+   <div v-if="showNotification" class="fixed top-5 right-4 px-4 py-2 z-50">
 
-         <p>Paulo Cesar Costa Cardoso</p>
-      </div>
-
-      <div class="bg-red-400 text-white p-2 border-gray-400 w-80 rounded-sm mb-4 shadow-sm">
+      <div class="bg-red-400 text-white p-2 border-gray-400 w-80 rounded-sm mb-4 shadow-sm animate-pulse hover:animate-none">
          <p class="font-bold inline-flex">
             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                <path d="M11.209 3.816a1 1 0 0 0-1.966.368l.325 1.74a5.338 5.338 0 0 0-2.8 5.762l.276 1.473.055.296c.258 1.374-.228 2.262-.63 2.998-.285.52-.527.964-.437 1.449.11.586.22 1.173.75 1.074l12.7-2.377c.528-.1.418-.685.308-1.27-.103-.564-.636-1.123-1.195-1.711-.606-.636-1.243-1.306-1.404-2.051-.233-1.085-.275-1.387-.303-1.587-.009-.063-.016-.117-.028-.182a5.338 5.338 0 0 0-5.353-4.39l-.298-1.592Z"/>
@@ -284,7 +270,14 @@
             </svg>
 
             Novo Ticket</p>
-         <p>Seu departamento tem 5 novo (s) ticket(s).</p>
+         <p>Seu departamento tem {{ listTicketNotification.length }} novo (s) ticket(s).</p>
+      
+         <p class="inline-flex" v-for="(l, index) in listTicketNotification">
+            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+               <path fill-rule="evenodd" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z" clip-rule="evenodd"/>
+            </svg>
+            {{l.nome_criador_chamados}}
+         </p>
       </div>
   
    </div>
@@ -308,6 +301,7 @@
    import Annotation from '../Icons/Annotation.vue';
    import IconUser from '../Icons/IconUser.vue';
    import IconDepart from '../Icons/IconDepart.vue';
+   import {getTimeCurrentUtils} from '../../../helpers/utils.js';
 
    export default{
       name:"Navbar",
@@ -316,7 +310,11 @@
             permissao:[],
             user:Object,
             status: 0,
-            showNotification: false
+            showNotification: false,
+            listTicketNotification: [],
+            timeEnd: 0,
+            timeStart: 0,
+            titleTemp: ""
          }
       },
       components:{
@@ -324,12 +322,50 @@
       },
       mounted(){
 
+         //carrega a hora inicial
+         this.timeStart = getTimeCurrentUtils();
+
          initFlowbite();
+
+         //carrega atributos da sessão atual
          this.user = usePage().props.auth.user;
 
-         /*this.status = setInterval(()=>{
-            console.log("time teste")
-         }, 5000)*/
+         //buscar por novos tickets dentro do início/fim programado.
+         setInterval(() => {
+
+            //hora atual que entra no loop
+            this.timeEnd = getTimeCurrentUtils();
+
+            //controle
+            console.log(`${this.timeStart} & ${this.timeEnd}`);
+            axios.post("/count/chamado",{
+               timeStart: this.timeStart,
+               timeEnd: this.timeEnd,
+               listDepartament: this.user.department
+            }).
+            then((result) => {
+               
+               if(result.data.lista.length){
+
+                  this.titleTemp = document.title;
+
+                  document.title = `${result.data.lista.length} novo(s) ticket(s)`;
+
+                  this.actionShowNotification();
+                  this.listTicketNotification = result.data.lista;
+                  console.log(result.data.lista);
+
+               }else{
+                  console.log("Sem chamados");
+               }
+
+            })
+
+            //definir hora inicial como a hora final para então carregar o novo ciclo
+            this.timeStart = this.timeEnd;
+
+
+         }, 10000);
 
       },
       beforeUnmount(){
@@ -339,7 +375,10 @@
          actionShowNotification(){
             this.showNotification = !this.showNotification
 
-
+            setTimeout(() => {
+               this.showNotification = false;
+               document.title = this.titleTemp;
+            }, 7000);
          }
       }
    }

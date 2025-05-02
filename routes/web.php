@@ -114,5 +114,8 @@ Route::middleware('auth')->group(function () {
     // ROTAS DE UPLOAD
     Route::post("/upload", [FileController::class, "store"]);
 
+    // ROTAS DE RELATÓRIOS/DADOS
+    Route::post("/count/chamado", [ChamadoController::class, "getCountTicket"]);
+
 
 });
