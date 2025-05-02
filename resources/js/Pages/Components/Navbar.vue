@@ -317,7 +317,7 @@
             this.timeStart = this.timeEnd;
 
 
-         }, 10000);
+         }, (1000 * 60 * 5));
 
       },
       beforeUnmount(){
@@ -330,7 +330,7 @@
             setTimeout(() => {
                this.showNotification = false;
                document.title = this.titleTemp;
-            }, 7000);
+            }, 15000);
          }
       }
    }
