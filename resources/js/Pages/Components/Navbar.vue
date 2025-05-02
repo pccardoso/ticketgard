@@ -264,11 +264,15 @@
             listTicketNotification: [],
             timeEnd: 0,
             timeStart: 0,
-            titleTemp: ""
+            titleTemp: "",
+            setInNotification: false
          }
       },
       components:{
          Link, IconHome, CheckPlus, Close, Annotation, IconUser, IconDepart
+      },
+      beforeUnmount(){
+         clearInterval(this.setInNotification);
       },
       mounted(){
 
@@ -281,7 +285,7 @@
          this.user = usePage().props.auth.user;
 
          //buscar por novos tickets dentro do início/fim programado.
-         setInterval(() => {
+         this.setInNotification = setInterval(() => {
 
             //hora atual que entra no loop
             this.timeEnd = getTimeCurrentUtils();
@@ -331,6 +335,7 @@
                this.showNotification = false;
                document.title = this.titleTemp;
             }, 8000);
+            
          }
       }
    }

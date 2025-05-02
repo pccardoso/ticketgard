@@ -1,5 +1,6 @@
 <template>
 
+
     <TitlePage titulo="Consultar Solicitações"></TitlePage>
 
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -144,7 +145,7 @@
                 </div>
             </div>
         </div>
-    </div> 
+</div> 
 
 </template>
 
@@ -157,6 +158,7 @@
     import IconPrioridade from "../Components/IconPrioridade.vue";
     import { useForm } from "@inertiajs/vue3";
     import { initFlowbite } from "flowbite";
+
 
     export default{
         name:"ConSolicitacao",

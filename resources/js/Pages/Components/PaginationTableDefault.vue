@@ -29,7 +29,6 @@
             paginaAtual: 1,
             itensPagina: 10,
             paginador: false,
-            //temp_table: [],
             select_temp: 0,
             temp_paginator: []
           }
