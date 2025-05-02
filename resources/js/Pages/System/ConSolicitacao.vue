@@ -1,6 +1,5 @@
 <template>
 
-
     <TitlePage titulo="Consultar Solicitações"></TitlePage>
 
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -145,7 +144,7 @@
                 </div>
             </div>
         </div>
-</div> 
+    </div> 
 
 </template>
 
@@ -171,7 +170,8 @@
                     titulo_solicitacoes: "",
                     prioridade_solicitacoes: "",
                     tempo_solicitacoes: 0
-                })
+                }),
+                showModalClose: false
             }
         },
         props:{
