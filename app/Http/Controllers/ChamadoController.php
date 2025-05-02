@@ -461,4 +461,34 @@ class ChamadoController extends Controller
         $dep = Chamado::find($id)->delete();
         return to_route("meuchamado");
     }
+
+    public function getCountTicket(Request $request){
+
+        $data = date("Y-m-d");
+        $timeStart = $request->input("timeStart");
+        $timeEnd = $request->input("timeEnd");
+
+        $sql = "SELECT * FROM chamados WHERE data_cadastro_chamados BETWEEN '$data $timeStart' AND '$data $timeEnd'";
+
+        foreach ($request->input("listDepartament") as $key => $value) {
+
+            if($key == 0){
+                $sql.=" AND ( id_departamento_chamados=".$value."";
+            }else if(count($request->input("listDepartament")) == $key + 1){
+                $sql.=" OR id_departamento_chamados=".$value.")";
+            }else{
+                $sql.=" OR id_departamento_chamados=".$value."";
+            }
+
+            if(count($request->input("listDepartament")) == 1){
+                $sql.=")";
+            }
+            
+        }
+
+        $lista = DB::select($sql);
+
+        return compact("lista");
+
+    }
 }

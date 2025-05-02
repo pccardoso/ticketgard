@@ -1,5 +1,3 @@
-
-
 <template>
 
    <div class="bg-gray">
@@ -198,9 +196,12 @@
 
       <div class="p-8 sm:ml-64 h-screen">
 
-         <div class="inline-flex">
-            <p class="inline-flex mb-2 text-white bg-blue-600 rounded-2xl p-1 pl-3 pr-3 shadow-lg"><IconUser class="text-color-500"/>{{ user.name }}</p>
-            <p v-if="user.vip" class="inline-flex ml-2 mb-2 text-white bg-yellow-400 rounded-2xl p-1 pl-3 pr-3 shadow-lg" title="Seu usuário é VIP"><img src="../../../img/vip.png.png" class="w-5 mr-1">Usuário VIP</p>
+         <div class="flex flex-row space-x-2">
+
+            <div class="inline-flex mb-2 text-white bg-blue-600 rounded-2xl p-1 pl-3 pr-3 shadow-lg"><IconUser class="text-color-500"/>{{ user.name }}</div>
+            
+            <div v-if="user.vip" class="inline-flex ml-2 mb-2 text-white bg-yellow-400 rounded-2xl p-1 pl-3 pr-3 shadow-lg" title="Seu usuário é VIP"><img src="../../../img/vip.png.png" class="w-5 mr-1">Usuário VIP</div>
+
          </div>
 
          <div class="pb-30" style="font-size: 10pt;"><slot></slot></div>
@@ -208,26 +209,28 @@
       </div>
    </div>
 
-   <!--
-   <div class="fixed top-5 right-5 px-4 py-2 z-50">
-  
-      <div class="bg-green-500 text-white p-2 border-gray-400 w-80 rounded-sm mb-4 shadow-sm animate-pulse hover:animate-none">
-         <p class="font-bold">Nova Mensagem</p>
-         <p>Paulo Cesar Costa Cardoso</p>
-      </div>
+   <div v-if="showNotification" class="fixed top-5 right-4 px-4 py-2 z-50">
 
-      <div class="bg-green-500 text-white p-2 border-gray-400 w-80 rounded-sm mb-4 shadow-sm">
-         <p class="font-bold">Nova Mensagem</p>
-         <p>Paulo Cesar Costa Cardoso</p>
-      </div>
+      <div class="bg-red-400 text-white p-2 border-gray-400 w-80 rounded-sm mb-4 shadow-sm animate-pulse hover:animate-none">
+         <p class="font-bold inline-flex">
+            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+               <path d="M11.209 3.816a1 1 0 0 0-1.966.368l.325 1.74a5.338 5.338 0 0 0-2.8 5.762l.276 1.473.055.296c.258 1.374-.228 2.262-.63 2.998-.285.52-.527.964-.437 1.449.11.586.22 1.173.75 1.074l12.7-2.377c.528-.1.418-.685.308-1.27-.103-.564-.636-1.123-1.195-1.711-.606-.636-1.243-1.306-1.404-2.051-.233-1.085-.275-1.387-.303-1.587-.009-.063-.016-.117-.028-.182a5.338 5.338 0 0 0-5.353-4.39l-.298-1.592Z"/>
+               <path fill-rule="evenodd" d="M6.539 4.278a1 1 0 0 1 .07 1.412c-1.115 1.23-1.705 2.605-1.83 4.26a1 1 0 0 1-1.995-.15c.16-2.099.929-3.893 2.342-5.453a1 1 0 0 1 1.413-.069Z" clip-rule="evenodd"/>
+               <path d="M8.95 19.7c.7.8 1.7 1.3 2.8 1.3 1.6 0 2.9-1.1 3.3-2.5l-6.1 1.2Z"/>
+            </svg>
 
-      <div class="bg-red-500 text-white p-2 border-gray-400 w-80 rounded-sm mb-4 shadow-sm">
-         <p class="font-bold">Novo Ticket</p>
-         <p>Paulo Cesar Costa Cardoso</p>
+            Novo Ticket</p>
+         <p>Seu departamento tem {{ listTicketNotification.length }} novo (s) ticket(s).</p>
+      
+         <p class="inline-flex" v-for="(l, index) in listTicketNotification">
+            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+               <path fill-rule="evenodd" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z" clip-rule="evenodd"/>
+            </svg>
+            {{l.nome_criador_chamados}}
+         </p>
       </div>
   
    </div>
-   -->
 
    <Link title="Abrir Novo Ticket" href="/cad/chamado" class="fixed bottom-6 right-6 bg-blue-500 hover:bg-blue-700 text-white p-4 rounded-full shadow-2xl">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -248,6 +251,7 @@
    import Annotation from '../Icons/Annotation.vue';
    import IconUser from '../Icons/IconUser.vue';
    import IconDepart from '../Icons/IconDepart.vue';
+   import {getTimeCurrentUtils} from '../../../helpers/utils.js';
 
    export default{
       name:"Navbar",
@@ -255,7 +259,12 @@
          return{
             permissao:[],
             user:Object,
-            status: 0
+            status: 0,
+            showNotification: false,
+            listTicketNotification: [],
+            timeEnd: 0,
+            timeStart: 0,
+            titleTemp: ""
          }
       },
       components:{
@@ -263,16 +272,66 @@
       },
       mounted(){
 
+         //carrega a hora inicial
+         this.timeStart = getTimeCurrentUtils();
+
          initFlowbite();
+
+         //carrega atributos da sessão atual
          this.user = usePage().props.auth.user;
 
-         /*this.status = setInterval(()=>{
-            console.log("time teste")
-         }, 5000)*/
+         //buscar por novos tickets dentro do início/fim programado.
+         setInterval(() => {
+
+            //hora atual que entra no loop
+            this.timeEnd = getTimeCurrentUtils();
+
+            //controle
+            console.log(`${this.timeStart} & ${this.timeEnd}`);
+            axios.post("/count/chamado",{
+               timeStart: this.timeStart,
+               timeEnd: this.timeEnd,
+               listDepartament: this.user.department
+            }).
+            then((result) => {
+               
+               if(result.data.lista.length){
+
+                  //recuperando o title da página atual
+                  this.titleTemp = document.title;
+
+                  //definindo o novo title da página atual
+                  document.title = `${result.data.lista.length} novo(s) ticket(s)`;
+
+                  //ativando o alert de notificações
+                  this.actionShowNotification();
+
+                  //carregando a lista de usuários da notificação encontrada
+                  this.listTicketNotification = result.data.lista;
+
+               }
+
+            })
+
+            //definir hora inicial como a hora final para então carregar o novo ciclo
+            this.timeStart = this.timeEnd;
+
+
+         }, 10000);
 
       },
       beforeUnmount(){
          //clearInterval(this.status)
+      },
+      methods:{
+         actionShowNotification(){
+            this.showNotification = !this.showNotification
+
+            setTimeout(() => {
+               this.showNotification = false;
+               document.title = this.titleTemp;
+            }, 7000);
+         }
       }
    }
 
