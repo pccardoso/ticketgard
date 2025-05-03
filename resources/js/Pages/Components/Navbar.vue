@@ -202,69 +202,103 @@
                <!-- Div flutuante -->
                <div
                   v-if="mostrar"
-                  class="absolute z-50 mt-2 w-80 p-4 bg-white border border-gray-200 rounded-lg shadow-xl right-0"
+                  class="absolute z-50 mt-2 w-85 p-4 bg-white border border-gray-200 rounded-lg shadow-xl right-0"
                >
                   <h3 class="text-lg font-semibold mb-2">Últimas Notificações</h3>
 
-                     <Loading v-if="loadingShow"/>
+                     <div v-if="loadingShow">
+
+                        <div class="w-full bg-gray-400 animate-pulse mb-2 h-10 rounded-sm"></div>
+
+                        <div class="w-full bg-gray-400 animate-pulse mb-2 h-10 rounded-sm"></div>
+
+                        <div class="w-full bg-gray-400 animate-pulse mb-2 h-10 rounded-sm"></div>
+
+                        <div class="w-full bg-gray-400 animate-pulse mb-2 h-10 rounded-sm"></div>
+
+                     </div>
 
                      <div v-else class="overflow-auto h-70 border-1 rounded-lg border-gray-200 p-1">
 
-                        <p class="text-sm text-gray-700 inline-flex bg-red-200 rounded-sm p-1 m-1">
+                        <div class="text-sm text-gray-700 inline-flex bg-red-200 rounded-sm p-1 m-1">
                            <svg class="w-6 h-6 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 10.5h.01m-4.01 0h.01M8 10.5h.01M5 5h14a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-6.6a1 1 0 0 0-.69.275l-2.866 2.723A.5.5 0 0 1 8 18.635V17a1 1 0 0 0-1-1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z"/>
                            </svg>
+
+                           <a href="#" target="_blank" class="text-blue-800 underline font-bold" title="Código do Ticket">#123</a>
+
                            Léo Lobianco gerou novo ticket
-                        </p>
+                        </div>
 
-                        <p class="text-sm text-gray-700 inline-flex bg-blue-200 rounded-sm p-1 m-1">
+                        <div class="text-sm text-gray-700 inline-flex bg-blue-200 rounded-sm p-1 m-1">
                            <svg class="w-6 h-6 text-gray-800 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                               <path fill-rule="evenodd" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z" clip-rule="evenodd"/>
                            </svg>
-                           Léo Lobianco enviou nova mensagem
-                        </p>
 
-                        <p class="text-sm text-gray-700 inline-flex bg-red-200 rounded-sm p-1 m-1">
+                           <a href="#" target="_blank" class="text-blue-800 underline font-bold" title="Código do Ticket">#123</a>
+
+                           Léo Lobianco enviou nova mensagem
+                        </div>
+
+                        <div class="text-sm text-gray-700 inline-flex bg-red-200 rounded-sm p-1 m-1">
                            <svg class="w-6 h-6 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 10.5h.01m-4.01 0h.01M8 10.5h.01M5 5h14a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-6.6a1 1 0 0 0-.69.275l-2.866 2.723A.5.5 0 0 1 8 18.635V17a1 1 0 0 0-1-1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z"/>
                            </svg>
+
+                           <a href="#" target="_blank" class="text-blue-800 underline font-bold" title="Código do Ticket">#123</a>
+
                            Léo Lobianco gerou novo ticket
-                        </p>
+                        </div>
 
-                        <p class="text-sm text-gray-700 inline-flex bg-red-200 rounded-sm p-1 m-1">
+                        <div class="text-sm text-gray-700 inline-flex bg-red-200 rounded-sm p-1 m-1">
                            <svg class="w-6 h-6 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 10.5h.01m-4.01 0h.01M8 10.5h.01M5 5h14a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-6.6a1 1 0 0 0-.69.275l-2.866 2.723A.5.5 0 0 1 8 18.635V17a1 1 0 0 0-1-1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z"/>
                            </svg>
-                           Diego Tenório gerou novo ticket
-                        </p>
 
-                        <p class="text-sm text-gray-700 inline-flex bg-blue-200 rounded-sm p-1 m-1">
+                           <a href="#" target="_blank" class="text-blue-800 underline font-bold" title="Código do Ticket">#123</a>
+
+                           Diego Tenório gerou novo ticket
+                        </div>
+
+                        <div class="text-sm text-gray-700 inline-flex bg-blue-200 rounded-sm p-1 m-1">
                            <svg class="w-6 h-6 text-gray-800 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                               <path fill-rule="evenodd" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z" clip-rule="evenodd"/>
                            </svg>
-                           Léo Lobianco enviou nova mensagem
-                        </p>
 
-                        <p class="text-sm text-gray-700 inline-flex bg-blue-200 rounded-sm p-1 m-1">
+                           <a href="#" target="_blank" class="text-blue-800 underline font-bold" title="Código do Ticket">#123</a>
+
+                           Léo Lobianco enviou nova mensagem
+                        </div>
+
+                        <div class="text-sm text-gray-700 inline-flex bg-blue-200 rounded-sm p-1 m-1">
                            <svg class="w-6 h-6 text-gray-800 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                               <path fill-rule="evenodd" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z" clip-rule="evenodd"/>
                            </svg>
+
+                           <a href="#" target="_blank" class="text-blue-800 underline font-bold" title="Código do Ticket">#123</a>
+
                            Léo Lobianco enviou nova mensagem
-                        </p>
+                        </div>
 
-                        <p class="text-sm text-gray-700 inline-flex bg-red-200 rounded-sm p-1 m-1">
+                        <div class="text-sm text-gray-700 inline-flex bg-red-200 rounded-sm p-1 m-1">
                            <svg class="w-6 h-6 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 10.5h.01m-4.01 0h.01M8 10.5h.01M5 5h14a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-6.6a1 1 0 0 0-.69.275l-2.866 2.723A.5.5 0 0 1 8 18.635V17a1 1 0 0 0-1-1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z"/>
                            </svg>
-                           Diego Tenório gerou novo ticket
-                        </p>
 
-                        <p class="text-sm text-gray-700 inline-flex bg-red-200 rounded-sm p-1 m-1">
+                           <a href="#" target="_blank" class="text-blue-800 underline font-bold" title="Código do Ticket">#123</a>
+
+                           Diego Tenório gerou novo ticket
+                        </div>
+
+                        <div class="text-sm text-gray-700 inline-flex bg-red-200 rounded-sm p-1 m-1">
                            <svg class="w-6 h-6 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 10.5h.01m-4.01 0h.01M8 10.5h.01M5 5h14a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-6.6a1 1 0 0 0-.69.275l-2.866 2.723A.5.5 0 0 1 8 18.635V17a1 1 0 0 0-1-1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z"/>
                            </svg>
+
+                           <a href="#" target="_blank" class="text-blue-800 underline font-bold" title="Código do Ticket">#123</a>
+
                            Diego Tenório gerou novo ticket
-                        </p>
+                        </div>
                      </div>
                      
                   <p
@@ -422,7 +456,7 @@
             this.loadingShow = true;
             setTimeout(() => {
                this.loadingShow = false;
-            }, 2000);
+            }, 3000);
          }
       }
    }

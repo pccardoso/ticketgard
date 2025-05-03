@@ -10,6 +10,7 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Notificacao;
 
 class ChamadoController extends Controller
 {
@@ -316,13 +317,19 @@ class ChamadoController extends Controller
                 "id_chamado_manifestacoes" => $chamado->id_chamados
             ]);
 
+            $notify = Notificacao::create([
+                "descricao_notificacao" => Auth::user()->name." abriu o ticket de Nª ".$chamado->id_chamados,
+                "tipo_notificacao" => 0,
+                "id_chamado_notificacao" => $chamado->id_chamados
+            ]);
+
         }
 
-        $this->sendEmail([
+        /*$this->sendEmail([
             "codigo" => $chamado->id_chamados,
             "mensagem" => "Olá, registro de novo ticket. Aguarde as próximas atualizações ou confira pelo sistema do Ticket Gard!",
             "status" => "Aberto"
-        ]);
+        ]);*/
 
         return to_route("form.cad.chamado");
     }
@@ -480,7 +487,7 @@ class ChamadoController extends Controller
         $timeStart = $request->input("timeStart");
         $timeEnd = $request->input("timeEnd");
 
-        $sql = "SELECT * FROM chamados WHERE data_cadastro_chamados BETWEEN '$data $timeStart' AND '$data $timeEnd'";
+        $sql = "SELECT * FROM notificacao INNER JOIN chamados ON chamados.id_chamados=notificacao.id_chamado_notificacao  WHERE data_cadastro_notificacao BETWEEN '$data $timeStart' AND '$data $timeEnd'";
 
         foreach ($request->input("listDepartament") as $key => $value) {
 
