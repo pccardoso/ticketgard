@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Notificacao;
+use Illuminate\Support\Facades\DB;
+
 
 class NotificacaoController extends Controller
 {
@@ -65,5 +67,35 @@ class NotificacaoController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function showNotificationNow(Request $request){
+        $data = date("Y-m-d");
+
+        $sql = "SELECT * FROM notificacao INNER JOIN chamados ON chamados.id_chamados=notificacao.id_chamado_notificacao  WHERE data_cadastro_notificacao BETWEEN '$data 00:00:00' AND '$data 23:59:59'";
+
+        foreach ($request->input("listDepartament") as $key => $value) {
+
+            if($key == 0){
+                $sql.=" AND ( id_departamento_chamados=".$value."";
+            }else if(count($request->input("listDepartament")) == $key + 1){
+                $sql.=" OR id_departamento_chamados=".$value.")";
+            }else{
+                $sql.=" OR id_departamento_chamados=".$value."";
+            }
+
+            if(count($request->input("listDepartament")) == 1){
+                $sql.=")";
+            }
+            
+        }
+
+        $sql.= " ORDER BY data_cadastro_notificacao DESC";
+
+        $lista = DB::select($sql);
+
+        sleep(1);
+
+        return compact("lista");
     }
 }

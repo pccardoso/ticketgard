@@ -5,6 +5,7 @@ use App\Http\Controllers\DepartamentoController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SolicitacaoController;
 use App\Http\Controllers\ManifestacaoController;
+use App\Http\Controllers\NotificacaoController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FileController;
 use Illuminate\Support\Facades\Route;
@@ -116,6 +117,7 @@ Route::middleware('auth')->group(function () {
 
     // ROTAS DE RELATÓRIOS/DADOS
     Route::post("/count/chamado", [ChamadoController::class, "getCountTicket"]);
+    Route::post("/history/notification", [NotificacaoController::class, "showNotificationNow"]);
 
 
 });

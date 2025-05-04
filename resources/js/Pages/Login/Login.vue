@@ -15,7 +15,7 @@
                             <img src="../../../img/logo-azul.png" class="w-70" alt="Imagem Centralizada">
                         </div>
 
-                        <h5 class="text-xl text-gray-900  text-center">Login</h5>
+                        <h5 class="text-xl text-gray-900  text-center">Autenticação</h5>
 
                         <div>
                             <label for="text" class="block mb-2 text-sm font-medium text-gray-900 ">E-mail:</label>

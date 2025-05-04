@@ -195,11 +195,11 @@
             <div class="relative inline-block">
                <!-- Botão -->
 
-               <svg  @click="showPopupNotification()" class="w-8 h-8 text-blue-800 animate-pulse" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+               <svg v-if="user.res_chamados"  @click="showPopupNotification()" class="w-8 h-8 text-blue-800" :class="controlHistoryNotification ? 'text-red-500 animate-pulse' : ''" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                <path d="M17.133 12.632v-1.8a5.407 5.407 0 0 0-4.154-5.262.955.955 0 0 0 .021-.106V3.1a1 1 0 0 0-2 0v2.364a.933.933 0 0 0 .021.106 5.406 5.406 0 0 0-4.154 5.262v1.8C6.867 15.018 5 15.614 5 16.807 5 17.4 5 18 5.538 18h12.924C19 18 19 17.4 19 16.807c0-1.193-1.867-1.789-1.867-4.175Zm-13.267-.8a1 1 0 0 1-1-1 9.424 9.424 0 0 1 2.517-6.391A1.001 1.001 0 1 1 6.854 5.8a7.43 7.43 0 0 0-1.988 5.037 1 1 0 0 1-1 .995Zm16.268 0a1 1 0 0 1-1-1A7.431 7.431 0 0 0 17.146 5.8a1 1 0 0 1 1.471-1.354 9.424 9.424 0 0 1 2.517 6.391 1 1 0 0 1-1 .995ZM8.823 19a3.453 3.453 0 0 0 6.354 0H8.823Z"/>
                </svg>
 
-               <!-- Div flutuante -->
+               <!-- Div flutuante 
                <div
                   v-if="mostrar"
                   class="absolute z-50 mt-2 w-85 p-4 bg-white border border-gray-200 rounded-lg shadow-xl right-0"
@@ -311,6 +311,83 @@
                      Fechar
                   </p>
                </div>
+               -->
+
+               <div v-if="showHistoryNotification" class="fixed inset-0 bg-white/30 backdrop-blur-sm z-50 flex items-center justify-center">
+
+                  <button title="Fechar Notificações" class="absolute top-4 right-4 text-gray-500 text-5xl font-bold hover:text-red-500" @click="showHistoryNotification = !showHistoryNotification">
+                     &times;
+                  </button>
+
+                  <div class="max-w-md w-full">
+
+                     <div class="bg-white/60 p-4 rounded-sm mb-2 shadow-sm">
+
+                        <p class="inline-flex text-blue-800 text-center">
+                           
+                           <svg class="w-6 h-6 text-blue-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5.365V3m0 2.365a5.338 5.338 0 0 1 5.133 5.368v1.8c0 2.386 1.867 2.982 1.867 4.175 0 .593 0 1.193-.538 1.193H5.538c-.538 0-.538-.6-.538-1.193 0-1.193 1.867-1.789 1.867-4.175v-1.8A5.338 5.338 0 0 1 12 5.365Zm-8.134 5.368a8.458 8.458 0 0 1 2.252-5.714m14.016 5.714a8.458 8.458 0 0 0-2.252-5.714M8.54 17.901a3.48 3.48 0 0 0 6.92 0H8.54Z"/>
+                           </svg>
+                           Últimas Notificações
+                        </p>
+
+                     </div>
+
+                     <div class="h-100 overflow-auto">
+
+                        <template v-if="!loadingShow">
+
+                           <div v-if="arrayNotification.length">
+                              
+                              <div v-for="(l, index) in arrayNotification" v-bind:key="index" class="bg-white/60 p-4 rounded-sm shadow-sm mb-2 hover:bg-gray-200 transform duration-500">
+                                 <p class="inline-flex text-sm text-gray-600">
+                                    <svg class="w-5 h-5 text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                       <path stroke="currentColor" stroke-width="2" d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                                    </svg>
+                                    {{ l.descricao_notificacao }}
+                                 </p>
+                                 <br>
+                                 <p class="inline-flex text-[8pt] text-gray-500">
+                                    
+                                    <svg class="w-4 h-4 text-gray-500 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                                    </svg>
+
+
+                                    {{ textDatPt(l.data_cadastro_notificacao) }}</p>
+                              </div>
+
+                           </div>
+
+                           <div v-else>
+                              <p class="text-gray-500 text-normal flex justify-center">
+                                 <svg class="w-6 h-6 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11c.889-.086 1.416-.543 2.156-1.057a22.323 22.323 0 0 0 3.958-5.084 1.6 1.6 0 0 1 .582-.628 1.549 1.549 0 0 1 1.466-.087c.205.095.388.233.537.406a1.64 1.64 0 0 1 .384 1.279l-1.388 4.114M7 11H4v6.5A1.5 1.5 0 0 0 5.5 19v0A1.5 1.5 0 0 0 7 17.5V11Zm6.5-1h4.915c.286 0 .372.014.626.15.254.135.472.332.637.572a1.874 1.874 0 0 1 .215 1.673l-2.098 6.4C17.538 19.52 17.368 20 16.12 20c-2.303 0-4.79-.943-6.67-1.475"/>
+                                 </svg>
+
+                                 Sem notificações...
+                              </p>
+                           </div>
+                        </template>
+
+                        <template v-else>
+                           
+                           <div class="bg-gray-300 animate-pulse p-2 w-full rounded-sm h-15 mb-2"></div>
+                           <div class="bg-gray-300 animate-pulse p-2 w-full rounded-sm h-15 mb-2"></div>
+                           <div class="bg-gray-300 animate-pulse p-2 w-full rounded-sm h-15 mb-2"></div>
+                           <div class="bg-gray-300 animate-pulse p-2 w-full rounded-sm h-15 mb-2"></div>
+                           <div class="bg-gray-300 animate-pulse p-2 w-full rounded-sm h-15 mb-2"></div>
+                           
+                        </template>
+
+                     </div>
+
+                     <p class="text-gray-400 text-sm text-center">Últimas notificações de hoje.</p>
+
+                  </div>
+               </div>
+
+
             </div>
 
          </div>
@@ -364,6 +441,7 @@
    import IconDepart from '../Icons/IconDepart.vue';
    import {getTimeCurrentUtils} from '../../../helpers/utils.js';
    import Loading from "../Components/Loading.vue";
+   import {formatDateTexPtHelpers} from "../../../helpers/format.js";
 
    export default{
       name:"Navbar",
@@ -378,8 +456,10 @@
             timeStart: 0,
             titleTemp: "",
             setInNotification: false,
-            mostrar: false,
-            loadingShow: true
+            showHistoryNotification: false,
+            loadingShow: true,
+            controlHistoryNotification: false,
+            arrayNotification: []
          }
       },
       components:{
@@ -427,6 +507,8 @@
                   //carregando a lista de usuários da notificação encontrada
                   this.listTicketNotification = result.data.lista;
 
+                  this.controlHistoryNotification = true;
+
                }
 
             })
@@ -452,11 +534,31 @@
             
          },
          showPopupNotification(){
-            this.mostrar = true;
+
+            this.controlHistoryNotification = false;
+            this.showHistoryNotification = true;
             this.loadingShow = true;
-            setTimeout(() => {
+
+            axios.post("/history/notification",{
+               listDepartament: this.user.department
+            })
+            .then((result) =>{
                this.loadingShow = false;
-            }, 3000);
+               this.arrayNotification = result.data.lista
+
+               console.log(this.arrayNotification)
+            })
+            .catch((erro) =>{
+               console.log(erro);
+            })
+
+            this.controlHistoryNotification = false;
+            this.showHistoryNotification = true;
+            this.loadingShow = true;
+
+         },
+         textDatPt(dat){
+            return formatDateTexPtHelpers(dat);
          }
       }
    }
