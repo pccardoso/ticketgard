@@ -1,0 +1,33 @@
+{
+  "resources/css/app.css": {
+    "file": "assets/app-F1P-OJfA.css",
+    "src": "resources/css/app.css",
+    "isEntry": true
+  },
+  "resources/img/logo-azul.png": {
+    "file": "assets/logo-azul-DS8cy5-1.png",
+    "src": "resources/img/logo-azul.png"
+  },
+  "resources/img/ticket-white.png": {
+    "file": "assets/ticket-white-BdPdNwyc.png",
+    "src": "resources/img/ticket-white.png"
+  },
+  "resources/img/vip.png.png": {
+    "file": "assets/vip.png-D5HfJtgS.png",
+    "src": "resources/img/vip.png.png"
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-DO-KuUTY.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true,
+    "css": [
+      "assets/app-CWmBI_q2.css"
+    ],
+    "assets": [
+      "assets/ticket-white-BdPdNwyc.png",
+      "assets/vip.png-D5HfJtgS.png",
+      "assets/logo-azul-DS8cy5-1.png"
+    ]
+  }
+}
