@@ -7,7 +7,7 @@
   <TitlePage titulo="Home">Seja Bem-Vindo</TitlePage>
 
 
-  <button v-on:click="email()">Enviar</button>
+  <!--button v-on:click="email()">Enviar</button>-->
 
 </template>
 

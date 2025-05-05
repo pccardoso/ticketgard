@@ -18,15 +18,15 @@
 
         </div>
 
-        <div v-if="show" class="bg-gray-200 p-2  rounded-2xl mt-2 shadow-lg absolute w-full">
+        <div v-if="show" class="bg-white/30 backdrop-blur-lg p-2 rounded-2xl mt-2 shadow-lg absolute w-full ">
 
-            <input type="text" v-model="eSearch" class="w-full mt-2 mb-3 rounded-3xl border-blue-600 border-2" placeholder="Digite algo..." @keyup="al()">
+            <input type="text" v-model="eSearch" class="w-full mt-2 mb-3 rounded-3xl border-blue-600 border-2 bg-white/70" placeholder="Digite algo..." @keyup="al()">
 
             <p class="bg-blue-600 mb-3 rounded-2xl p-1 text-white text-center">{{ encontrados }}</p>
 
             <div class="overflow-x-auto h-70">
                 <div v-for="(l, index) in copia">
-                    <div class="bg-gray-400 p-2 mb-2 border-gray-300 rounded-2xl">
+                    <div class="bg-white/70 p-2 mb-2 border-gray-300 rounded-2xl">
                         <input type="checkbox" class="w-6 h-6 mr-2" v-model="select" :value="l[config.id]">
                         <label class="text-black">{{ l[config.name] }}</label>
                     </div>

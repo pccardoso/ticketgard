@@ -333,45 +333,95 @@
 
                      </div>
 
+                     <div class="py-2">
+                        <div class="flex space-x-1.5 justify-start">
+                           <div class="text-gray-500 px-3 py-1 rounded-4xl shadow-sm" :class="selectFilterNotification == 0 ? 'bg-blue-600 text-white':'bg-white/60 '" @click="selectFilterNotification = 0">Todas</div>
+                           <div class=" text-gray-500 px-3 py-1 rounded-4xl shadow-sm" :class="selectFilterNotification == 1 ? 'bg-blue-600 text-white':'bg-white/60 '" @click="selectFilterNotification = 1">Mensagens</div>
+                           <div class=" text-gray-500 px-3 py-1 rounded-4xl shadow-sm" :class="selectFilterNotification == 2 ? 'bg-red-600 text-white':'bg-white/60 '" @click="selectFilterNotification = 2">Tickets</div>
+                        </div>
+                     </div>
+
+                     <p class="text-gray-500 text-sm text-center">{{ countTextNotification }}</p>
+
                      <div class="h-100 overflow-auto p-1">
 
                         <template v-if="!loadingShow">
 
-                           <div v-if="arrayNotification.length">
+                           <div v-if="arrayNotificationTemp.length">
                               
-                              <div v-for="(l, index) in arrayNotification" v-bind:key="index" class="bg-white/70 p-4 rounded-sm shadow-sm mb-2 hover:bg-gray-200 transform duration-500">
-                                 <a title="Abrir o ticket?" :href="'/history/' + l.id_chamados" class="inline-flex text-sm text-gray-600 hover:text-blue-800">
-                                    <svg class="w-5 h-5 text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                       <path stroke="currentColor" stroke-width="2" d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
-                                    </svg>
-                                    {{ l.descricao_notificacao }}
-                                 </a>
-                                 <br>
-                                 <p class="inline-flex text-[8pt] text-gray-500">
-                                    
-                                    <svg class="w-4 h-4 text-gray-500 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
-                                    </svg>
+                              <div v-for="(l, index) in arrayNotificationTemp" v-bind:key="index" >
+
+                                    <template v-if="l.tipo_notificacao == 1 && user.id==l.id_user_chamados">
+
+                                       <div class="bg-white/70 border-l-4 border-l-blue-600 p-4 rounded-sm shadow-sm mb-2 hover:bg-gray-200 transform duration-500">
+                                          <a title="Abrir o ticket?" :href="'/history/' + l.id_chamados" class="inline-flex text-sm text-gray-600 hover:text-blue-800">
+                                             <svg class="w-5 h-5 text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 9h5m3 0h2M7 12h2m3 0h5M5 5h14a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-6.616a1 1 0 0 0-.67.257l-2.88 2.592A.5.5 0 0 1 8 18.477V17a1 1 0 0 0-1-1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z"/>
+                                             </svg>
+
+                                             {{ l.descricao_notificacao }}
+                                          </a>
+                                          <br>
+                                          <p class="inline-flex text-[8pt] text-gray-500">
+                                             
+                                             <svg class="w-4 h-4 text-gray-500 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                                             </svg>
 
 
-                                    {{ textDatPt(l.data_cadastro_notificacao) }}
-                                 
-                                    <svg class="w-4 h-4 ml-1 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 4h12M6 4v16M6 4H5m13 0v16m0-16h1m-1 16H6m12 0h1M6 20H5M9 7h1v1H9V7Zm5 0h1v1h-1V7Zm-5 4h1v1H9v-1Zm5 0h1v1h-1v-1Zm-3 4h2a1 1 0 0 1 1 1v4h-4v-4a1 1 0 0 1 1-1Z"/>
-                                    </svg>
+                                             {{ textDatPt(l.data_cadastro_notificacao) }}
+                                          
+                                             <svg class="w-4 h-4 ml-1 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 4h12M6 4v16M6 4H5m13 0v16m0-16h1m-1 16H6m12 0h1M6 20H5M9 7h1v1H9V7Zm5 0h1v1h-1V7Zm-5 4h1v1H9v-1Zm5 0h1v1h-1v-1Zm-3 4h2a1 1 0 0 1 1 1v4h-4v-4a1 1 0 0 1 1-1Z"/>
+                                             </svg>
 
-                                    {{ l.nome_departamentos }}
-                                 
-                                 </p>
+                                             {{ l.nome_departamentos }}
+                                          
+                                          </p>
+                                       </div>
+
+                                    </template>
+
+                                    <template v-else-if="l.tipo_notificacao == 0">
+
+                                       <div class="bg-white/70 border-l-4 border-l-red-600 p-4 rounded-sm shadow-sm mb-2 hover:bg-gray-200 transform duration-500">
+                                          <a title="Abrir o ticket?" :href="'/history/' + l.id_chamados" class="inline-flex text-sm text-gray-600 hover:text-blue-800">
+                                             <svg class="w-5 h-5 text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                <path stroke="currentColor" stroke-width="2" d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                                             </svg>
+                                             {{ l.descricao_notificacao }}
+                                          </a>
+                                          <br>
+                                          <p class="inline-flex text-[8pt] text-gray-500">
+                                             
+                                             <svg class="w-4 h-4 text-gray-500 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                                             </svg>
+
+
+                                             {{ textDatPt(l.data_cadastro_notificacao) }}
+                                          
+                                             <svg class="w-4 h-4 ml-1 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 4h12M6 4v16M6 4H5m13 0v16m0-16h1m-1 16H6m12 0h1M6 20H5M9 7h1v1H9V7Zm5 0h1v1h-1V7Zm-5 4h1v1H9v-1Zm5 0h1v1h-1v-1Zm-3 4h2a1 1 0 0 1 1 1v4h-4v-4a1 1 0 0 1 1-1Z"/>
+                                             </svg>
+
+                                             {{ l.nome_departamentos }}
+                                          
+                                          </p>
+                                       </div>
+
+                                    </template>
+
                               </div>
 
                            </div>
 
                            <div v-else>
-                              <p class="text-gray-500 text-normal flex justify-center">
-                                 <svg class="w-6 h-6 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11c.889-.086 1.416-.543 2.156-1.057a22.323 22.323 0 0 0 3.958-5.084 1.6 1.6 0 0 1 .582-.628 1.549 1.549 0 0 1 1.466-.087c.205.095.388.233.537.406a1.64 1.64 0 0 1 .384 1.279l-1.388 4.114M7 11H4v6.5A1.5 1.5 0 0 0 5.5 19v0A1.5 1.5 0 0 0 7 17.5V11Zm6.5-1h4.915c.286 0 .372.014.626.15.254.135.472.332.637.572a1.874 1.874 0 0 1 .215 1.673l-2.098 6.4C17.538 19.52 17.368 20 16.12 20c-2.303 0-4.79-.943-6.67-1.475"/>
+                              <p class="text-gray-500 text-normal flex justify-center mt-20">
+                                 <svg class="w-6 h-6 text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.99 9H15M8.99 9H9m12 3a9 9 0 1 1-18 0 9 9 0 0 1 18 0ZM7 13c0 1 .507 2.397 1.494 3.216a5.5 5.5 0 0 0 7.022 0C16.503 15.397 17 14 17 13c0 0-1.99 1-4.995 1S7 13 7 13Z"/>
                                  </svg>
+
 
                                  Sem notificações...
                               </p>
@@ -390,7 +440,7 @@
 
                      </div>
 
-                     <p class="text-gray-400 text-sm text-center mt-2">Últimas notificações de hoje.</p>
+                     <p class="text-gray-400 text-sm text-center mt-2">Últimas notificações do dia.</p>
 
                   </div>
                </div>
@@ -408,6 +458,7 @@
    <div v-if="showNotification" class="fixed top-5 right-4 px-4 py-2 z-50">
 
       <div class="bg-red-400 text-white p-2 border-gray-400 w-80 rounded-sm mb-4 shadow-sm animate-pulse hover:animate-none">
+
          <p class="font-bold inline-flex">
             <svg class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                <path d="M11.209 3.816a1 1 0 0 0-1.966.368l.325 1.74a5.338 5.338 0 0 0-2.8 5.762l.276 1.473.055.296c.258 1.374-.228 2.262-.63 2.998-.285.52-.527.964-.437 1.449.11.586.22 1.173.75 1.074l12.7-2.377c.528-.1.418-.685.308-1.27-.103-.564-.636-1.123-1.195-1.711-.606-.636-1.243-1.306-1.404-2.051-.233-1.085-.275-1.387-.303-1.587-.009-.063-.016-.117-.028-.182a5.338 5.338 0 0 0-5.353-4.39l-.298-1.592Z"/>
@@ -415,15 +466,17 @@
                <path d="M8.95 19.7c.7.8 1.7 1.3 2.8 1.3 1.6 0 2.9-1.1 3.3-2.5l-6.1 1.2Z"/>
             </svg>
 
-            Novo Ticket</p>
-         <p>Seu departamento tem {{ listTicketNotification.length }} novo (s) ticket(s).</p>
+            Atenção</p>
+         <p>Seu departamento tem {{ listTicketNotification.length }} nova (s) notificação.</p>
       
+         <!--
          <p class="inline-flex" v-for="(l, index) in listTicketNotification">
             <svg class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                <path fill-rule="evenodd" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z" clip-rule="evenodd"/>
             </svg>
             {{l.nome_criador_chamados}}
          </p>
+         -->
       </div>
   
    </div>
@@ -467,7 +520,10 @@
             showHistoryNotification: false,
             loadingShow: true,
             controlHistoryNotification: false,
-            arrayNotification: []
+            arrayNotification: [],
+            arrayNotificationTemp: [],
+            selectFilterNotification: false,
+            countTextNotification: ""
          }
       },
       components:{
@@ -514,7 +570,6 @@
 
                   //carregando a lista de usuários da notificação encontrada
                   this.listTicketNotification = result.data.lista;
-
                   this.controlHistoryNotification = true;
 
                }
@@ -543,6 +598,8 @@
          },
          showPopupNotification(){
 
+            this.selectFilterNotification = 0;
+
             this.controlHistoryNotification = false;
             this.showHistoryNotification = true;
             this.loadingShow = true;
@@ -553,8 +610,8 @@
             .then((result) =>{
                this.loadingShow = false;
                this.arrayNotification = result.data.lista
-
-               console.log(this.arrayNotification)
+               this.arrayNotificationTemp = result.data.lista
+               this.countTextNotification = `${this.arrayNotificationTemp.length} notificações encontradas`
             })
             .catch((erro) =>{
                console.log(erro);
@@ -567,6 +624,23 @@
          },
          textDatPt(dat){
             return formatDateTexPtHelpers(dat);
+         }
+      },
+      watch:{
+         selectFilterNotification(temp){
+
+            if(temp == 0){
+               this.arrayNotificationTemp = this.arrayNotification
+            }else if(temp == 1){
+               this.arrayNotificationTemp = this.arrayNotification.filter((ob) => ob.tipo_notificacao == 1);
+            }else if(temp == 2){
+               this.arrayNotificationTemp = this.arrayNotification.filter((ob) => ob.tipo_notificacao == 0);
+            }
+
+            if(this.arrayNotificationTemp.length){
+               this.countTextNotification = `${this.arrayNotificationTemp.length} notificações encontradas`
+            }
+            
          }
       }
    }

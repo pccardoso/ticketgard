@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Manifestacao;
+use App\Models\Notificacao;
+use Illuminate\Support\Facades\Auth;
 
 class ManifestacaoController extends Controller
 {
@@ -53,6 +55,13 @@ class ManifestacaoController extends Controller
             "id_user_manifestacoes" => $request->input("id_users"),
             "anexo_manifestacoes" => $path
         ]);
+
+        $notify = Notificacao::create([
+            "descricao_notificacao" => Auth::user()->name." nova mensagem no ticket de Nº".$request->input("id_chamados"),
+            "tipo_notificacao" => 1,
+            "id_chamado_notificacao" => $request->input("id_chamados")
+        ]);
+
     }
 
     /**
