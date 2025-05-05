@@ -1,4 +1,8 @@
 <template>
+
+    <Head>
+        <title>Visualizar Ticket - Ticket Gard</title>
+    </Head>
     
     <TitlePage titulo="Histórico do Ticket"></TitlePage>
 
@@ -269,8 +273,6 @@
                         </div>
 
                     </ol>
-
-                    
             </div>
         </div>
     </div>
@@ -440,7 +442,20 @@
                 </div>
             </div>
         </div>
-    </div> 
+    </div>
+
+    <!-- VISUALIZAR ANEXO -->
+
+    <div v-if="showHistoryNotification" class="fixed inset-0 bg-white/30 backdrop-blur-lg z-50 flex items-center justify-center px-4 py-4">
+
+        <button title="Fechar Notificações" class="absolute top-4 right-4 text-gray-500 text-5xl font-bold hover:text-red-500" @click="showHistoryNotification = !showHistoryNotification">
+            &times;
+        </button>
+
+        <div class="max-w-3xl w-full">
+            <img :src="anexo_view" class="shadow-lg rounded-sm">
+        </div>
+    </div>
 
 </template>
 
@@ -460,6 +475,8 @@
     import IconClock from '../Icons/IconClock.vue';
     import LoadingChat from '../Components/LoadingChat.vue';
     import {formatDateTexPtHelpers} from "../../../helpers/format.js";
+    import {Head} from '@inertiajs/vue3';
+
 import Swal from 'sweetalert2';
 
     export default{
@@ -482,14 +499,15 @@ import Swal from 'sweetalert2';
                 showModalClose: false,
                 tObsTransf: "",
                 showModalFinish: false,
-                optionFinish: 0
+                optionFinish: 0,
+                showHistoryNotification: false
             }
         },
         props:{
             result:Object
         },
         components:{
-            TitlePage, ButtonSuccess, ButtonDanger, IconCalendar, ButtonPrimary, Annotation,IconRefresh, Loading, IconClock, LoadingChat
+            TitlePage, Head, ButtonSuccess, ButtonDanger, IconCalendar, ButtonPrimary, Annotation,IconRefresh, Loading, IconClock, LoadingChat
         },
         mounted(){
 
@@ -642,7 +660,8 @@ import Swal from 'sweetalert2';
             },
             abrirModal(src){
                 this.anexo_view = src
-                this.varModal.show()
+                //this.varModal.show()
+                this.showHistoryNotification = true
             },
             fecharModal(){
                 this.varModal.hide()
