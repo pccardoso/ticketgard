@@ -99,9 +99,9 @@
             </thead>
             <tbody class="bg-gray-100 rounded-lg text-center h-6 overflow-x-scroll">
 
-                <template v-if="testeeee.length">
+                <template v-if="arrayTempChamados.length">
 
-                    <tr v-for="(l, index) in testeeee" :key="index" class="border-b-1 border-b-gray-300" >
+                    <tr v-for="(l, index) in arrayTempChamados" :key="index" class="border-b-1 border-b-gray-300" >
                         <template v-if="l">
                             <td class="p-2">{{ l.id_chamados }}</td>
                             <td :title="l.assunto_chamados">{{ l.assunto_chamados.substring(0, 25) }}</td>
@@ -205,7 +205,7 @@
         </Table>
     </div>
 
-    <PaginationTableDefault v-if="lista_temp" :list="lista_temp" v-model="testeeee"/>
+    <PaginationTableDefault v-if="lista_temp" :list="lista_temp" v-model="arrayTempChamados"/>
 
     <!-- MODAL MULTIFUNCIONAL -->
 
@@ -442,7 +442,7 @@
         name:"ConChamado",
         data(){
             return{
-                testeeee: [],
+                arrayTempChamados: [],
                 varModal:Modal,
                 formTemp:useForm({
                     id_chamados:0,
@@ -672,7 +672,7 @@
             },
             pesquisar(){
 
-                this.testeeee = []
+                this.arrayTempChamados = []
                 this.lista_temp = 0
 
                 axios.post("/teste",{

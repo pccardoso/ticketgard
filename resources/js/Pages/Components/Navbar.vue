@@ -562,8 +562,6 @@
             //hora atual que entra no loop
             this.timeEnd = getTimeCurrentUtils();
 
-            //controle
-            console.log(`${this.timeStart} & ${this.timeEnd}`);
             axios.post("/count/chamado",{
                timeStart: this.timeStart,
                timeEnd: this.timeEnd,
