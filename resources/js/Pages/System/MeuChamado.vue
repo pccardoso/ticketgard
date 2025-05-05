@@ -218,8 +218,10 @@
 
                     <div>
                         <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900">Descricao do Atendimento:</label>
+
+                        <editor-content :editor="editor" class="overflow-auto"/>
                         
-                        <textarea v-model="this.form_temp.descricao_chamados" class="bg-gray-50 border h-40 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"></textarea>
+                        <!--<textarea v-model="this.form_temp.descricao_chamados" class="bg-gray-50 border h-40 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"></textarea>-->
                     </div>
 
                 </div>
@@ -270,10 +272,13 @@
     import {calcDifHouUtils} from "../../../helpers/utils.js"
     import PaginationTableDefault from '../Components/PaginationTableDefault.vue';
 
+    import { Editor, EditorContent } from '@tiptap/vue-3'
+    import StarterKit from '@tiptap/starter-kit'
+
     export default{
         name:"MeuChamado",
         components:{
-            TitlePage, Table, ThTable, Link, IconPrioridade, TextSituacao, ButtonPrimary, Head,PaginationTableDefault
+            EditorContent, TitlePage, Table, ThTable, Link, IconPrioridade, TextSituacao, ButtonPrimary, Head,PaginationTableDefault
         }, 
         data(){
             return{
@@ -286,6 +291,8 @@
                 }),
                 mod:Modal,
                 list_temp:0,
+                conteudo: '',
+                editor: null,
             }
         },
         mounted(){
@@ -308,6 +315,14 @@
             this.mod = new Modal($targetEl, options, instanceOptions);
 
             this.pesquisar();
+
+            this.editor = new Editor({
+                content: '',
+                extensions: [StarterKit],
+                onUpdate: ({ editor }) => {
+                    this.conteudo = editor.getHTML()
+                },
+            })
 
         },
         methods:{
@@ -349,6 +364,7 @@
                 axios.get("/lis/chamado/" + id).
                 then((response)=>{
                     this.form_temp = useForm(response.data.lista)
+                    this.editor.commands.setContent(response.data.lista.descricao_chamados)
                     console.log(response)
                 }).
                 catch((erro)=>{
@@ -361,7 +377,9 @@
             },
             atualizar(){
 
-                this.form_temp.assunto_chamados && this.form_temp.descricao_chamados ?
+                if(this.form_temp.assunto_chamados){
+
+                    this.form_temp.descricao_chamados = this.conteudo
 
                     this.form_temp.post("/upd/cha", {
                         preserveScroll:true,
@@ -374,7 +392,9 @@
                         }
                     })
 
-                : Swal.fire("Atenção!", "Todos os campos são obrigatórios!", "error");
+                }else{
+                    Swal.fire("Atenção!", "Todos os campos são obrigatórios!", "error");
+                }
 
             },
             pesquisar(){
@@ -420,3 +440,17 @@
     }
 
 </script>
+
+<style>
+
+    /* TipTap precisa de estilos básicos */
+    .ProseMirror {
+    min-height: 200px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    background-color: white;
+    }
+
+</style>

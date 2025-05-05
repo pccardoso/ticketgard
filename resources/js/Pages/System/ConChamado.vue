@@ -263,7 +263,7 @@
 
                     <div v-show="formTemp.id_chamados && this.typeModal == 1">
                         <label><span class="font-bold">Assunto:</span> {{ this.formTemp.assunto_chamados }}</label> <br>
-                        <label><span class="font-bold">Descricao:</span> {{ this.formTemp.descricao_chamados }}</label>
+                        <label><span class="font-bold">Descricao:</span><span v-html="this.formTemp.descricao_chamados"></span></label>
                     </div> 
 
                     <div v-show="formTemp.id_chamados && this.typeModal == 2">

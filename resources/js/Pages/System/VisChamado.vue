@@ -63,15 +63,15 @@
                 </p>
 
                 <p>
-                    <span class="font-bold">Descrição:</span> {{ result.descricao_chamados }}
-                </p>
-
-                <p>
                     <span class="font-bold">Data de Abertura:</span> {{ validarData }}
                 </p>
 
                 <p>
                     <span class="font-bold">Responsável pela abertura: </span> {{ result.nome_criador_chamados }}
+                </p>
+
+                <p class="bg-white p-2 rounded-sm my-1">
+                    <span v-html="result.descricao_chamados"></span>
                 </p>
 
                 <table v-if="anexos_chamado.length" class="w-full bg-white text-center text-base rounded-sm shadow-sm mt-3">

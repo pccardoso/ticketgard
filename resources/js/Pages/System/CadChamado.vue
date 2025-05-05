@@ -37,7 +37,9 @@
 
             <div class="mt-2 mb-2">
                 <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900">Descrição do Chamado:</label>
-                <textarea v-model="form_temp.descricao_chamados" class="bg-gray-50 h-40 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"></textarea>
+                <!--<textarea v-model="form_temp.descricao_chamados" class="bg-gray-50 h-40 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"></textarea>-->
+
+                <editor-content :editor="editor" class="overflow-auto"/>
             </div>
 
             <div class="grid gap-6 mb-6 md:grid-cols-3">
@@ -118,10 +120,13 @@
     import InputText from '../Components/InputText.vue';
     import {Head} from '@inertiajs/vue3';
 
+    import { Editor, EditorContent } from '@tiptap/vue-3'
+    import StarterKit from '@tiptap/starter-kit'
+
     export default{
         name:"CadChamado",
         components:{
-            TitlePage, ButtonDanger, ButtonPrimary, ButtonSuccess, InputText, Head
+            TitlePage, ButtonDanger, ButtonPrimary, ButtonSuccess, InputText, Head, EditorContent
         },
         data(){
             return{
@@ -138,6 +143,8 @@
                     file: "",
                     vip_criador_chamados: 0
                 }),
+                conteudo: '',
+                editor: null,
             }
         },
         computed:{
@@ -182,11 +189,9 @@
             },
 
             cadastrar(){
-
                 
-                
-                this.form_temp.assunto_chamados && this.form_temp.id_departamento_chamados && this.form_temp.id_solicitacao_chamados && this.form_temp.descricao_chamados ?
-                    
+                if(this.form_temp.assunto_chamados && this.form_temp.id_departamento_chamados && this.form_temp.id_solicitacao_chamados){
+                    this.form_temp.descricao_chamados = this.conteudo                    
                     this.form_temp.post("/cad/cha", {
                         preserveScroll:true,
                         onSuccess:()=>{
@@ -206,7 +211,9 @@
                             console.log(erro);
                         }
                     })
-                : Swal.fire("Atenção", "Todos os campos são obrigatórios!", "error");
+                }else{
+                    Swal.fire("Atenção", "Todos os campos são obrigatórios!", "error");
+                }
 
             },
             async uploadFile() {
@@ -263,6 +270,14 @@
             this.form_temp.nome_criador_chamados = this.usuario.name
             this.form_temp.vip_criador_chamados = this.usuario.vip
 
+            this.editor = new Editor({
+                content: '',
+                extensions: [StarterKit],
+                onUpdate: ({ editor }) => {
+                    this.conteudo = editor.getHTML()
+                },
+            })
+
         },
         beforeMount(){
             this.usuario = usePage().props.auth.user;
@@ -270,3 +285,17 @@
     }
 
 </script>
+
+<style>
+
+    /* TipTap precisa de estilos básicos */
+    .ProseMirror {
+    min-height: 200px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    background-color: white;
+    }
+
+</style>
