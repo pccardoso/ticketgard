@@ -313,19 +313,19 @@
                </div>
                -->
 
-               <div v-if="showHistoryNotification" class="fixed inset-0 bg-white/30 backdrop-blur-sm z-50 flex items-center justify-center">
+               <div v-if="showHistoryNotification" class="fixed inset-0 bg-white/30 backdrop-blur-lg z-50 flex items-center justify-center px-4 py-4">
 
                   <button title="Fechar Notificações" class="absolute top-4 right-4 text-gray-500 text-5xl font-bold hover:text-red-500" @click="showHistoryNotification = !showHistoryNotification">
                      &times;
                   </button>
 
-                  <div class="max-w-md w-full">
+                  <div class="max-w-lg w-full">
 
-                     <div class="bg-white/60 p-4 rounded-sm mb-2 shadow-sm">
+                     <div class="bg-white/80 p-4 rounded-sm mb-2 shadow-sm mx-1">
 
-                        <p class="inline-flex text-blue-800 text-center">
+                        <p class="inline-flex text-gray-600 text-center">
                            
-                           <svg class="w-6 h-6 text-blue-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                           <svg class="w-6 h-6 text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5.365V3m0 2.365a5.338 5.338 0 0 1 5.133 5.368v1.8c0 2.386 1.867 2.982 1.867 4.175 0 .593 0 1.193-.538 1.193H5.538c-.538 0-.538-.6-.538-1.193 0-1.193 1.867-1.789 1.867-4.175v-1.8A5.338 5.338 0 0 1 12 5.365Zm-8.134 5.368a8.458 8.458 0 0 1 2.252-5.714m14.016 5.714a8.458 8.458 0 0 0-2.252-5.714M8.54 17.901a3.48 3.48 0 0 0 6.92 0H8.54Z"/>
                            </svg>
                            Últimas Notificações
@@ -333,19 +333,19 @@
 
                      </div>
 
-                     <div class="h-100 overflow-auto">
+                     <div class="h-100 overflow-auto p-1">
 
                         <template v-if="!loadingShow">
 
                            <div v-if="arrayNotification.length">
                               
-                              <div v-for="(l, index) in arrayNotification" v-bind:key="index" class="bg-white/60 p-4 rounded-sm shadow-sm mb-2 hover:bg-gray-200 transform duration-500">
-                                 <p class="inline-flex text-sm text-gray-600">
+                              <div v-for="(l, index) in arrayNotification" v-bind:key="index" class="bg-white/70 p-4 rounded-sm shadow-sm mb-2 hover:bg-gray-200 transform duration-500">
+                                 <a title="Abrir o ticket?" :href="'/history/' + l.id_chamados" class="inline-flex text-sm text-gray-600 hover:text-blue-800">
                                     <svg class="w-5 h-5 text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                        <path stroke="currentColor" stroke-width="2" d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
                                     </svg>
                                     {{ l.descricao_notificacao }}
-                                 </p>
+                                 </a>
                                  <br>
                                  <p class="inline-flex text-[8pt] text-gray-500">
                                     
@@ -354,7 +354,15 @@
                                     </svg>
 
 
-                                    {{ textDatPt(l.data_cadastro_notificacao) }}</p>
+                                    {{ textDatPt(l.data_cadastro_notificacao) }}
+                                 
+                                    <svg class="w-4 h-4 ml-1 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 4h12M6 4v16M6 4H5m13 0v16m0-16h1m-1 16H6m12 0h1M6 20H5M9 7h1v1H9V7Zm5 0h1v1h-1V7Zm-5 4h1v1H9v-1Zm5 0h1v1h-1v-1Zm-3 4h2a1 1 0 0 1 1 1v4h-4v-4a1 1 0 0 1 1-1Z"/>
+                                    </svg>
+
+                                    {{ l.nome_departamentos }}
+                                 
+                                 </p>
                               </div>
 
                            </div>
@@ -382,7 +390,7 @@
 
                      </div>
 
-                     <p class="text-gray-400 text-sm text-center">Últimas notificações de hoje.</p>
+                     <p class="text-gray-400 text-sm text-center mt-2">Últimas notificações de hoje.</p>
 
                   </div>
                </div>

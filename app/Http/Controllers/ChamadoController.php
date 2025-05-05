@@ -487,7 +487,7 @@ class ChamadoController extends Controller
         $timeStart = $request->input("timeStart");
         $timeEnd = $request->input("timeEnd");
 
-        $sql = "SELECT * FROM notificacao INNER JOIN chamados ON chamados.id_chamados=notificacao.id_chamado_notificacao  WHERE data_cadastro_notificacao BETWEEN '$data $timeStart' AND '$data $timeEnd'";
+        $sql = "SELECT * FROM notificacao INNER JOIN chamados ON chamados.id_chamados=notificacao.id_chamado_notificacao WHERE data_cadastro_notificacao BETWEEN '$data $timeStart' AND '$data $timeEnd'";
 
         foreach ($request->input("listDepartament") as $key => $value) {
 

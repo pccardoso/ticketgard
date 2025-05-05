@@ -72,7 +72,7 @@ class NotificacaoController extends Controller
     public function showNotificationNow(Request $request){
         $data = date("Y-m-d");
 
-        $sql = "SELECT * FROM notificacao INNER JOIN chamados ON chamados.id_chamados=notificacao.id_chamado_notificacao  WHERE data_cadastro_notificacao BETWEEN '$data 00:00:00' AND '$data 23:59:59'";
+        $sql = "SELECT * FROM notificacao INNER JOIN chamados ON chamados.id_chamados=notificacao.id_chamado_notificacao INNER JOIN departamentos ON departamentos.id_departamentos=chamados.id_departamento_chamados WHERE data_cadastro_notificacao BETWEEN '$data 00:00:00' AND '$data 23:59:59'";
 
         foreach ($request->input("listDepartament") as $key => $value) {
 
