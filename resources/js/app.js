@@ -3,6 +3,7 @@ import './bootstrap';
 import { createApp, h } from 'vue'
 import { createInertiaApp } from '@inertiajs/vue3'
 import Navbar from './Pages/Components/Navbar.vue';
+import { createPinia } from 'pinia';
 
 createInertiaApp({
     resolve: name => {
@@ -12,8 +13,12 @@ createInertiaApp({
         return page
     },
   setup({ el, App, props, plugin }) {
+
+    const pinia = createPinia();
+
     createApp({ render: () => h(App, props) })
       .use(plugin)
+      .use(pinia)
       .mount(el)
   },
 })

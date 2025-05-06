@@ -4,7 +4,7 @@
     <Head>
         <title>Novo Ticket - Ticket Gard</title>
     </Head>
-    
+
     <TitlePage titulo="Novo Ticket"></TitlePage>
 
     <div class="bg-gray-100 p-4 rounded-2xl mb-4 shadow-sm">
@@ -119,9 +119,9 @@
     import axios from 'axios';
     import InputText from '../Components/InputText.vue';
     import {Head} from '@inertiajs/vue3';
-
     import { Editor, EditorContent } from '@tiptap/vue-3'
     import StarterKit from '@tiptap/starter-kit'
+    import { useExampleStore } from '../../../store/store.js';
 
     export default{
         name:"CadChamado",
@@ -145,6 +145,7 @@
                 }),
                 conteudo: '',
                 editor: null,
+                exemple: false
             }
         },
         computed:{
@@ -255,6 +256,8 @@
         },
         //após a montagem do componente
         mounted(){
+
+            this.exemple = useExampleStore();
 
             //criando uma nova requisição para as rotas do Laravel
             axios.post("/lis/departamento").

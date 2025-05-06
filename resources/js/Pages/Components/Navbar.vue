@@ -370,13 +370,13 @@
                                     <template v-if="l.tipo_notificacao == 1 && user.id==l.id_user_chamados">
 
                                        <div class="bg-white/70 border-l-4 border-l-blue-600 p-4 rounded-sm shadow-sm mb-2 hover:bg-gray-200 transform duration-500">
-                                          <a title="Abrir o ticket?" :href="'/history/' + l.id_chamados" class="inline-flex text-sm text-gray-600 hover:text-blue-800">
+                                          <p class="inline-flex text-sm text-gray-600">
                                              <svg class="w-5 h-5 text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 9h5m3 0h2M7 12h2m3 0h5M5 5h14a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-6.616a1 1 0 0 0-.67.257l-2.88 2.592A.5.5 0 0 1 8 18.477V17a1 1 0 0 0-1-1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z"/>
                                              </svg>
 
                                              {{ l.descricao_notificacao }}
-                                          </a>
+                                          </p>
                                           <br>
                                           <p class="inline-flex text-[8pt] text-gray-500">
                                              
@@ -401,12 +401,12 @@
                                     <template v-else-if="l.tipo_notificacao == 0">
 
                                        <div class="bg-white/70 border-l-4 border-l-red-600 p-4 rounded-sm shadow-sm mb-2 hover:bg-gray-200 transform duration-500">
-                                          <a title="Abrir o ticket?" :href="'/history/' + l.id_chamados" class="inline-flex text-sm text-gray-600 hover:text-blue-800">
+                                          <p class="inline-flex text-sm text-gray-600">
                                              <svg class="w-5 h-5 text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                                 <path stroke="currentColor" stroke-width="2" d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
                                              </svg>
                                              {{ l.descricao_notificacao }}
-                                          </a>
+                                          </p>
                                           <br>
                                           <p class="inline-flex text-[8pt] text-gray-500">
                                              
