@@ -1,6 +1,6 @@
 <template>
 
-    <div class="relative">
+    <div class="relative" ref="dropdown">
         
         <div @click="teste()" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
             <div class="">
@@ -55,6 +55,8 @@
         },
         mounted(){
             this.copia = this.lista
+
+            document.addEventListener("click", this.handleClickOutside)
         },
         methods:{
             teste(){
@@ -73,6 +75,11 @@
 
                 this.copia = t
                 
+            },
+            handleClickOutside(event) {
+                if (!this.$refs.dropdown.contains(event.target)) {
+                    this.show = false;
+                }
             }
         },
         emits: ['update:modelValue'],

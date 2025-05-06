@@ -1,6 +1,6 @@
 <template>
 
-    <div class="relative">
+    <div class="relative" ref="dropdown">
         <div ref="tes" @click="teste()" @blur="show=false" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
             <div class="">
                 <label>{{ textSelect }}</label>
@@ -49,7 +49,15 @@
             teste(){
                 this.show = !this.show
                 this.$refs.tes.focus()
+            },
+            handleClickOutside(event) {
+                if (!this.$refs.dropdown.contains(event.target)) {
+                    this.show = false;
+                }
             }
+        },
+        mounted(){
+            document.addEventListener("click", this.handleClickOutside)
         },
         emits: ['update:modelValue'],
         computed:{
