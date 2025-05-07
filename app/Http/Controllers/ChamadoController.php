@@ -323,13 +323,14 @@ class ChamadoController extends Controller
                 "id_manifestacao_notificacao" => $manifest->id_manifestacoes
             ]);
 
-        }
+            /*$this->sendEmail([
+                "codigo" => $chamado->id_chamados,
+                "status" => 0,
+                "user" => Auth::user()->name,
+                "email" => "paulo.cardoso2408@gmail.com"
+            ]);*/
 
-        /*$this->sendEmail([
-            "codigo" => $chamado->id_chamados,
-            "mensagem" => "Olá, registro de novo ticket. Aguarde as próximas atualizações ou confira pelo sistema do Ticket Gard!",
-            "status" => "Aberto"
-        ]);*/
+        }
 
         return to_route("form.cad.chamado");
     }
@@ -528,10 +529,10 @@ class ChamadoController extends Controller
     public function sendEmail(array $props){
 
         Http::post("https://webhooks.dantlab.com/webhook/testePobre", [
-            "email" => "paulo.cardoso2408@gmail.com",
-            "msg" => $props['mensagem'],
+            "email" => $props['email'],
             "status" => $props['status'],
-            "codigo" => $props['codigo']
+            "codigo" => $props['codigo'],
+            "user" => $props['user']
         ]);
 
     }

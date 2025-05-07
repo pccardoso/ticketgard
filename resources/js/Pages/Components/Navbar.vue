@@ -313,13 +313,13 @@
                </div>
                -->
                <transition name="fade">
-                  <div v-if="showHistoryNotification" class="fixed inset-0 bg-white/30 backdrop-blur-lg z-50 flex items-center justify-center px-4 py-4">
+                  <div  v-if="showHistoryNotification" @keyup.esc="showHistoryNotification = false" tabindex="0" class="fixed inset-0 bg-gray-500/30 backdrop-blur-md z-50 flex items-center justify-center px-4 py-4">
 
                      <button title="Fechar Notificações" class="absolute top-4 right-4 text-gray-500 text-5xl font-bold hover:text-red-500" @click="showHistoryNotification = !showHistoryNotification">
                         &times;
                      </button>
 
-                     <div class="max-w-lg w-full">
+                     <div class="max-w-lg w-full bg-white/20 p-4 rounded-lg shadow-sm">
 
                         <div class="bg-white/80 p-4 rounded-sm mb-2 shadow-sm mx-1">
 
@@ -334,21 +334,21 @@
                         </div>
 
                         <div class="py-2 mb-1 px-1">
-                           <div class="flex space-x-1.5 justify-start">
-                              <div class="flex text-gray-500 px-3 py-1 rounded-4xl shadow-sm" :class="selectFilterNotification == 0 ? 'bg-blue-600 text-white':'bg-white/60 '" @click="selectFilterNotification = 0">
+                           <div class="flex space-x-1.5 justify-center">
+                              <div class="flex text-gray-500 px-3 py-1 rounded-4xl shadow-sm cursor-pointer" :class="selectFilterNotification == 0 ? 'bg-blue-600 text-white':'bg-white/60 '" @click="selectFilterNotification = 0">
                                  <svg class="w-6 h-6 " :class="selectFilterNotification == 0 ? 'text-white' : 'text-gray-600'" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 6h8m-8 4h12M6 14h8m-8 4h12"/>
                                  </svg>
                                  Todas
                               </div>
-                              <div class="flex text-gray-500 px-3 py-1 rounded-4xl shadow-sm" :class="selectFilterNotification == 1 ? 'bg-blue-600 text-white':'bg-white/60 '" @click="selectFilterNotification = 1">
+                              <div class="flex text-gray-500 px-3 py-1 rounded-4xl shadow-sm cursor-pointer" :class="selectFilterNotification == 1 ? 'bg-blue-600 text-white':'bg-white/60 '" @click="selectFilterNotification = 1">
                                  <svg class="w-6 h-6" :class="selectFilterNotification == 1 ? 'text-white' : 'text-gray-600'" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                     <path stroke="currentColor" stroke-width="2" d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
                                  </svg>
 
                                  Mensagens
                               </div>
-                              <div class="flex text-gray-500 px-3 py-1 rounded-4xl shadow-sm" :class="selectFilterNotification == 2 ? 'bg-red-600 text-white':'bg-white/60 '" @click="selectFilterNotification = 2">
+                              <div class="flex text-gray-500 px-3 py-1 rounded-4xl shadow-sm cursor-pointer" :class="selectFilterNotification == 2 ? 'bg-red-600 text-white':'bg-white/60 '" @click="selectFilterNotification = 2">
                                  <svg class="w-6 h-6" :class="selectFilterNotification == 2 ? 'text-white' : 'text-gray-600'" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17h6l3 3v-3h2V9h-2M4 4h11v8H9l-3 3v-3H4V4Z"/>
                                  </svg>
@@ -464,8 +464,8 @@
                               </div>
 
                               <div v-else>
-                                 <p class="text-gray-500 text-normal flex justify-center mt-20">
-                                    <svg class="w-6 h-6 text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                 <p class="text-gray-500 flex justify-center mt-20 text-[18pt]">
+                                    <svg class="w-10 h-10 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.99 9H15M8.99 9H9m12 3a9 9 0 1 1-18 0 9 9 0 0 1 18 0ZM7 13c0 1 .507 2.397 1.494 3.216a5.5 5.5 0 0 0 7.022 0C16.503 15.397 17 14 17 13c0 0-1.99 1-4.995 1S7 13 7 13Z"/>
                                     </svg>
                                     Sem notificações...
@@ -485,7 +485,7 @@
 
                         </div>
 
-                        <p class="text-gray-400 text-sm text-center mt-2">Últimas notificações do dia.</p>
+                        <p class="text-gray-100 text-sm text-center mt-2">Últimas notificações do dia.</p>
 
                      </div>
                   </div>
@@ -603,8 +603,6 @@
                   listDepartament: this.user.department
                }).
                then((result) => {
-
-                  console.log(result)
                   
                   if(result.data.lista.ticket.length || result.data.lista.mensagem.length || result.data.lista.teste.length){
 
@@ -635,7 +633,7 @@
 
       },
       beforeUnmount(){
-         clearInterval(this.status)
+         clearInterval(this.setInNotification)
       },
       methods:{
          actionShowNotification(){

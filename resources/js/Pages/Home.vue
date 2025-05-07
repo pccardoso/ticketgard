@@ -6,9 +6,6 @@
 
   <TitlePage titulo="Home">Seja Bem-Vindo</TitlePage>
 
-
-  <!--button v-on:click="email()">Enviar</button>-->
-
 </template>
 
 <script>
@@ -36,18 +33,6 @@
             this.teste = page
         },
         methods:{
-          email(){
-            axios.post("https://webhooks.dantlab.com/webhook/testePobre",
-              {
-                email: "paulo.cardoso2408@gmail.com",
-                title: "Abertura de Ticket",
-                msg: "Olá, houve uma nova atualização do sistema, seja bem-vindo"
-              }
-            )
-            .then((response) => {
-              console.log(response);
-            })
-          }
         },
         computed:{
         },

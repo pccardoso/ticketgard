@@ -76,7 +76,7 @@
             Filtrar
 
         </ButtonPrimary>
-
+        
     </div>
     
     <div class=" overflow-x-auto shadow-md sm:rounded-lg">
@@ -426,6 +426,7 @@
     import IconPrioridade from "../Components/IconPrioridade.vue";
     import TextSituacao from "../Components/TextSituacao.vue";
     import ButtonPrimary from "../Components/ButtonPrimary.vue";
+    import ButtonDanger from "../Components/ButtonDanger.vue";
     import VueDatePicker from '@vuepic/vue-datepicker';
     import '@vuepic/vue-datepicker/dist/main.css';
     import {Head} from "@inertiajs/vue3";
@@ -437,7 +438,6 @@
     import SelectGenericSearch from "../Components/SelectGenericSearch.vue";
     import PaginationTableDefault from "../Components/PaginationTableDefault.vue";
     import IconSituacao from "../Components/IconSituacao.vue";
-
     import { useExampleStore } from "../../../store/store.js";
 
     export default{
@@ -492,7 +492,7 @@
             }
         },
         components:{
-            IconSituacao, PaginationTableDefault,  SelectGenericSearch, TitlePage, IconLock, Table, ThTable, Loading, InputText, Link, IconPrioridade, TextSituacao, ButtonPrimary, VueDatePicker, Head, Select, SelectGeneric
+            IconSituacao, PaginationTableDefault,  SelectGenericSearch, TitlePage, IconLock, Table, ThTable, Loading, InputText, Link, IconPrioridade, TextSituacao, ButtonPrimary, VueDatePicker, Head, Select, SelectGeneric, ButtonDanger
         },
         props:{
         },
