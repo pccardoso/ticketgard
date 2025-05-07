@@ -16,8 +16,8 @@ return new class extends Migration
             $table->id("id_notificacao");
             $table->string("descricao_notificacao");
             $table->integer("tipo_notificacao");
-            $table->unsignedBigInteger("id_chamado_notificacao");
-            $table->foreign("id_chamado_notificacao")->references("id_chamados")->on("chamados")->onUpdate("cascade")->onDelete("cascade");
+            $table->unsignedBigInteger("id_manifestacao_notificacao");
+            $table->foreign("id_manifestacao_notificacao")->references("id_manifestacoes")->on("manifestacoes")->onUpdate("cascade")->onDelete("cascade");
             $table->timestamp("data_cadastro_notificacao")->nullable();
             $table->timestamp("data_atualizacao_notificacao")->nullable();
         });
