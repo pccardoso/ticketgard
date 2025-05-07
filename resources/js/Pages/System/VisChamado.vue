@@ -57,9 +57,9 @@
 
             <div v-show="tab==0" class="text-base">
                 <h3 class="font-bold text-gray-900  mb-2">Detalhes do Ticket</h3>
-
+                
                 <p>
-                    <span class="font-bold">Assunto:</span> {{ result.assunto_chamados }}
+                    <span class="font-bold">Assunto:</span> 
                 </p>
 
                 <p>

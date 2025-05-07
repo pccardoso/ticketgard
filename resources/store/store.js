@@ -1,14 +1,20 @@
 
 import { defineStore } from "pinia";
 
-
 export const useExampleStore = defineStore('example', {
     state: () => ({
-        listDepChe: []
+        listDepChe: [],
+        listSitChe: [],
+        listPriChe: [],
+        listUseChe: [],
+        listUseAbe: []
     }),
     actions: {
-        setName(newName) {
+        /*setName(newName) {
         this.name = newName
-        },
+        },*/
     },
+    persist: {
+        storage: localStorage
+    }
 })

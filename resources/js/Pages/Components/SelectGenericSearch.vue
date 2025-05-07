@@ -18,7 +18,8 @@
 
         </div>
 
-        <div v-if="show" class="bg-white/30 backdrop-blur-lg p-2 rounded-2xl mt-2 shadow-lg absolute w-full ">
+        <transition name="fade">
+            <div v-if="show" class="bg-white/30 backdrop-blur-lg p-2 rounded-2xl mt-2 shadow-lg absolute w-full ">
 
             <input type="text" v-model="eSearch" class="w-full mt-2 mb-3 rounded-3xl border-blue-600 border-2 bg-white/70" placeholder="Digite algo..." @keyup="al()">
 
@@ -32,7 +33,8 @@
                     </div>
                 </div>
             </div>
-        </div>
+            </div>
+        </transition>
     </div>
 
 </template>
@@ -51,12 +53,19 @@
         },
         props:{
             lista: Object,
-            config: Object
+            config: Object,
+            modelValue:{
+                type:Array,
+                default:[]
+            }
         },
         mounted(){
             this.copia = this.lista
-
+            this.select = this.modelValue
             document.addEventListener("click", this.handleClickOutside)
+        },
+        beforeUnmount(){
+            document.removeEventListener("click", this.handleClickOutside)
         },
         methods:{
             teste(){
@@ -107,3 +116,12 @@
     }
 
 </script>
+
+<style>
+    .fade-enter-active, .fade-leave-active {
+    transition: opacity 0.3s;
+    }
+    .fade-enter-from, .fade-leave-to {
+    opacity: 0;
+    }
+</style>

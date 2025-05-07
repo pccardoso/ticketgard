@@ -3,7 +3,9 @@ import './bootstrap';
 import { createApp, h } from 'vue'
 import { createInertiaApp } from '@inertiajs/vue3'
 import Navbar from './Pages/Components/Navbar.vue';
+
 import { createPinia } from 'pinia';
+import  piniaPersistedstate  from 'pinia-plugin-persistedstate';
 
 createInertiaApp({
     resolve: name => {
@@ -15,6 +17,7 @@ createInertiaApp({
   setup({ el, App, props, plugin }) {
 
     const pinia = createPinia();
+    pinia.use(piniaPersistedstate);
 
     createApp({ render: () => h(App, props) })
       .use(plugin)

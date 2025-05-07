@@ -17,17 +17,17 @@
 
         </div>
 
-        <div v-if="show" class="bg-white/30 backdrop-blur-lg p-2 h-40 overflow-x-auto rounded-2xl mt-2 shadow-lg absolute w-full">
+        <transition name="fade">
+            <div v-if="show" class="bg-white/30 backdrop-blur-lg p-2 h-40 overflow-x-auto rounded-2xl mt-2 shadow-lg absolute w-full">
+                <div v-for="(l, index) in lista">
 
-            <div v-for="(l, index) in lista">
-
-                <div class="bg-white/70 p-2 mb-2 rounded-sm border-gray-300">
-                    <input type="checkbox" class="w-5 h-5 mr-2" v-model="select" :value="l.id_departamentos">
-                    <label class="text-black">{{ l.nome_departamentos }}</label>
+                    <div class="bg-white/70 p-2 mb-2 rounded-sm border-gray-300">
+                        <input type="checkbox" class="w-5 h-5 mr-2" v-model="select" :value="l.id_departamentos">
+                        <label class="text-black">{{ l.nome_departamentos }}</label>
+                    </div>
                 </div>
             </div>
-
-        </div>
+        </transition>
     </div>
 
 </template>
@@ -43,7 +43,11 @@
             }
         },
         props:{
-            lista: Object
+            lista: Object,
+            modelValue:{
+                type:Array,
+                default:[]
+            }
         },
         methods:{
             teste(){
@@ -58,7 +62,12 @@
         },
         mounted(){
             document.addEventListener("click", this.handleClickOutside)
+
+            this.select = this.modelValue
         },
+        beforeUnmount(){
+            document.removeEventListener("click", this.handleClickOutside)
+        },  
         emits: ['update:modelValue'],
         computed:{
             textSelect(){
@@ -79,3 +88,12 @@
     }
 
 </script>
+
+<style>
+    .fade-enter-active, .fade-leave-active {
+    transition: opacity 0.3s;
+    }
+    .fade-enter-from, .fade-leave-to {
+    opacity: 0;
+    }
+</style>

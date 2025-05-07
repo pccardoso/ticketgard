@@ -3,7 +3,7 @@
     <Head>
         <title>Atendimentos - Ticket Gard</title>
     </Head>
-    
+
     <TitlePage titulo="Atendimentos">Tickets do meu Departamento</TitlePage>
 
     <div class="bg-gray-200 p-4 rounded-2xl mb-4 shadow-sm">
@@ -42,28 +42,28 @@
 
             <div class="relative z-40">
                 <label>Departamentos:</label>
-                <Select :lista="lisDepartamento" v-model="listDepChe"></Select>
+                <Select :lista="lisDepartamento" v-model="getStoreFilter.listDepChe"></Select>
 
             </div>
         
             <div class="relative z-30">
                 <label>Situação:</label>
-                <SelectGeneric :lista="listaSituacao" v-model="listSitChe"></SelectGeneric>
+                <SelectGeneric :lista="listaSituacao" v-model="getStoreFilter.listSitChe"></SelectGeneric>
             </div>
 
             <div class="relative z-20">
                 <label>Prioridade:</label>
-                <SelectGeneric :lista="listaPrioridade" v-model="listPriChe"></SelectGeneric>
+                <SelectGeneric :lista="listaPrioridade" v-model="getStoreFilter.listPriChe"></SelectGeneric>
             </div>
 
             <div class="relative z-10">
                 <label>Responsável por Atendimento:</label>
-                <SelectGenericSearch :lista="listUsuario" v-model="listUseChe" :config="configSelUsu"></SelectGenericSearch>
+                <SelectGenericSearch :lista="listUsuario" v-model="getStoreFilter.listUseChe" :config="configSelUsu"></SelectGenericSearch>
             </div>
 
             <div class="relative z-10">
                 <label>Responsável por Abertura:</label>
-                <SelectGenericSearch :lista="listUsuario" v-model="listUseAbe" :config="configSelUsu"></SelectGenericSearch>
+                <SelectGenericSearch :lista="listUsuario" v-model="getStoreFilter.listUseAbe" :config="configSelUsu"></SelectGenericSearch>
             </div>
             
         </div>
@@ -438,6 +438,8 @@
     import PaginationTableDefault from "../Components/PaginationTableDefault.vue";
     import IconSituacao from "../Components/IconSituacao.vue";
 
+    import { useExampleStore } from "../../../store/store.js";
+
     export default{
         name:"ConChamado",
         data(){
@@ -485,7 +487,8 @@
                     name: "name"
                 },
                 showModalInterruption:false,
-                interruptList: false
+                interruptList: false,
+                getStoreFilter: false
             }
         },
         components:{
@@ -493,8 +496,12 @@
         },
         props:{
         },
-
+        beforeMount(){
+            this.getStoreFilter = useExampleStore();
+        },
         mounted(){
+
+            this.getStoreFilter = useExampleStore();
 
             //Montando o modal para edição/visualização
             const $targetEl = document.getElementById('modalEl');
@@ -683,13 +690,13 @@
                     inicio: this.validarDataIni,
                     fim: this.validarDataFin,
                     departamento: "",
-                    deps: this.listDepChe,
-                    prio: this.listPriChe,
-                    sits: this.listSitChe,
-                    resp: this.listUseChe,
+                    deps: this.getStoreFilter.listDepChe,
+                    prio: this.getStoreFilter.listPriChe,
+                    sits: this.getStoreFilter.listSitChe,
+                    resp: this.getStoreFilter.listUseChe,
                     lis_dep: this.user.department,
                     id_user: "",
-                    aber: this.listUseAbe
+                    aber: this.getStoreFilter.listUseAbe
                 }).
                 then((result)=>{
 
@@ -795,6 +802,9 @@
             validarTotal(){
                 return "Encontrado(s): " + this.lista.length + " resultado(s)"
             }
+
+        },
+        watch:{
 
         }
     }

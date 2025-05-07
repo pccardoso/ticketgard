@@ -312,152 +312,153 @@
                   </p>
                </div>
                -->
+               <transition name="fade">
+                  <div v-if="showHistoryNotification" class="fixed inset-0 bg-white/30 backdrop-blur-lg z-50 flex items-center justify-center px-4 py-4">
 
-               <div v-if="showHistoryNotification" class="fixed inset-0 bg-white/30 backdrop-blur-lg z-50 flex items-center justify-center px-4 py-4">
+                     <button title="Fechar Notificações" class="absolute top-4 right-4 text-gray-500 text-5xl font-bold hover:text-red-500" @click="showHistoryNotification = !showHistoryNotification">
+                        &times;
+                     </button>
 
-                  <button title="Fechar Notificações" class="absolute top-4 right-4 text-gray-500 text-5xl font-bold hover:text-red-500" @click="showHistoryNotification = !showHistoryNotification">
-                     &times;
-                  </button>
+                     <div class="max-w-lg w-full">
 
-                  <div class="max-w-lg w-full">
+                        <div class="bg-white/80 p-4 rounded-sm mb-2 shadow-sm mx-1">
 
-                     <div class="bg-white/80 p-4 rounded-sm mb-2 shadow-sm mx-1">
-
-                        <p class="inline-flex text-gray-600 text-center">
-                           
-                           <svg class="w-6 h-6 text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5.365V3m0 2.365a5.338 5.338 0 0 1 5.133 5.368v1.8c0 2.386 1.867 2.982 1.867 4.175 0 .593 0 1.193-.538 1.193H5.538c-.538 0-.538-.6-.538-1.193 0-1.193 1.867-1.789 1.867-4.175v-1.8A5.338 5.338 0 0 1 12 5.365Zm-8.134 5.368a8.458 8.458 0 0 1 2.252-5.714m14.016 5.714a8.458 8.458 0 0 0-2.252-5.714M8.54 17.901a3.48 3.48 0 0 0 6.92 0H8.54Z"/>
-                           </svg>
-                           Últimas Notificações
-                        </p>
-
-                     </div>
-
-                     <div class="py-2 mb-1 px-1">
-                        <div class="flex space-x-1.5 justify-start">
-                           <div class="flex text-gray-500 px-3 py-1 rounded-4xl shadow-sm" :class="selectFilterNotification == 0 ? 'bg-blue-600 text-white':'bg-white/60 '" @click="selectFilterNotification = 0">
-                              <svg class="w-6 h-6 " :class="selectFilterNotification == 0 ? 'text-white' : 'text-gray-600'" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 6h8m-8 4h12M6 14h8m-8 4h12"/>
+                           <p class="inline-flex text-gray-600 text-center">
+                              
+                              <svg class="w-6 h-6 text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5.365V3m0 2.365a5.338 5.338 0 0 1 5.133 5.368v1.8c0 2.386 1.867 2.982 1.867 4.175 0 .593 0 1.193-.538 1.193H5.538c-.538 0-.538-.6-.538-1.193 0-1.193 1.867-1.789 1.867-4.175v-1.8A5.338 5.338 0 0 1 12 5.365Zm-8.134 5.368a8.458 8.458 0 0 1 2.252-5.714m14.016 5.714a8.458 8.458 0 0 0-2.252-5.714M8.54 17.901a3.48 3.48 0 0 0 6.92 0H8.54Z"/>
                               </svg>
-                              Todas
-                           </div>
-                           <div class="flex text-gray-500 px-3 py-1 rounded-4xl shadow-sm" :class="selectFilterNotification == 1 ? 'bg-blue-600 text-white':'bg-white/60 '" @click="selectFilterNotification = 1">
-                              <svg class="w-6 h-6" :class="selectFilterNotification == 1 ? 'text-white' : 'text-gray-600'" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                 <path stroke="currentColor" stroke-width="2" d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
-                              </svg>
+                              Últimas Notificações
+                           </p>
 
-                              Mensagens
-                           </div>
-                           <div class="flex text-gray-500 px-3 py-1 rounded-4xl shadow-sm" :class="selectFilterNotification == 2 ? 'bg-red-600 text-white':'bg-white/60 '" @click="selectFilterNotification = 2">
-                              <svg class="w-6 h-6" :class="selectFilterNotification == 2 ? 'text-white' : 'text-gray-600'" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17h6l3 3v-3h2V9h-2M4 4h11v8H9l-3 3v-3H4V4Z"/>
-                              </svg>
-                              Tickets
+                        </div>
+
+                        <div class="py-2 mb-1 px-1">
+                           <div class="flex space-x-1.5 justify-start">
+                              <div class="flex text-gray-500 px-3 py-1 rounded-4xl shadow-sm" :class="selectFilterNotification == 0 ? 'bg-blue-600 text-white':'bg-white/60 '" @click="selectFilterNotification = 0">
+                                 <svg class="w-6 h-6 " :class="selectFilterNotification == 0 ? 'text-white' : 'text-gray-600'" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 6h8m-8 4h12M6 14h8m-8 4h12"/>
+                                 </svg>
+                                 Todas
+                              </div>
+                              <div class="flex text-gray-500 px-3 py-1 rounded-4xl shadow-sm" :class="selectFilterNotification == 1 ? 'bg-blue-600 text-white':'bg-white/60 '" @click="selectFilterNotification = 1">
+                                 <svg class="w-6 h-6" :class="selectFilterNotification == 1 ? 'text-white' : 'text-gray-600'" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-width="2" d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                                 </svg>
+
+                                 Mensagens
+                              </div>
+                              <div class="flex text-gray-500 px-3 py-1 rounded-4xl shadow-sm" :class="selectFilterNotification == 2 ? 'bg-red-600 text-white':'bg-white/60 '" @click="selectFilterNotification = 2">
+                                 <svg class="w-6 h-6" :class="selectFilterNotification == 2 ? 'text-white' : 'text-gray-600'" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17h6l3 3v-3h2V9h-2M4 4h11v8H9l-3 3v-3H4V4Z"/>
+                                 </svg>
+                                 Tickets
+                              </div>
                            </div>
                         </div>
-                     </div>
 
-                     <!--<p class="text-gray-500 text-sm text-center">{{ countTextNotification }}</p>-->
+                        <!--<p class="text-gray-500 text-sm text-center">{{ countTextNotification }}</p>-->
 
-                     <div class="h-120 overflow-auto p-1">
+                        <div class="h-120 overflow-auto p-1">
 
-                        <template v-if="!loadingShow">
+                           <template v-if="!loadingShow">
 
-                           <div v-if="arrayNotificationTemp.length">
-                              
-                              <div v-for="(l, index) in arrayNotificationTemp" v-bind:key="index" >
+                              <div v-if="arrayNotificationTemp.length">
+                                 
+                                 <div v-for="(l, index) in arrayNotificationTemp" v-bind:key="index" >
 
-                                    <template v-if="l.tipo_notificacao == 1 && user.id==l.id_user_chamados">
+                                       <template v-if="l.tipo_notificacao == 1 && user.id==l.id_user_chamados">
 
-                                       <div class="bg-white/70 border-l-4 border-l-blue-600 p-4 rounded-sm shadow-sm mb-2 hover:bg-gray-200 transform duration-500">
-                                          <p class="inline-flex text-sm text-gray-600">
-                                             <svg class="w-5 h-5 text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 9h5m3 0h2M7 12h2m3 0h5M5 5h14a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-6.616a1 1 0 0 0-.67.257l-2.88 2.592A.5.5 0 0 1 8 18.477V17a1 1 0 0 0-1-1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z"/>
-                                             </svg>
+                                          <div class="bg-white/70 border-l-4 border-l-blue-600 p-4 rounded-sm shadow-sm mb-2 hover:bg-gray-200 transform duration-500">
+                                             <p class="inline-flex text-sm text-gray-600">
+                                                <svg class="w-5 h-5 text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 9h5m3 0h2M7 12h2m3 0h5M5 5h14a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-6.616a1 1 0 0 0-.67.257l-2.88 2.592A.5.5 0 0 1 8 18.477V17a1 1 0 0 0-1-1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z"/>
+                                                </svg>
 
-                                             {{ l.descricao_notificacao }}
-                                          </p>
-                                          <br>
-                                          <p class="inline-flex text-[8pt] text-gray-500">
+                                                {{ l.descricao_notificacao }}
+                                             </p>
+                                             <br>
+                                             <p class="inline-flex text-[8pt] text-gray-500">
+                                                
+                                                <svg class="w-4 h-4 text-gray-500 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                                                </svg>
+
+
+                                                {{ textDatPt(l.data_cadastro_notificacao) }}
                                              
-                                             <svg class="w-4 h-4 text-gray-500 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
-                                             </svg>
+                                                <svg class="w-4 h-4 ml-1 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 4h12M6 4v16M6 4H5m13 0v16m0-16h1m-1 16H6m12 0h1M6 20H5M9 7h1v1H9V7Zm5 0h1v1h-1V7Zm-5 4h1v1H9v-1Zm5 0h1v1h-1v-1Zm-3 4h2a1 1 0 0 1 1 1v4h-4v-4a1 1 0 0 1 1-1Z"/>
+                                                </svg>
 
-
-                                             {{ textDatPt(l.data_cadastro_notificacao) }}
-                                          
-                                             <svg class="w-4 h-4 ml-1 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 4h12M6 4v16M6 4H5m13 0v16m0-16h1m-1 16H6m12 0h1M6 20H5M9 7h1v1H9V7Zm5 0h1v1h-1V7Zm-5 4h1v1H9v-1Zm5 0h1v1h-1v-1Zm-3 4h2a1 1 0 0 1 1 1v4h-4v-4a1 1 0 0 1 1-1Z"/>
-                                             </svg>
-
-                                             {{ l.nome_departamentos }}
-                                          
-                                          </p>
-                                       </div>
-
-                                    </template>
-
-                                    <template v-else-if="l.tipo_notificacao == 0">
-
-                                       <div class="bg-white/70 border-l-4 border-l-red-600 p-4 rounded-sm shadow-sm mb-2 hover:bg-gray-200 transform duration-500">
-                                          <p class="inline-flex text-sm text-gray-600">
-                                             <svg class="w-5 h-5 text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                                <path stroke="currentColor" stroke-width="2" d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
-                                             </svg>
-                                             {{ l.descricao_notificacao }}
-                                          </p>
-                                          <br>
-                                          <p class="inline-flex text-[8pt] text-gray-500">
+                                                {{ l.nome_departamentos }}
                                              
-                                             <svg class="w-4 h-4 text-gray-500 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
-                                             </svg>
+                                             </p>
+                                          </div>
+
+                                       </template>
+
+                                       <template v-else-if="l.tipo_notificacao == 0">
+
+                                          <div class="bg-white/70 border-l-4 border-l-red-600 p-4 rounded-sm shadow-sm mb-2 hover:bg-gray-200 transform duration-500">
+                                             <p class="inline-flex text-sm text-gray-600">
+                                                <svg class="w-5 h-5 text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                   <path stroke="currentColor" stroke-width="2" d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                                                </svg>
+                                                {{ l.descricao_notificacao }}
+                                             </p>
+                                             <br>
+                                             <p class="inline-flex text-[8pt] text-gray-500">
+                                                
+                                                <svg class="w-4 h-4 text-gray-500 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                                                </svg>
 
 
-                                             {{ textDatPt(l.data_cadastro_notificacao) }}
-                                          
-                                             <svg class="w-4 h-4 ml-1 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 4h12M6 4v16M6 4H5m13 0v16m0-16h1m-1 16H6m12 0h1M6 20H5M9 7h1v1H9V7Zm5 0h1v1h-1V7Zm-5 4h1v1H9v-1Zm5 0h1v1h-1v-1Zm-3 4h2a1 1 0 0 1 1 1v4h-4v-4a1 1 0 0 1 1-1Z"/>
-                                             </svg>
+                                                {{ textDatPt(l.data_cadastro_notificacao) }}
+                                             
+                                                <svg class="w-4 h-4 ml-1 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 4h12M6 4v16M6 4H5m13 0v16m0-16h1m-1 16H6m12 0h1M6 20H5M9 7h1v1H9V7Zm5 0h1v1h-1V7Zm-5 4h1v1H9v-1Zm5 0h1v1h-1v-1Zm-3 4h2a1 1 0 0 1 1 1v4h-4v-4a1 1 0 0 1 1-1Z"/>
+                                                </svg>
 
-                                             {{ l.nome_departamentos }}
-                                          
-                                          </p>
-                                       </div>
+                                                {{ l.nome_departamentos }}
+                                             
+                                             </p>
+                                          </div>
 
-                                    </template>
+                                       </template>
+
+                                 </div>
 
                               </div>
 
-                           </div>
+                              <div v-else>
+                                 <p class="text-gray-500 text-normal flex justify-center mt-20">
+                                    <svg class="w-6 h-6 text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.99 9H15M8.99 9H9m12 3a9 9 0 1 1-18 0 9 9 0 0 1 18 0ZM7 13c0 1 .507 2.397 1.494 3.216a5.5 5.5 0 0 0 7.022 0C16.503 15.397 17 14 17 13c0 0-1.99 1-4.995 1S7 13 7 13Z"/>
+                                    </svg>
+                                    Sem notificações...
+                                 </p>
+                              </div>
+                           </template>
 
-                           <div v-else>
-                              <p class="text-gray-500 text-normal flex justify-center mt-20">
-                                 <svg class="w-6 h-6 text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.99 9H15M8.99 9H9m12 3a9 9 0 1 1-18 0 9 9 0 0 1 18 0ZM7 13c0 1 .507 2.397 1.494 3.216a5.5 5.5 0 0 0 7.022 0C16.503 15.397 17 14 17 13c0 0-1.99 1-4.995 1S7 13 7 13Z"/>
-                                 </svg>
-                                 Sem notificações...
-                              </p>
-                           </div>
-                        </template>
+                           <template v-else>
+                              
+                              <div class="bg-gray-300 animate-pulse p-2 w-full rounded-sm h-15 mb-2"></div>
+                              <div class="bg-gray-300 animate-pulse p-2 w-full rounded-sm h-15 mb-2"></div>
+                              <div class="bg-gray-300 animate-pulse p-2 w-full rounded-sm h-15 mb-2"></div>
+                              <div class="bg-gray-300 animate-pulse p-2 w-full rounded-sm h-15 mb-2"></div>
+                              <div class="bg-gray-300 animate-pulse p-2 w-full rounded-sm h-15 mb-2"></div>
+                              
+                           </template>
 
-                        <template v-else>
-                           
-                           <div class="bg-gray-300 animate-pulse p-2 w-full rounded-sm h-15 mb-2"></div>
-                           <div class="bg-gray-300 animate-pulse p-2 w-full rounded-sm h-15 mb-2"></div>
-                           <div class="bg-gray-300 animate-pulse p-2 w-full rounded-sm h-15 mb-2"></div>
-                           <div class="bg-gray-300 animate-pulse p-2 w-full rounded-sm h-15 mb-2"></div>
-                           <div class="bg-gray-300 animate-pulse p-2 w-full rounded-sm h-15 mb-2"></div>
-                           
-                        </template>
+                        </div>
+
+                        <p class="text-gray-400 text-sm text-center mt-2">Últimas notificações do dia.</p>
 
                      </div>
-
-                     <p class="text-gray-400 text-sm text-center mt-2">Últimas notificações do dia.</p>
-
                   </div>
-               </div>
+               </transition>
 
 
             </div>
@@ -659,4 +660,11 @@
 
 </script>
 
-
+<style>
+    .fade-enter-active, .fade-leave-active {
+    transition: opacity 0.3s;
+    }
+    .fade-enter-from, .fade-leave-to {
+    opacity: 0;
+    }
+</style>
