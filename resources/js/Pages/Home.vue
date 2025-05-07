@@ -6,6 +6,14 @@
 
   <TitlePage titulo="Home">Seja Bem-Vindo</TitlePage>
 
+  <apexchart
+      width="500"
+      type="line"
+      :options="chartOptions"
+      :series="series"
+    ></apexchart>
+
+
 </template>
 
 <script>
@@ -17,16 +25,33 @@
     import SelectGenericSearch from './Components/SelectGenericSearch.vue';
     import TableDefault from './Components/TableDefault.vue';
 
+    import ApexCharts from 'apexcharts';
+
     export default{
         name:"Home",
         data(){
           return{
             temp_table:Object,
-            page: false
+            page: false,
+
+            series: [
+        {
+          name: 'Vendas',
+          data: [10, 41, 35, 51, 49, 62, 69, 91, 148],
+        },
+      ],
+      chartOptions: {
+        chart: {
+          id: 'vuechart-example',
+        },
+        xaxis: {
+          categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+        },
+      }
           }
         },
         components:{
-          TitlePage, ButtonPrimary, Head, SelectGenericSearch, TableDefault
+          TitlePage, ButtonPrimary, Head, SelectGenericSearch, TableDefault,  apexchart: ApexCharts,
         },
         mounted(){
             const page = usePage()

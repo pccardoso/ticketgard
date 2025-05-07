@@ -430,9 +430,10 @@ class ChamadoController extends Controller
             $res = [1, "Chamado assumido com sucesso"];
 
             /*$this->sendEmail([
-                "codigo" => $request->input("id_chamados"),
-                "mensagem" => "Olá, o ticket foi aderido por um responsável. Aguarde as próximas atualizações ou confira pelo sistema do Ticket Gard!",
-                "status" => "Encaminhado"
+                "codigo" => $result->id_chamados,
+                "status" => 1,
+                "user" => Auth::user()->name,
+                "email" => "paulo.cardoso2408@gmail.com"
             ]);*/
 
         }else{

@@ -25,6 +25,7 @@
         "@vitejs/plugin-vue": "^5.2.3",
         "@vuepic/vue-datepicker": "^11.0.2",
         "@vueup/vue-quill": "^1.2.0",
+        "apexcharts": "^3.46.0",
         "flowbite": "^3.1.2",
         "flowbite-typography": "^1.0.5",
         "moment": "^2.30.1",
