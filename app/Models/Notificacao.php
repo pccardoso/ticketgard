@@ -16,7 +16,7 @@ class Notificacao extends Model
     protected $fillable = [
         "descricao_notificacao",
         "tipo_notificacao",
-        "id_chamado_notificacao"
+        "id_manifestacao_notificacao"
     ];
 
 }

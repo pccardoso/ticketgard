@@ -59,7 +59,7 @@ class ManifestacaoController extends Controller
         $notify = Notificacao::create([
             "descricao_notificacao" => Auth::user()->name." nova mensagem no ticket de Nº".$request->input("id_chamados"),
             "tipo_notificacao" => 1,
-            "id_chamado_notificacao" => $request->input("id_chamados")
+            "id_manifestacao_notificacao" => $manifest->id_manifestacoes
         ]);
 
     }

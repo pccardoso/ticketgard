@@ -320,7 +320,7 @@ class ChamadoController extends Controller
             $notify = Notificacao::create([
                 "descricao_notificacao" => Auth::user()->name." abriu o ticket de Nª ".$chamado->id_chamados,
                 "tipo_notificacao" => 0,
-                "id_chamado_notificacao" => $chamado->id_chamados
+                "id_manifestacao_notificacao" => $manifest->id_manifestacoes
             ]);
 
         }
@@ -487,10 +487,11 @@ class ChamadoController extends Controller
         $timeStart = $request->input("timeStart");
         $timeEnd = $request->input("timeEnd");
 
-        $sql = "SELECT * FROM notificacao INNER JOIN chamados ON chamados.id_chamados=notificacao.id_chamado_notificacao WHERE data_cadastro_notificacao BETWEEN '$data $timeStart' AND '$data $timeEnd'";
+        //carrega todoas os novos tickets para os departamentos que o usuário logado pertence.
+        $sql = "SELECT * FROM notificacao INNER JOIN manifestacoes ON notificacao.id_manifestacao_notificacao=manifestacoes.id_manifestacoes INNER JOIN chamados ON manifestacoes.id_chamado_manifestacoes=chamados.id_chamados WHERE tipo_notificacao=0 AND data_cadastro_notificacao BETWEEN '$data $timeStart' AND '$data $timeEnd'";
 
         foreach ($request->input("listDepartament") as $key => $value) {
-
+            
             if($key == 0){
                 $sql.=" AND ( id_departamento_chamados=".$value."";
             }else if(count($request->input("listDepartament")) == $key + 1){
@@ -505,9 +506,22 @@ class ChamadoController extends Controller
             
         }
 
-        $lista = DB::select($sql);
+        $ticket = DB::select($sql);
+
+        //carregar mensagem que pertencam ao usuário responsável pelo atendimento, não incluindo aquelas que foram enviadas pelo próprio usuário logado...
+        $mensagem = DB::select("SELECT * FROM notificacao INNER JOIN manifestacoes ON notificacao.id_manifestacao_notificacao=manifestacoes.id_manifestacoes INNER JOIN chamados ON manifestacoes.id_chamado_manifestacoes=chamados.id_chamados WHERE tipo_notificacao=1 AND id_user_chamados=".Auth::user()->id_users." AND id_user_manifestacoes!=".Auth::user()->id_users." AND data_cadastro_notificacao BETWEEN '$data $timeStart' AND '$data $timeEnd'");
+
+        //carregar mensagem que pertencam ao usuário que abriu o ticket, não incluindo aquelas que foram enviadas pelo próprio usuário logado...
+        $teste = DB::select("SELECT * FROM notificacao INNER JOIN manifestacoes ON notificacao.id_manifestacao_notificacao=manifestacoes.id_manifestacoes INNER JOIN chamados ON manifestacoes.id_chamado_manifestacoes=chamados.id_chamados WHERE tipo_notificacao=1 AND id_criador_chamados=".Auth::user()->id_users." AND id_user_manifestacoes!=".Auth::user()->id_users." AND data_cadastro_notificacao BETWEEN '$data $timeStart' AND '$data $timeEnd'");
+
+        $lista = [
+            "ticket" => $ticket,
+            "mensagem" => $mensagem,
+            "teste" => $teste
+        ];
 
         return compact("lista");
+
 
     }
 

@@ -367,7 +367,7 @@
                                  
                                  <div v-for="(l, index) in arrayNotificationTemp" v-bind:key="index" >
 
-                                       <template v-if="l.tipo_notificacao == 1 && user.id==l.id_user_chamados">
+                                       <template v-if="l.tipo_notificacao == 1 && user.id!=l.id_user_manifestacoes && l.id_criador_chamados==user.id">
 
                                           <div class="bg-white/70 border-l-4 border-l-blue-600 p-4 rounded-sm shadow-sm mb-2 hover:bg-gray-200 transform duration-500">
                                              <p class="inline-flex text-sm text-gray-600">
@@ -397,6 +397,37 @@
                                           </div>
 
                                        </template>
+
+                                       <template v-else-if="l.tipo_notificacao == 1 && user.id!=l.id_user_manifestacoes && l.id_user_chamados==user.id">
+
+                                          <div class="bg-white/70 border-l-4 border-l-blue-600 p-4 rounded-sm shadow-sm mb-2 hover:bg-gray-200 transform duration-500">
+                                             <p class="inline-flex text-sm text-gray-600">
+                                                <svg class="w-5 h-5 text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 9h5m3 0h2M7 12h2m3 0h5M5 5h14a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-6.616a1 1 0 0 0-.67.257l-2.88 2.592A.5.5 0 0 1 8 18.477V17a1 1 0 0 0-1-1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z"/>
+                                                </svg>
+
+                                                {{ l.descricao_notificacao }}
+                                             </p>
+                                             <br>
+                                             <p class="inline-flex text-[8pt] text-gray-500">
+                                                
+                                                <svg class="w-4 h-4 text-gray-500 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                                                </svg>
+
+
+                                                {{ textDatPt(l.data_cadastro_notificacao) }}
+                                             
+                                                <svg class="w-4 h-4 ml-1 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 4h12M6 4v16M6 4H5m13 0v16m0-16h1m-1 16H6m12 0h1M6 20H5M9 7h1v1H9V7Zm5 0h1v1h-1V7Zm-5 4h1v1H9v-1Zm5 0h1v1h-1v-1Zm-3 4h2a1 1 0 0 1 1 1v4h-4v-4a1 1 0 0 1 1-1Z"/>
+                                                </svg>
+
+                                                {{ l.nome_departamentos }}
+                                             
+                                             </p>
+                                          </div>
+
+                                          </template>
 
                                        <template v-else-if="l.tipo_notificacao == 0">
 
@@ -482,7 +513,7 @@
             </svg>
 
             Atenção</p>
-         <p>Seu departamento tem {{ listTicketNotification.length }} nova (s) notificação.</p>
+         <p>Você tem {{ countNotification }} nova (s) notificação.</p>
       
          <!--
          <p class="inline-flex" v-for="(l, index) in listTicketNotification">
@@ -538,7 +569,8 @@
             arrayNotification: [],
             arrayNotificationTemp: [],
             selectFilterNotification: false,
-            countTextNotification: ""
+            countTextNotification: "",
+            countNotification: false
          }
       },
       components:{
@@ -558,46 +590,52 @@
          this.user = usePage().props.auth.user;
 
          //buscar por novos tickets dentro do início/fim programado.
-         this.setInNotification = setInterval(() => {
+         if(this.user.res_chamados){
+            
+            this.setInNotification = setInterval(() => {
 
-            //hora atual que entra no loop
-            this.timeEnd = getTimeCurrentUtils();
+               //hora atual que entra no loop
+               this.timeEnd = getTimeCurrentUtils();
 
-            axios.post("/count/chamado",{
-               timeStart: this.timeStart,
-               timeEnd: this.timeEnd,
-               listDepartament: this.user.department
-            }).
-            then((result) => {
-               
-               if(result.data.lista.length){
+               axios.post("/count/chamado",{
+                  timeStart: this.timeStart,
+                  timeEnd: this.timeEnd,
+                  listDepartament: this.user.department
+               }).
+               then((result) => {
 
-                  //recuperando o title da página atual
-                  this.titleTemp = document.title;
+                  console.log(result)
+                  
+                  if(result.data.lista.ticket.length || result.data.lista.mensagem.length || result.data.lista.teste.length){
 
-                  //definindo o novo title da página atual
-                  document.title = `${result.data.lista.length} novo(s) ticket(s)`;
+                     this.countNotification = parseInt(result.data.lista.ticket.length) + parseInt(result.data.lista.mensagem.length) + parseInt(result.data.lista.teste.length);
 
-                  //ativando o alert de notificações
-                  this.actionShowNotification();
+                     //recuperando o title da página atual
+                     this.titleTemp = document.title;
 
-                  //carregando a lista de usuários da notificação encontrada
-                  this.listTicketNotification = result.data.lista;
-                  this.controlHistoryNotification = true;
+                     //definindo o novo title da página atual
+                     document.title = `${this.countNotification} nova(s) notificações...`;
 
-               }
+                     //ativando o alert de notificações
+                     this.actionShowNotification();
 
-            })
+                     this.controlHistoryNotification = true;
 
-            //definir hora inicial como a hora final para então carregar o novo ciclo
-            this.timeStart = this.timeEnd;
+                  }
+
+               })
+
+               //definir hora inicial como a hora final para então carregar o novo ciclo
+               this.timeStart = this.timeEnd;
 
 
-         }, (10000));
+            }, (5000));
+
+         }
 
       },
       beforeUnmount(){
-         //clearInterval(this.status)
+         clearInterval(this.status)
       },
       methods:{
          actionShowNotification(){
