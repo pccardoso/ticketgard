@@ -564,7 +564,7 @@ import Swal from 'sweetalert2';
                 catch((erro)=>{
                     console.log(erro)
                 });
-            }, 2000)
+            }, 3000)
 
             this.rolarfinal()
 
