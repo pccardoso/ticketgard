@@ -74,14 +74,11 @@
             al(){
 
                 let t = []
-               
                 this.lista.forEach(element => {
-
                     if(element[this.config.name].toLowerCase().search(this.eSearch.toLowerCase()) >= 0){
                         t.push(element)
                     }
                 });
-
                 this.copia = t
                 
             },
