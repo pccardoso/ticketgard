@@ -38,7 +38,7 @@
 
     <TitlePage titulo="Cadastrar Departamento"></TitlePage>
 
-    <div class="bg-gray-100 p-4 rounded-2xl mb-4 shadow-sm">
+    <div class="p-4 rounded-2xl mb-4 shadow-lg border-1 border-gray-200">
         <form @submit.prevent="enviar_form">
 
             <div class="grid gap-6 mb-6 md:grid-cols-3">

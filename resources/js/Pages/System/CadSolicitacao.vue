@@ -6,7 +6,7 @@
 
     <TitlePage titulo="Cadastrar Solicitacao"></TitlePage>
 
-    <div @submit.prevent="cadastrar" class="bg-gray-100 p-4 rounded-2xl mb-4 shadow-sm">
+    <div @submit.prevent="cadastrar" class="p-4 rounded-2xl mb-4 shadow-lg border-1 border-gray-200">
         <form>
             <div class="grid gap-6 mb-6 md:grid-cols-4">
 

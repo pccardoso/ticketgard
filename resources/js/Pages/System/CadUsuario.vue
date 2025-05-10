@@ -6,7 +6,7 @@
 
     <TitlePage titulo="Cadastrar Usuário"/>
 
-    <div class="bg-gray-100 p-4 rounded-2xl mb-4 shadow-sm">
+    <div class="p-4 rounded-2xl mb-4 shadow-lg border-1 border-gray-200">
 
         <form @submit.prevent="cadastrarUsuario()">
 

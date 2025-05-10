@@ -6,6 +6,18 @@
 
   <TitlePage titulo="Home">Seja Bem-Vindo</TitlePage>
 
+  <div class="grid md:grid-cols-2 sm:grid-cols-1 gap-6">
+
+    <div class="rounded-lg shadow-xl border-1 border-gray-200 p-3 mt-5">
+      <apexchart :options="chartOptions" :series="series" height="350" />
+    </div>
+    
+
+    <apexchart :options="chartOptions2" :series="series2" height="350" class="rounded-lg shadow-xl border-1 border-gray-200 p-3 mt-5"/>
+
+    <apexchart :options="chartOptions3" :series="series3" height="350" class="rounded-lg shadow-xl border-1 border-gray-200 p-3 mt-5"/>
+  </div>
+
 
 </template>
 
@@ -18,16 +30,68 @@
     import SelectGenericSearch from './Components/SelectGenericSearch.vue';
     import TableDefault from './Components/TableDefault.vue';
 
+    import VueApexCharts from 'vue3-apexcharts';
+
+
     export default{
         name:"Home",
         data(){
           return{
             temp_table:Object,
-            page: false
+            page: false,
+            series: [{ name: "Vendas", data: [10, 41, 35] }],
+            chartOptions: {
+              chart: { type: "bar", width:"auto" },
+              xaxis: { categories: ["Jan", "Feb", "Mar"] }
+            },
+            series2: [10, 41, 35],
+            chartOptions2: {
+              labels:['T1', 'T2', 'T3'],
+              chart: { type: "donut" },
+              responsive: [{
+                breakpoint: 480,
+                options: {
+                  chart: {
+                    width: 200
+                  },
+                  legend: {
+                    position: 'bottom'
+                  }
+                }
+              }]
+            },
+            series3: [{
+              name: 'series1',
+              data: [31, 40, 28, 51, 42, 109, 100]
+            }, {
+              name: 'series2',
+              data: [11, 32, 45, 32, 34, 52, 41]
+            }],
+            chartOptions3: {
+              chart: {
+                height: 350,
+                type: 'area'
+              },
+              dataLabels: {
+                enabled: true
+              },
+              stroke: {
+                curve: 'smooth'
+              },
+              xaxis: {
+                type: 'datetime',
+                categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
+              },
+              tooltip: {
+                x: {
+                  format: 'dd/MM/yy HH:mm'
+                },
+              },
+            },
           }
         },
         components:{
-          TitlePage, ButtonPrimary, Head, SelectGenericSearch, TableDefault
+          TitlePage, ButtonPrimary, Head, SelectGenericSearch, TableDefault, apexchart: VueApexCharts,
         },
         mounted(){
             const page = usePage()
