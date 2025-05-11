@@ -4,20 +4,31 @@
     <title>Home - Ticket Gard</title>
   </Head>
 
-  <TitlePage titulo="Home">Seja Bem-Vindo</TitlePage>
+  <TitlePage titulo="Home">Visão dos meus Tickets</TitlePage>
 
-  <div class="grid md:grid-cols-2 sm:grid-cols-1 gap-6">
+  <div class="grid md:grid-cols-1 sm:grid-cols-1 gap-6">
 
-    <div class="rounded-lg shadow-xl border-1 border-gray-200 p-3 mt-5">
+    <div class="rounded-xl shadow-xl border-1 border-gray-200 p-3 mt-5">
+      <p class="text-gray-500 text-[13pt] text-center">Total de Tickets por mês</p>
+      <p class="text-gray-400 text-[10pt] text-center">Agrupado por meses no ano atual</p>
       <apexchart :options="chartOptions" :series="series" height="350" />
     </div>
-    
-
-    <apexchart :options="chartOptions2" :series="series2" height="350" class="rounded-lg shadow-xl border-1 border-gray-200 p-3 mt-5"/>
-
-    <apexchart :options="chartOptions3" :series="series3" height="350" class="rounded-lg shadow-xl border-1 border-gray-200 p-3 mt-5"/>
   </div>
 
+  <!--
+  <div class="grid md:grid-cols-2 sm:grid-cols-1 gap-6" >
+    
+    <div class="rounded-xl shadow-xl border-1 border-gray-200 p-3 mt-5">
+      <p class="text-gray-500 text-[13pt] text-center">Título do Gráfico</p>
+      <apexchart :options="chartOptions2" :series="series2" height="350"/>
+    </div>
+
+    <div class="rounded-xl shadow-xl border-1 border-gray-200 p-3 mt-5">
+      <p class="text-gray-500 text-[13pt] text-center">Título do Gráfico</p>
+      <apexchart :options="chartOptions3" :series="series3" height="350"/>
+    </div>
+  </div>
+  -->
 
 </template>
 
@@ -29,6 +40,7 @@
     import ButtonPrimary from "./Components/ButtonPrimary.vue"
     import SelectGenericSearch from './Components/SelectGenericSearch.vue';
     import TableDefault from './Components/TableDefault.vue';
+    import axios from 'axios';
 
     import VueApexCharts from 'vue3-apexcharts';
 
@@ -39,10 +51,10 @@
           return{
             temp_table:Object,
             page: false,
-            series: [{ name: "Vendas", data: [10, 41, 35] }],
+            series: [{ name: "Total Aberto", data: [] }],
             chartOptions: {
               chart: { type: "bar", width:"auto" },
-              xaxis: { categories: ["Jan", "Feb", "Mar"] }
+              xaxis: { categories: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"] }
             },
             series2: [10, 41, 35],
             chartOptions2: {
@@ -93,9 +105,18 @@
         components:{
           TitlePage, ButtonPrimary, Head, SelectGenericSearch, TableDefault, apexchart: VueApexCharts,
         },
-        mounted(){
+        async mounted(){
             const page = usePage()
             this.teste = page
+
+            try{
+              const response = await axios.get("/charts/count");
+              this.series[0].data = response.data.quantidade;
+              console.log(response);
+              
+            }catch(error){
+              console.log(error);
+            }
         },
         methods:{
         },

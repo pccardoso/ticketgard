@@ -8,6 +8,7 @@ use App\Http\Controllers\ManifestacaoController;
 use App\Http\Controllers\NotificacaoController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\GraficoController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
@@ -119,5 +120,7 @@ Route::middleware('auth')->group(function () {
     Route::post("/count/chamado", [ChamadoController::class, "getCountTicket"]);
     Route::post("/history/notification", [NotificacaoController::class, "showNotificationNow"]);
 
+    //ROTAS DE GRÁFISCOS
+    Route::get("/charts/count", [GraficoController::class, "countFullChamados"]);
 
 });
