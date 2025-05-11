@@ -25,7 +25,8 @@
         "@vitejs/plugin-vue": "^5.2.3",
         "@vuepic/vue-datepicker": "^11.0.2",
         "@vueup/vue-quill": "^1.2.0",
-        "apexcharts": "^3.46.0",
+        "apexcharts": "^4.7.0",
+        "chart.js": "^4.4.9",
         "flowbite": "^3.1.2",
         "flowbite-typography": "^1.0.5",
         "moment": "^2.30.1",
@@ -35,6 +36,7 @@
         "quill": "^2.0.3",
         "simple-datatables": "^10.0.0",
         "sweetalert2": "^11.17.2",
+        "vue3-apexcharts": "^1.8.0",
         "vue3-quill": "^0.3.1"
     }
 }

@@ -6,7 +6,7 @@
 
     <TitlePage titulo="Atendimentos">Tickets do meu Departamento</TitlePage>
 
-    <div class="bg-gray-200 p-4 rounded-2xl mb-4 shadow-sm">
+    <div class=" p-4 rounded-2xl mb-4 shadow-lg border-1 border-gray-200">
 
         <div class="grid gap-6 mb-2 md:grid-cols-5" @keyup.enter="pesquisar()">
 

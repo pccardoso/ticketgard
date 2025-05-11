@@ -6,7 +6,7 @@
 
     <TitlePage titulo="Alterar Senha"></TitlePage>
 
-    <div class="bg-gray-100 p-4 rounded-2xl mb-4 shadow-sm">
+    <div class="p-4 rounded-2xl mb-4 shadow-lg border-1 border-gray-200">
 
         <div class="border border-gray-200 p-3 rounded-sm mb-3">
 
