@@ -15,8 +15,7 @@
     </div>
   </div>
 
-  <!--
-  <div class="grid md:grid-cols-2 sm:grid-cols-1 gap-6" >
+  <!--<div class="grid md:grid-cols-2 sm:grid-cols-1 gap-6" >
     
     <div class="rounded-xl shadow-xl border-1 border-gray-200 p-3 mt-5">
       <p class="text-gray-500 text-[13pt] text-center">Título do Gráfico</p>
@@ -27,8 +26,8 @@
       <p class="text-gray-500 text-[13pt] text-center">Título do Gráfico</p>
       <apexchart :options="chartOptions3" :series="series3" height="350"/>
     </div>
-  </div>
-  -->
+  </div>-->
+
 
 </template>
 
