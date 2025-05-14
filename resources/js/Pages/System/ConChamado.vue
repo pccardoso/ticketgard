@@ -8,7 +8,7 @@
 
     <div class=" p-4 rounded-2xl mb-4 shadow-lg border-1 border-gray-200">
 
-        <div class="grid gap-6 mb-2 md:grid-cols-5" @keyup.enter="pesquisar()">
+        <div class="grid gap-6 mb-2 md:grid-cols-2 xl:grid-cols-4" @keyup.enter="pesquisar()">
 
             <div>
                 <label>Buscar por Código:</label>

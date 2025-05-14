@@ -9,6 +9,7 @@ use App\Http\Controllers\NotificacaoController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\GraficoController;
+use App\Http\Controllers\PDFController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
@@ -122,5 +123,8 @@ Route::middleware('auth')->group(function () {
 
     //ROTAS DE GRÁFISCOS
     Route::get("/charts/count", [GraficoController::class, "countFullChamados"]);
+
+    //ROTAS DE PDF
+    Route::get("/pdf", [PDFController::class, "export"]);
 
 });
