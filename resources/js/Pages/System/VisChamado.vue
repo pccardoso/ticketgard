@@ -476,8 +476,7 @@
     import LoadingChat from '../Components/LoadingChat.vue';
     import {formatDateTexPtHelpers} from "../../../helpers/format.js";
     import {Head} from '@inertiajs/vue3';
-
-import Swal from 'sweetalert2';
+    import Swal from 'sweetalert2';
 
     export default{
         name:"VisChamado",
