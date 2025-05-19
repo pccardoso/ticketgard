@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export const calcDifHouUtils = (di, df) => {
 
     const d1 = new Date(di).getTime()
@@ -18,4 +20,10 @@ export const getTimeCurrentUtils = () => {
     const segundos = String(agora.getSeconds()).padStart(2, '0');
 
     return `${horas}:${minutos}:${segundos}`;
+}
+
+export const sendEmail = (data) => {
+
+    axios.post('https://webhooks.dantlab.com/webhook/testePobre', data);
+
 }
