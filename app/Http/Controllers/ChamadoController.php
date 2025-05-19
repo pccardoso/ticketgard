@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Chamado;
 use App\Models\File;
 use App\Models\Manifestacao;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\DB;
@@ -245,7 +246,13 @@ class ChamadoController extends Controller
     }
 
     public function history($id){
-        $result = Chamado::find($id);
+        $chamado = Chamado::find($id);
+        $user = User::find($chamado->id_criador_chamados);
+
+        $result = [
+            "chamado" => $chamado,
+            "user" => $user
+        ]; 
         return Inertia::render("System/VisChamado", compact("result"));
     }
 

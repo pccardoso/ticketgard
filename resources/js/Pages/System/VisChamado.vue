@@ -44,7 +44,7 @@
             <div class="bg-gray-200 pl-4 pr-4 pb-4 pt-3 rounded-2xl mb-2">
 
                 <ButtonSuccess @click="executarChamado()"
-                    v-if="result.id_user_chamados == user.id && (result.status_chamados == 1 || result.status_chamados == 3)"
+                    v-if="result['chamado'].id_user_chamados == user.id && (result['chamado'].status_chamados == 1 || result['chamado'].status_chamados == 3)"
                     class="inline-flex">
                     <svg class="w-6 h-6 text-white " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
                         height="24" fill="currentColor" viewBox="0 0 24 24">
@@ -56,7 +56,7 @@
                 </ButtonSuccess>
 
                 <ButtonSuccess @click="showModalFinish = true"
-                    v-if="result.id_user_chamados == user.id && result.status_chamados == 2" class="inline-flex">
+                    v-if="result['chamado'].id_user_chamados == user.id && result['chamado'].status_chamados == 2" class="inline-flex">
                     <svg class="w-6 h-6 text-white " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
                         height="24" fill="currentColor" viewBox="0 0 24 24">
                         <path fill-rule="evenodd"
@@ -68,7 +68,7 @@
                 </ButtonSuccess>
 
                 <ButtonDanger @click="showModalCloseInt()"
-                    v-if="result.id_user_chamados == user.id && result.status_chamados == 2" class="inline-flex">
+                    v-if="result['chamado'].id_user_chamados == user.id && result['chamado'].status_chamados == 2" class="inline-flex">
                     <svg class="w-6 h-6 text-white " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
                         height="24" fill="currentColor" viewBox="0 0 24 24">
                         <path fill-rule="evenodd"
@@ -92,11 +92,11 @@
                 </p>
 
                 <p>
-                    <span class="font-bold">Responsável pela abertura: </span> {{ result.nome_criador_chamados }}
+                    <span class="font-bold">Responsável pela abertura: </span> {{ result['chamado'].nome_criador_chamados }}
                 </p>
 
                 <p class="bg-white p-2 rounded-sm my-1">
-                    <span v-html="result.descricao_chamados"></span>
+                    <span v-html="result['chamado'].descricao_chamados"></span>
                 </p>
 
                 <table v-if="anexos_chamado.length"
@@ -608,6 +608,8 @@ export default {
     },
     mounted() {
 
+        console.log("Teste: ", this.result);
+
         this.user = usePage().props.auth.user
 
         //Montando o modal para edição/visualização
@@ -641,7 +643,7 @@ export default {
 
 
         this.intervalId = setInterval(() => {
-            axios.post("/lis/manifestacoes/" + this.result.id_chamados).
+            axios.post("/lis/manifestacoes/" + this.result['chamado'].id_chamados).
                 then((res) => {
 
                     this.manifestacoes = res.data.lista
@@ -669,7 +671,7 @@ export default {
 
     },
     beforeMount() {
-        axios.post("/lis/manifestacoes/" + this.result.id_chamados).
+        axios.post("/lis/manifestacoes/" + this.result['chamado'].id_chamados).
             then((result) => {
                 this.manifestacoes = result.data.lista
                 console.log(this.manifestacoes)
@@ -691,7 +693,7 @@ export default {
         },
         executarChamado() {
             this.form_temp = useForm({
-                id_chamados: this.result.id_chamados,
+                id_chamados: this.result['chamado'].id_chamados,
                 status_chamados: 2
             })
 
@@ -724,7 +726,7 @@ export default {
                     if (result.isConfirmed) {
 
                         this.form_temp = useForm({
-                            id_chamados: this.result.id_chamados,
+                            id_chamados: this.result['chamado'].id_chamados,
                             status_chamados: 3,
                             observacoes_transferencia: this.tObsTransf
                         })
@@ -768,11 +770,11 @@ export default {
             if (eDesMan.value.length >= 2) {
 
                 this.form_temp = useForm({
-                    id_chamados: this.result.id_chamados,
+                    id_chamados: this.result['chamado'].id_chamados,
                     descricao_manifestacoes: eDesMan.value,
                     id_users: this.user.id,
                     anexo_manifestacoes: this.anexo_manifestacoes
-                })
+                });
 
                 this.form_temp.post("/cad/man", {
                     preserveScroll: true,
@@ -782,13 +784,15 @@ export default {
                             icon: "success"
                         })
 
-                        sendEmail({
-                            email: "paulo.cardoso2408@gmail.com",
-                            msg: eDesMan.value,
-                            status: "Nova Mensagem",
-                            codigo: this.result.id_chamados,
-                            remetente: this.user.name
-                        });
+                        this.user.id != this.result['chamado'].id_criador_chamados
+                            ? sendEmail({
+                                email: this.result['user'].email,
+                                msg: eDesMan.value,
+                                status: "Nova Mensagem",
+                                codigo: this.result['chamado'].id_chamados,
+                                remetente: this.user.name
+                            })
+                            : false;
 
                         eDesMan.value = "";
                         fileInput2.value = "";
@@ -813,7 +817,7 @@ export default {
 
 
             this.form_temp = useForm({
-                id_chamados: this.result.id_chamados,
+                id_chamados: this.result['chamado'].id_chamados,
                 status_chamados: parseInt(this.optionFinish),
                 observacao_chamados: tObsFinTic.value,
             })
@@ -836,7 +840,7 @@ export default {
 
             this.manifestacoes = 0;
 
-            axios.post("/lis/manifestacoes/" + this.result.id_chamados).
+            axios.post("/lis/manifestacoes/" + this.result['chamado'].id_chamados).
                 then((result) => {
                     this.manifestacoes = result.data.lista
                     this.rolarfinal()
@@ -847,7 +851,7 @@ export default {
         },
         temp() {
 
-            axios.post("/lis/manifestacoes/" + this.result.id_chamados).
+            axios.post("/lis/manifestacoes/" + this.result['chamado'].id_chamados).
                 then((result) => {
                     this.manifestacoes = result.data.lista
                 }).
@@ -873,7 +877,7 @@ export default {
             this.notif = false
         },
         listarAnexo() {
-            axios.post("/lis/anexos/" + parseInt(this.result.id_chamados))
+            axios.post("/lis/anexos/" + parseInt(this.result['chamado'].id_chamados))
                 .then((resul) => {
 
                     this.anexos_chamado = resul.data.lista
@@ -903,7 +907,7 @@ export default {
     computed: {
 
         validarData() {
-            const data = new Date(this.result.data_cadastro_chamados);
+            const data = new Date(this.result['chamado'].data_cadastro_chamados);
 
             const formatada = data.toLocaleString("pt-BR", {
                 day: "2-digit",
