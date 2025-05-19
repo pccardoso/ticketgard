@@ -24,6 +24,6 @@ export const getTimeCurrentUtils = () => {
 
 export const sendEmail = (data) => {
 
-    axios.post('https://webhooks.dantlab.com/webhook/testePobre', data);
+    axios.post('https://webhook.mundoevogard.com/webhook/notificacaoticketgard', data);
 
 }
