@@ -330,20 +330,6 @@ class ChamadoController extends Controller
                 "id_manifestacao_notificacao" => $manifest->id_manifestacoes
             ]);
 
-            /*$this->sendEmail([
-                "codigo" => ,
-                "status" => 0,
-                "user" => Auth::user()->name,
-                "email" => "paulo.cardoso2408@gmail.com"
-            ]);*/
-
-            $this->sendWebhookAsync("https://webhooks.dantlab.com/webhook/testePobre", [
-                "email" => "paulo.cardoso2408@gmail.com",
-                "status" => 0,
-                "codigo" => $chamado->id_chamados,
-                "user" => Auth::user()->name,
-            ]);
-
         }
 
         return to_route("form.cad.chamado");
@@ -541,46 +527,4 @@ class ChamadoController extends Controller
 
     }
 
-    /*public function sendEmail(array $props){
-
-        Http::post("https://webhooks.dantlab.com/webhook/testePobre", [
-            "email" => $props['email'],
-            "status" => $props['status'],
-            "codigo" => $props['codigo'],
-            "user" => $props['user']
-        ]);
-
-        $command = 'curl -X POST https://webhooks.dantlab.com/webhook/testePobre ' .
-        '-H "Content-Type: application/json" ' .
-        '-d \'' . json_encode([
-            "email" => $props['email'],
-            "status" => $props['status'],
-            "codigo" => $props['codigo'],
-            "user" => $props['user'],
-        ]) . '\' > /dev/null 2>&1 &';
-
-        proc_close(proc_open($command, [], $pipes));
-
-    }*/
-
-    function sendWebhookAsync(string $url, array $data)
-    {
-        $urlParts = parse_url($url);
-        $host = $urlParts['host'];
-        $path = $urlParts['path'];
-        $payload = json_encode($data);
-
-        $fp = fsockopen('ssl://' . $host, 443, $errno, $errstr, 30);
-        if ($fp) {
-            $out = "POST $path HTTP/1.1\r\n";
-            $out .= "Host: $host\r\n";
-            $out .= "Content-Type: application/json\r\n";
-            $out .= "Content-Length: " . strlen($payload) . "\r\n";
-            $out .= "Connection: Close\r\n\r\n";
-            $out .= $payload;
-
-            fwrite($fp, $out);
-            fclose($fp);
-        }
-    }
 }
