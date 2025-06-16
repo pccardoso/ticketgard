@@ -24,6 +24,16 @@ export const getTimeCurrentUtils = () => {
 
 export const sendEmail = (data) => {
 
-    axios.post('https://webhooks.dantlab.com/webhook/testePobre', data);
+    axios.post('https://webhook.mundoevogard.com/webhook/notificacaoticketgard', data);
 
+}
+
+export const validateForm = (data, attributes, labels) => {
+  let fieldsErros = {};
+  let index = 0
+  for (let attr of attributes) {
+    !data[attr] || !data[attr][0] ? fieldsErros[attr] = "Preencha " + labels[index] : '';
+    index++;
+  }
+  return fieldsErros;
 }
