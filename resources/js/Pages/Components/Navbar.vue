@@ -533,6 +533,154 @@
       </svg>
    </Link>
 
+   <!--
+   <div class="fixed right-30 bottom-6 bg-white/50 w-[300px] p-4 rounded-4xl shadow-2xl backdrop-blur-md" @click="viewChat = true">
+      <div class="text-gray-500 inline-flex font-bold">
+         <svg class="w-6 h-6 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 13h3.439a.991.991 0 0 1 .908.6 3.978 3.978 0 0 0 7.306 0 .99.99 0 0 1 .908-.6H20M4 13v6a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-6M4 13l2-9h12l2 9"/>
+         </svg>
+         Chat rápido
+      </div>
+      <div v-if="viewChat" class="w-full h-[300px] rounded-2xl overflow-x-scroll pr-2">
+         
+         <div class="" v-if="!showMessage">
+
+            <div class="bg-white/40 rounded-4xl shadow-lg py-2 px-3 w-full text-gray-500 my-2 hover:bg-blue-500 transform duration-500 hover:text-white hover:cursor-pointer" @click="showMessage = !showMessages">
+               <svg class="w-6 h-6 inline-flex" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                  <path fill-rule="evenodd" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z" clip-rule="evenodd"/>
+               </svg>
+               Rafaela Borgues
+            </div>
+
+            <div class="bg-white/40 rounded-4xl shadow-lg py-2 px-3 w-full text-gray-500 my-2 hover:bg-blue-500 transform duration-500 hover:text-white hover:cursor-pointer" @click="showMessage = !showMessages">
+               <svg class="w-6 h-6 inline-flex" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                  <path fill-rule="evenodd" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z" clip-rule="evenodd"/>
+               </svg>
+               Rafaela Borgues
+            </div>
+
+            <div class="bg-white/40 rounded-4xl shadow-lg py-2 px-3 w-full text-gray-500 my-2 hover:bg-blue-500 transform duration-500 hover:text-white hover:cursor-pointer" @click="showMessage = !showMessages">
+               <svg class="w-6 h-6 inline-flex" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                  <path fill-rule="evenodd" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z" clip-rule="evenodd"/>
+               </svg>
+               Rafaela Borgues
+            </div>
+
+            <div class="bg-white/40 rounded-4xl shadow-lg py-2 px-3 w-full text-gray-500 my-2 hover:bg-blue-500 transform duration-500 hover:text-white hover:cursor-pointer" @click="showMessage = !showMessages">
+               <svg class="w-6 h-6 inline-flex" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                  <path fill-rule="evenodd" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z" clip-rule="evenodd"/>
+               </svg>
+               Rafaela Borgues
+            </div>
+
+            <div class="bg-white/40 rounded-4xl shadow-lg py-2 px-3 w-full text-gray-500 my-2 hover:bg-blue-500 transform duration-500 hover:text-white hover:cursor-pointer" @click="showMessage = !showMessages">
+               <svg class="w-6 h-6 inline-flex" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                  <path fill-rule="evenodd" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z" clip-rule="evenodd"/>
+               </svg>
+               Rafaela Borgues
+            </div>
+
+            <div class="bg-white/40 rounded-4xl shadow-lg py-2 px-3 w-full text-gray-500 my-2 hover:bg-blue-500 transform duration-500 hover:text-white hover:cursor-pointer" @click="showMessage = !showMessages">
+               <svg class="w-6 h-6 inline-flex" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                  <path fill-rule="evenodd" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z" clip-rule="evenodd"/>
+               </svg>
+               Rafaela Borgues
+            </div>
+
+            <div class="bg-white/40 rounded-4xl shadow-lg py-2 px-3 w-full text-gray-500 my-2 hover:bg-blue-500 transform duration-500 hover:text-white hover:cursor-pointer" @click="showMessage = !showMessages">
+               <svg class="w-6 h-6 inline-flex" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                  <path fill-rule="evenodd" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z" clip-rule="evenodd"/>
+               </svg>
+               Rafaela Borgues
+            </div>
+
+            <div class="bg-white/40 rounded-4xl shadow-lg py-2 px-3 w-full text-gray-500 my-2 hover:bg-blue-500 transform duration-500 hover:text-white hover:cursor-pointer" @click="showMessage = !showMessages">
+               <svg class="w-6 h-6 inline-flex" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                  <path fill-rule="evenodd" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z" clip-rule="evenodd"/>
+               </svg>
+               Rafaela Borgues
+            </div>
+
+            <div class="bg-white/40 rounded-4xl shadow-lg py-2 px-3 w-full text-gray-500 my-2 hover:bg-blue-500 transform duration-500 hover:text-white hover:cursor-pointer" @click="showMessage = !showMessages">
+               <svg class="w-6 h-6 inline-flex" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                  <path fill-rule="evenodd" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z" clip-rule="evenodd"/>
+               </svg>
+               Rafaela Borgues
+            </div>
+
+         </div>
+
+         <div v-if="showMessage" class="bg-white/50 backdrop-blur-md rounded-2xl border-1 border-gray-200 w-full h-full space-y-4 space-x-2 py-2 overflow-y-auto pr-2 pl-2">
+
+            <button @click="showMessage = !showMessage">Voltar</button>
+      
+
+            <div class="flex justify-start">
+               <div class="bg-gray-200 text-black px-4 py-2 rounded-lg rounded-tl-none max-w-[75%]">
+                  Olá! Como posso te ajudar?
+               </div>
+            </div>
+
+            <div class="flex justify-end">
+               <div class="bg-blue-500 text-white px-4 py-2 rounded-lg rounded-tr-none max-w-[75%]">
+                  Estou com um problema no sistema.
+               </div>
+            </div>
+
+            <div class="flex justify-start">
+               <div class="bg-gray-200 text-black px-4 py-2 rounded-lg rounded-tl-none max-w-[75%]">
+                  Olá! Como posso te ajudar?
+               </div>
+            </div>
+
+            <div class="flex justify-end">
+               <div class="bg-blue-500 text-white px-4 py-2 rounded-lg rounded-tr-none max-w-[75%]">
+                  Estou com um problema no sistema.
+               </div>
+            </div>
+
+            <div class="flex justify-start">
+               <div class="bg-gray-200 text-black px-4 py-2 rounded-lg rounded-tl-none max-w-[75%]">
+                  Olá! Como posso te ajudar?
+               </div>
+            </div>
+
+            <div class="flex justify-end">
+               <div class="bg-blue-500 text-white px-4 py-2 rounded-lg rounded-tr-none max-w-[75%]">
+                  Estou com um problema no sistema.
+               </div>
+            </div>
+
+            <div class="flex justify-start">
+               <div class="bg-gray-200 text-black px-4 py-2 rounded-lg rounded-tl-none max-w-[75%]">
+                  Olá! Como posso te ajudar?
+               </div>
+            </div>
+
+            <div class="flex justify-end">
+               <div class="bg-blue-500 text-white px-4 py-2 rounded-lg rounded-tr-none max-w-[75%]">
+                  Estou com um problema no sistema.
+               </div>
+            </div>
+
+            <div class="flex justify-start">
+               <div class="bg-gray-200 text-black px-4 py-2 rounded-lg rounded-tl-none max-w-[75%]">
+                  Olá! Como posso te ajudar?
+               </div>
+            </div>
+
+            <div class="flex justify-end">
+               <div class="bg-blue-500 text-white px-4 py-2 rounded-lg rounded-tr-none max-w-[75%]">
+                  Estou com um problema no sistema.
+               </div>
+            </div>
+
+         </div>
+
+      </div>
+   </div>
+   -->
+
 </template>
 
 <script>
@@ -554,6 +702,9 @@
       name:"Navbar",
       data(){
          return{
+            showContacts: true,
+            showMessage: false,
+            viewChat: false,
             permissao:[],
             user:Object,
             status: 0,
