@@ -7,7 +7,8 @@ export const useExampleStore = defineStore('example', {
         listSitChe: [],
         listPriChe: [],
         listUseChe: [],
-        listUseAbe: []
+        listUseAbe: [],
+        backgroundColor: ""
     }),
     actions: {
         /*setName(newName) {

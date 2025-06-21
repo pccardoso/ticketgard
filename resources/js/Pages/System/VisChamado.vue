@@ -8,8 +8,8 @@
 
     <TitlePage titulo="Histórico do Ticket"></TitlePage>
 
-    <div class="md:flex">
-        <ul class="flex-column space-y space-y-4 font-medium text-gray-500 md:me-4 mb-2 md:mb-0">
+    <div class="flex flex-col md:flex-col">
+        <ul class="flex space-x-4 font-medium text-gray-500 mb-4">
             <li>
                 <a @click="tab = 0" href="#"
                     class="inline-flex items-center px-4 py-3 rounded-lg hover:text-gray-900 bg-gray-50 hover:bg-gray-100 w-full  "
@@ -39,9 +39,9 @@
             </li>
 
         </ul>
-        <div class="p-6 bg-gray-100 text-gray-500  rounded-lg w-full ">
+        <div class="w-full">
 
-            <div class="bg-gray-200 pl-4 pr-4 pb-4 pt-3 rounded-2xl mb-2">
+            <div class="mb-2 flex justify-end gap-2 flex-wrap">
 
                 <ButtonSuccess @click="executarChamado()"
                     v-if="result['chamado'].id_user_chamados == user.id && (result['chamado'].status_chamados == 1 || result['chamado'].status_chamados == 3)"
@@ -56,7 +56,8 @@
                 </ButtonSuccess>
 
                 <ButtonSuccess @click="showModalFinish = true"
-                    v-if="(result['chamado'].id_user_chamados == user.id || user.type == 2 ) && result['chamado'].status_chamados == 2" class="inline-flex">
+                    v-if="(result['chamado'].id_user_chamados == user.id || user.type == 2) && result['chamado'].status_chamados == 2"
+                    class="inline-flex">
                     <svg class="w-6 h-6 text-white " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
                         height="24" fill="currentColor" viewBox="0 0 24 24">
                         <path fill-rule="evenodd"
@@ -67,7 +68,8 @@
                 </ButtonSuccess>
 
                 <ButtonDanger @click="showModalCloseInt()"
-                    v-if="result['chamado'].id_user_chamados == user.id && result['chamado'].status_chamados == 2" class="inline-flex">
+                    v-if="result['chamado'].id_user_chamados == user.id && result['chamado'].status_chamados == 2"
+                    class="inline-flex">
                     <svg class="w-6 h-6 text-white " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
                         height="24" fill="currentColor" viewBox="0 0 24 24">
                         <path fill-rule="evenodd"
@@ -80,76 +82,131 @@
             </div>
 
             <div v-show="tab == 0" class="text-base">
-                <h3 class="font-bold text-gray-900  mb-2">Detalhes do Ticket</h3>
 
-                <p>
-                    <span class="font-bold">Assunto:</span>
-                </p>
+                <div class="bg-white shadow-lg rounded-xl p-6 w-full mx-auto space-y-4 border border-gray-200">
 
-                <p>
-                    <span class="font-bold">Data de Abertura:</span> {{ validarData }}
-                </p>
+                    <h2 class="text-xl font-semibold text-gray-600">
+                        Informações do Ticket
+                    </h2>
 
-                <p>
-                    <span class="font-bold">Responsável pela abertura: </span> {{ result['chamado'].nome_criador_chamados }}
-                </p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-700">
 
-                <p class="bg-white p-2 rounded-sm my-1">
-                    <span v-html="result['chamado'].descricao_chamados"></span>
-                </p>
+                        <!-- ID do Ticket -->
+                        <div>
+                            <span class="text-gray-500">Código do Ticket:</span>
+                            <div class="font-medium text-gray-900">{{ `#${result['chamado'].id_chamados}` }}</div>
+                        </div>
 
-                <table v-if="anexos_chamado.length"
-                    class="w-full bg-white text-center text-base rounded-sm shadow-sm mt-3">
-                    <thead class="bg-blue-500 text-white">
-                        <tr>
-                            <th class="p-1">Cód</th>
-                            <th>Nome</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="(l, index) in anexos_chamado" class="border-b-1 border-blue-100">
-                            <td class="p-1">{{ l.id_file }}</td>
-                            <td>{{ l.caminho_file.split('/')[2] }}</td>
-                            <td class="inline-flex">
+                        <!-- Status -->
+                        <div>
+                            <span class="text-gray-500">Status:</span>
+                            <div>
+                                <span class="text-sm font-semibold px-2.5 py-0.5 rounded-full"
+                                    :class="text_status(result['chamado'].status_chamados)[0], text_status(result['chamado'].status_chamados)[1]">
+                                    {{ text_status(result['chamado'].status_chamados)[2] }}
+                                </span>
+                            </div>
+                        </div>
 
-                                <a :href="l.caminho_file" target="_blank" title="Baixar o anexo">
-                                    <svg class="w-[21px] h-[21px] text-gray-800 mr-2" aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                                        viewBox="0 0 24 24">
-                                        <path fill-rule="evenodd"
-                                            d="M13 11.15V4a1 1 0 1 0-2 0v7.15L8.78 8.374a1 1 0 1 0-1.56 1.25l4 5a1 1 0 0 0 1.56 0l4-5a1 1 0 1 0-1.56-1.25L13 11.15Z"
-                                            clip-rule="evenodd" />
-                                        <path fill-rule="evenodd"
-                                            d="M9.657 15.874 7.358 13H5a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2h-2.358l-2.3 2.874a3 3 0 0 1-4.685 0ZM17 16a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2H17Z"
-                                            clip-rule="evenodd" />
-                                    </svg>
-                                </a>
+                        <!-- Assunto -->
+                        <div>
+                            <span class="text-gray-500">Assunto:</span>
+                            <div class="font-medium text-gray-900">{{ result['chamado'].assunto_chamados }}</div>
+                        </div>
 
-                                <button
-                                    v-if="l.caminho_file.split('.')[1] == 'png' || l.caminho_file.split('.')[1] == 'jpg' || l.caminho_file.split('.')[1] == 'jpeg'"
-                                    @click="abrirModal(l.caminho_file)" class="Visualizar a imagem">
-                                    <svg class="w-[21px] h-[21px] text-gray-800" aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                                        viewBox="0 0 24 24">
-                                        <path fill-rule="evenodd"
-                                            d="M4.998 7.78C6.729 6.345 9.198 5 12 5c2.802 0 5.27 1.345 7.002 2.78a12.713 12.713 0 0 1 2.096 2.183c.253.344.465.682.618.997.14.286.284.658.284 1.04s-.145.754-.284 1.04a6.6 6.6 0 0 1-.618.997 12.712 12.712 0 0 1-2.096 2.183C17.271 17.655 14.802 19 12 19c-2.802 0-5.27-1.345-7.002-2.78a12.712 12.712 0 0 1-2.096-2.183 6.6 6.6 0 0 1-.618-.997C2.144 12.754 2 12.382 2 12s.145-.754.284-1.04c.153-.315.365-.653.618-.997A12.714 12.714 0 0 1 4.998 7.78ZM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
-                                            clip-rule="evenodd" />
-                                    </svg>
-                                </button>
+                        <!-- Responsável -->
+                        <div>
+                            <span class="text-gray-500">Responsável pela Abertura:</span>
+                            <div class="font-medium text-gray-900">{{ result['chamado'].nome_criador_chamados }}</div>
+                        </div>
 
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                        <!-- Data de criação -->
+                        <div>
+                            <span class="text-gray-500">Criado em:</span>
+                            <div class="font-medium text-gray-900">{{ validarData }}</div>
+                        </div>
+
+                        <!-- Data de criação -->
+                        <div>
+                            <span class="text-gray-500">Última atualização:</span>
+                            <div class="font-medium text-gray-900">{{ formatarData(result['chamado'].data_atualizado_chamados) }}
+                            </div>
+                        </div>
+
+                        <!-- CAMPO DE DESCRIÇÃO OCUPANDO TUDO -->
+                        <div class="md:col-span-3">
+                            <span class="text-gray-500">Descrição do ticket:</span>
+                            <div v-html="result['chamado'].descricao_chamados"
+                                class="bg-gray-50 border border-gray-300 rounded-lg p-3 text-gray-800 text-sm whitespace-pre-wrap">
+                            </div>
+                        </div>
+
+                        <!-- Área de Anexos -->
+                        <div class="md:col-span-3" v-if="anexos_chamado.length">
+
+                            <h2 class="text-xl font-semibold text-gray-600 mb-2">
+                                Anexos do Ticket
+                            </h2>
+
+                            <!-- Tabela de anexos -->
+                            <div class="overflow-x-auto">
+                                <table
+                                    class="min-w-full text-sm text-left text-gray-700 border border-gray-300 overflow-hidden">
+                                    <thead class="bg-gray-100 text-gray-600 uppercase text-xs">
+                                        <tr>
+                                            <th scope="col" class="px-4 py-2">Código</th>
+                                            <th scope="col" class="px-4 py-2">Nome do Arquivo</th>
+                                            <th scope="col" class="px-4 py-2">Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="(l, index) in anexos_chamado" class="border-b-1 border-blue-100">
+                                            <td class="p-1">{{ l.id_file }}</td>
+                                            <td>{{ l.caminho_file.split('/')[2] }}</td>
+                                            <td class="inline-flex">
+
+                                                <a :href="l.caminho_file" target="_blank" title="Baixar o anexo">
+                                                    <svg class="w-[21px] h-[21px] text-gray-800 mr-2" aria-hidden="true"
+                                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        fill="currentColor" viewBox="0 0 24 24">
+                                                        <path fill-rule="evenodd"
+                                                            d="M13 11.15V4a1 1 0 1 0-2 0v7.15L8.78 8.374a1 1 0 1 0-1.56 1.25l4 5a1 1 0 0 0 1.56 0l4-5a1 1 0 1 0-1.56-1.25L13 11.15Z"
+                                                            clip-rule="evenodd" />
+                                                        <path fill-rule="evenodd"
+                                                            d="M9.657 15.874 7.358 13H5a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2h-2.358l-2.3 2.874a3 3 0 0 1-4.685 0ZM17 16a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2H17Z"
+                                                            clip-rule="evenodd" />
+                                                    </svg>
+                                                </a>
+
+                                                <button
+                                                    v-if="l.caminho_file.split('.')[1] == 'png' || l.caminho_file.split('.')[1] == 'jpg' || l.caminho_file.split('.')[1] == 'jpeg'"
+                                                    @click="abrirModal(l.caminho_file)" class="Visualizar a imagem">
+                                                    <svg class="w-[21px] h-[21px] text-gray-800" aria-hidden="true"
+                                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        fill="currentColor" viewBox="0 0 24 24">
+                                                        <path fill-rule="evenodd"
+                                                            d="M4.998 7.78C6.729 6.345 9.198 5 12 5c2.802 0 5.27 1.345 7.002 2.78a12.713 12.713 0 0 1 2.096 2.183c.253.344.465.682.618.997.14.286.284.658.284 1.04s-.145.754-.284 1.04a6.6 6.6 0 0 1-.618.997 12.712 12.712 0 0 1-2.096 2.183C17.271 17.655 14.802 19 12 19c-2.802 0-5.27-1.345-7.002-2.78a12.712 12.712 0 0 1-2.096-2.183 6.6 6.6 0 0 1-.618-.997C2.144 12.754 2 12.382 2 12s.145-.754.284-1.04c.153-.315.365-.653.618-.997A12.714 12.714 0 0 1 4.998 7.78ZM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
+                                                            clip-rule="evenodd" />
+                                                    </svg>
+                                                </button>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
 
             </div>
 
             <div v-show="tab == 1">
 
-                <ol class="mt-3 relative border border-gray-300 rounded-sm shadow bg-white">
+                <ol class="relative border border-gray-300 bg-white shadow-lg rounded-xl">
 
-                    <div class="p-4 space-y-4 w-full h-150 overflow-x-auto w-s" ref="bomessage">
+                    <div class="p-4 space-y-4 w-full h-110 overflow-x-auto w-s rounded-t-xl" ref="bomessage" :style="`background-color: ${backgroundChat.backgroundColor}`">
 
                         <template v-if="manifestacoes">
 
@@ -158,17 +215,24 @@
                                 <!-- Mensagem da esquerda -->
                                 <div v-show="l.id_user_manifestacoes != user.id && l.id_user_manifestacoes"
                                     class="flex justify-start">
-                                    <div class="bg-gray-200  text-gray-800 p-3 rounded-lg max-w-[500px] transition hover:ml-2 shadow-sm"
+                                    <div class="bg-gray-200 text-gray-800 p-3 rounded-lg max-w-[500px] hover:ml-3 hover:bg-gray-300 duration-500 shadow-sm"
                                         :class="l.tipo == '2' ? 'bg-red-300' : ''">
                                         <p class="text-black font-bold">{{ l.name }}</p>
-                                        {{ l.descricao_manifestacoes }} <br>
 
+                                        <p class="py-1">{{ l.descricao_manifestacoes }}</p>
 
                                         <template v-if="l.anexo_manifestacoes">
 
+                                            <img v-if="l.anexo_manifestacoes.split('.')[1] == 'png' || l.anexo_manifestacoes.split('.')[1] == 'jpg' || l.anexo_manifestacoes.split('.')[1] == 'jpeg'"
+                                                :src="l.anexo_manifestacoes"
+                                                class="rounded-sm w-60 h-60 object-cover object-center"
+                                                @click="abrirModal(l.anexo_manifestacoes)">
+
+                                            <audio v-if="l.anexo_manifestacoes.split('.')[1] == 'ogg'" :src="l.anexo_manifestacoes" controls></audio>
+
                                             <a :href="l.anexo_manifestacoes" target="_blank"
-                                                class="inline-flex bg-gray-600 text-white p-2 rounded-sm mt-2 text-sm mb-2">
-                                                <svg class="w-6 h-6 text-white " aria-hidden="true"
+                                                class="inline-flex text-sm">
+                                                <svg class="w-6 h-6" aria-hidden="true"
                                                     xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                     fill="currentColor" viewBox="0 0 24 24">
                                                     <path fill-rule="evenodd"
@@ -181,13 +245,7 @@
                                                 {{ l.anexo_manifestacoes.split('/')[2] }}
                                             </a>
 
-                                            <img v-if="l.anexo_manifestacoes.split('.')[1] == 'png' || l.anexo_manifestacoes.split('.')[1] == 'jpg' || l.anexo_manifestacoes.split('.')[1] == 'jpeg'"
-                                                :src="l.anexo_manifestacoes"
-                                                class="rounded-sm w-60 h-60 object-cover object-center"
-                                                @click="abrirModal(l.anexo_manifestacoes)">
-
                                         </template>
-
 
                                         <p class="inline-flex mt-2 text-sm">
                                             <IconClock /> {{ formatDatTex(l.data_cadastro_manifestacoes) }}
@@ -198,16 +256,21 @@
                                 <!-- Mensagem da direita -->
                                 <div v-show="user.id == l.id_user_manifestacoes" class="flex justify-end">
                                     <div
-                                        class="bg-green-200 text-gray-800 p-3 rounded-lg max-w-xs transition hover:mr-2 shadow-sm ">
+                                        class="bg-green-200 text-gray-800 p-3 rounded-lg max-w-xs hover:mr-3 hover:bg-green-300 duration-500 shadow-sm ">
                                         <p class="text-black font-bold">{{ l.name }}</p>
-                                        {{ l.descricao_manifestacoes }} <br>
-
+                                        <p class="py-1">{{ l.descricao_manifestacoes }}</p>
 
                                         <template v-if="l.anexo_manifestacoes">
 
-                                            <a :href="l.anexo_manifestacoes" target="_blank"
-                                                class="inline-flex bg-gray-600 text-white p-2 rounded-sm mt-2 text-sm mb-2">
-                                                <svg class="w-6 h-6 text-white " aria-hidden="true"
+                                            <img v-if="l.anexo_manifestacoes.split('.')[1] == 'png' || l.anexo_manifestacoes.split('.')[1] == 'jpg' || l.anexo_manifestacoes.split('.')[1] == 'jpeg'"
+                                                :src="l.anexo_manifestacoes" class="rounded-sm"
+                                                @click="abrirModal(l.anexo_manifestacoes)">
+
+                                            <audio v-if="l.anexo_manifestacoes.split('.')[1] == 'ogg'" :src="l.anexo_manifestacoes" controls></audio>
+
+                                            <a :href="l.anexo_manifestacoes" target="_blank" title="Baixar anexo"
+                                                class="inline-flex text-sm">
+                                                <svg class="w-6 h-6" aria-hidden="true"
                                                     xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                     fill="currentColor" viewBox="0 0 24 24">
                                                     <path fill-rule="evenodd"
@@ -220,14 +283,9 @@
                                                 {{ l.anexo_manifestacoes.split('/')[2] }}
                                             </a>
 
-                                            <img v-if="l.anexo_manifestacoes.split('.')[1] == 'png' || l.anexo_manifestacoes.split('.')[1] == 'jpg' || l.anexo_manifestacoes.split('.')[1] == 'jpeg'"
-                                                :src="l.anexo_manifestacoes" class="rounded-sm"
-                                                @click="abrirModal(l.anexo_manifestacoes)">
-
                                         </template>
 
-
-                                        <p class="inline-flex mt-2 text-sm">
+                                        <p class="inline-flex text-sm">
                                             <IconClock /> {{ formatDatTex(l.data_cadastro_manifestacoes) }}
                                         </p>
                                     </div>
@@ -235,8 +293,6 @@
 
                                 <!-- Mensagem do sistema -->
                                 <div v-show="!l.id_user_manifestacoes" class="flex justify-center">
-
-
 
                                     <div v-if="l.tipo_manifestacoes == 3"
                                         class="bg-red-200 text-gray-900 p-3 rounded-lg max-w-xs text-center">
@@ -293,60 +349,121 @@
                         </label>
                     </div>
 
-                    <div class="grid gap-4 m-4 md:grid-cols-4">
+                    <div class="m-4 space-y-2">
 
-                        <!-- Campo de Texto -->
-                        <textarea title="Pressione Enter para enviar..." id="eDesMan"
+                        <!-- Textarea largo -->
+                        <textarea v-show="!isRecording" title="Pressione Enter para enviar..." id="eDesMan" ref="eDesMan"
                             @keyup.enter="salvarManifestacao()"
-                            class="bg-gray-50 border-gray-500 border-2 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
-                            rows="1" placeholder="Digite sua mensagem..."></textarea>
-
-                        <!-- Input de Arquivo -->
-                        <input type="file" hidden id="fileInput2" @change="handleFileChange"
-                            class="bg-gray-50 border-2 border-gray-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full">
-
-                        <label for="fileInput2"
-                            class="bg-blue-600 h-10 rounded-lg hover:bg-blue-800 inline-flex text-white p-2"
-                            title="Selecionar anexo?">
-                            <svg class="w-6 h-6 text-white " aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M7 8v8a5 5 0 1 0 10 0V6.5a3.5 3.5 0 1 0-7 0V15a2 2 0 0 0 4 0V8" />
-                            </svg>
-                            Anexo
-                        </label>
-
-                        <!-- Botão de Envio -->
-                        <button title="Enviar mensagem"
-                            class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-800 inline-flex"
-                            @click="salvarManifestacao()" :disabled="form_temp.processing">
-                            <svg class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2" d="M5 11.917 9.724 16.5 19 7.5" />
-                            </svg>
-
-                            Enviar
-                        </button>
-
-                        <!-- Botão de Atualizar o Chat -->
-                        <button title="Atualizar"
-                            class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-800 inline-flex"
-                            @click="atualizarManifestacoes()">
-
-                            <svg class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M17.651 7.65a7.131 7.131 0 0 0-12.68 3.15M18.001 4v4h-4m-7.652 8.35a7.13 7.13 0 0 0 12.68-3.15M6 20v-4h4" />
-                            </svg>
+                            class="bg-gray-50 border-gray-400 border-2 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 focus:h-[100px] block w-full p-2 resize-none h-[40px] duration-300"
+                            rows="3" placeholder="Digite sua mensagem...">
+                        </textarea>
 
 
-                            Atualizar
-                        </button>
+                        <!-- Linha com botões alinhados à direita -->
+                        <div class="flex justify-end gap-2">
 
+                            <!-- Input de arquivo (escondido) -->
+                            <input type="file" hidden id="fileInput2" @change="handleFileChange">
+
+                            <!-- Botão de Enviar -->
+                            <button v-if="!isRecording && !tema" title="Gravar Áudio"
+                                class="bg-red-500 h-10 w-10 rounded-lg hover:bg-red-800 duration-500 flex items-center justify-center"
+                                @click="gravarAudio()" :disabled="form_temp.processing">
+                                <svg class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                    width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M19 9v3a5.006 5.006 0 0 1-5 5h-4a5.006 5.006 0 0 1-5-5V9m7 9v3m-3 0h6M11 3h2a3 3 0 0 1 3 3v5a3 3 0 0 1-3 3h-2a3 3 0 0 1-3-3V6a3 3 0 0 1 3-3Z" />
+                                </svg>
+                            </button>
+
+                            <label v-if="isRecording && !tema" for="isRecording" class="inline-flex items-center animate-pulse">
+                                <svg class="w-6 h-6 text-red-600 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                    width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                    <path fill-rule="evenodd"
+                                        d="M5 8a1 1 0 0 1 1 1v3a4.006 4.006 0 0 0 4 4h4a4.006 4.006 0 0 0 4-4V9a1 1 0 1 1 2 0v3.001A6.006 6.006 0 0 1 14.001 18H13v2h2a1 1 0 1 1 0 2H9a1 1 0 1 1 0-2h2v-2H9.999A6.006 6.006 0 0 1 4 12.001V9a1 1 0 0 1 1-1Z"
+                                        clip-rule="evenodd" />
+                                    <path d="M7 6a4 4 0 0 1 4-4h2a4 4 0 0 1 4 4v5a4 4 0 0 1-4 4h-2a4 4 0 0 1-4-4V6Z" />
+                                </svg>
+                                Gravando
+                            </label>
+
+                            <!-- Cancelar Áudio -->
+                            <button title="Cancelar envio" v-if="isRecording && !tema"
+                                class="bg-red-600 h-10 w-10 rounded-lg hover:bg-blue-800 flex items-center justify-center"
+                                @click="cancelRecording()">
+                                <svg class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                    width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6" />
+                                </svg>
+                            </button>
+
+                            <!-- Botão de enviar áudio -->
+                            <button title="Enviar Áudio" v-if="isRecording && !tema"
+                                class="bg-green-600 h-10 w-10 rounded-lg hover:bg-blue-800 flex items-center justify-center"
+                                @click="stopRecording()" :disabled="form_temp.processing">
+                                <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 11.917 9.724 16.5 19 7.5" />
+                                </svg>
+                            </button>
+
+                            <!-- Botão de enviar mensagem textual -->
+                            <button title="Enviar mensagem" v-if="!isRecording && !tema"
+                                class="bg-blue-600 h-10 w-10 rounded-lg hover:bg-blue-800 flex items-center justify-center"
+                                @click="salvarManifestacao()" :disabled="form_temp.processing">
+                                <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 11.917 9.724 16.5 19 7.5" />
+                                </svg>
+                            </button>
+
+                            <!-- Botão de Anexo -->
+                            <label for="fileInput2" v-if="!isRecording && !tema"
+                                class="bg-blue-600 h-10 w-10 rounded-lg hover:bg-blue-800 flex items-center justify-center"
+                                title="Selecionar anexo?">
+                                <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M7 8v8a5 5 0 1 0 10 0V6.5a3.5 3.5 0 1 0-7 0V15a2 2 0 0 0 4 0V8" />
+                                </svg>
+                            </label>
+
+                            <!-- Botão de Atualizar -->
+                            <button title="Atualizar" v-if="!isRecording && !tema"
+                                class="bg-blue-600 h-10 w-10 rounded-lg hover:bg-blue-800 flex items-center justify-center"
+                                @click="atualizarManifestacoes()">
+                                <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M17.651 7.65a7.131 7.131 0 0 0-12.68 3.15M18.001 4v4h-4m-7.652 8.35a7.13 7.13 0 0 0 12.68-3.15M6 20v-4h4" />
+                                </svg>
+                            </button>
+
+                            <!-- Botão de Tema -->
+                            <button v-if="!tema && !isRecording" title="Tema"
+                                class="bg-blue-600 h-10 w-10 rounded-lg hover:bg-blue-800 flex items-center justify-center"
+                                @click="tema = !tema">
+                                <svg class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M19.9999 18.0661c0 1.6203-1.3431 2.9339-3 2.9339-1.6568 0-3-1.3136-3-2.9339 0-1.6204 3-6.0661 3-6.0661s3 4.4457 3 6.0661Z"/>
+                                <path fill="currentColor" fill-rule="evenodd" d="M10.4817 7.52489 9.12238 10.9817H11.841l-1.3593-3.45681Zm3.7494 4.06961-2.7166-6.90843c-.3694-.93918-1.69627-.93917-2.06558 0L6.76269 11.5173c-.03333.0634-.06004.1309-.07922.2014l-1.28309 3.263h-.41869c-.55229 0-1 .4477-1 1s.44771 1 1 1h2.75c.55228 0 1-.4477 1-1s-.44772-1-1-1h-.18223l.78646-2h4.29158l.3676.9349c.2021.514.7826.7668 1.2966.5647.514-.2021.7668-.7826.5647-1.2966l-.6085-1.5473c-.0053-.0144-.0109-.0287-.0168-.0429Z" clip-rule="evenodd"/>
+                                </svg>
+                            </button>
+
+                            <input v-if="tema" title="Selecione a cor do chat." type="color" v-model="backgroundChat.backgroundColor" placeholder="Cor do box">
+
+                            <!-- Cancelar Cor -->
+                            <button title="Fechar" v-if="tema"
+                                class="bg-red-600 h-10 w-10 rounded-lg hover:bg-blue-800 flex items-center justify-center"
+                                @click="tema = !tema">
+                                <svg class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                    width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6" />
+                                </svg>
+                            </button>
+                        </div>
                     </div>
+
 
                     <div v-if="anexo_manifestacoes.name" class=" m-4 rounded-lg ">
                         <div class="flex items-center justify-between p-2  bg-green-500 rounded-md shadow">
@@ -361,7 +478,7 @@
                                 {{ anexo_manifestacoes.name }}
                             </span>
                             <button class="text-red-600 hover:text-red-800 font-semibold" title="Remover anexo"
-                                @click="removerAnexo()">
+                                @click="removerAnexo()" v-if="!form_temp.processing">
                                 <svg class="w-6 h-6 text-white " aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                     width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                                     <path fill-rule="evenodd"
@@ -574,6 +691,7 @@ import { formatDateTexPtHelpers } from "../../../helpers/format.js";
 import { Head } from '@inertiajs/vue3';
 import Swal from 'sweetalert2';
 import { sendEmail } from '../../../helpers/utils.js';
+import { useExampleStore } from "../../../store/store.js";
 
 export default {
     name: "VisChamado",
@@ -596,7 +714,15 @@ export default {
             tObsTransf: "",
             showModalFinish: false,
             optionFinish: 0,
-            showHistoryNotification: false
+            showHistoryNotification: false,
+            mediaRecorder: null,
+            audioChunks: [],
+            isRecording: false,
+            audioFile: null,
+            descricao_temp: "",
+            saveAudio: false,
+            tema: false,
+            backgroundChat: ""
         }
     },
     props: {
@@ -607,7 +733,7 @@ export default {
     },
     mounted() {
 
-        console.log("Teste: ", this.result);
+        this.backgroundChat = useExampleStore();
 
         this.user = usePage().props.auth.user
 
@@ -668,12 +794,13 @@ export default {
 
         this.listarAnexo()
 
+        eDesMan.value = "";
+
     },
     beforeMount() {
         axios.post("/lis/manifestacoes/" + this.result['chamado'].id_chamados).
             then((result) => {
                 this.manifestacoes = result.data.lista
-                console.log(this.manifestacoes)
             }).
             catch((erro) => {
                 console.log(erro)
@@ -688,7 +815,6 @@ export default {
             // Aqui estamos manipulando a mudança do input do tipo "file"
             const file = event.target.files[0];
             this.anexo_manifestacoes = file; // Definimos o arquivo no form
-            console.log(this.anexo_manifestacoes)
         },
         executarChamado() {
             this.form_temp = useForm({
@@ -766,11 +892,11 @@ export default {
         },
         salvarManifestacao() {
 
-            if (eDesMan.value.length >= 2) {
+            if (eDesMan.value.length >= 2 || this.descricao_temp) {
 
                 this.form_temp = useForm({
                     id_chamados: this.result['chamado'].id_chamados,
-                    descricao_manifestacoes: eDesMan.value,
+                    descricao_manifestacoes: eDesMan.value || this.descricao_temp,
                     id_users: this.user.id,
                     anexo_manifestacoes: this.anexo_manifestacoes
                 });
@@ -796,9 +922,9 @@ export default {
                         eDesMan.value = "";
                         fileInput2.value = "";
                         this.anexo_manifestacoes = "";
+                        this.descricao_temp = "";
                         this.atualizarManifestacoes();
 
-                        
 
                     }
                 })
@@ -901,7 +1027,92 @@ export default {
                 Swal.fire("Atenção!", "As observações e opções são obrigatórias!", "warning");
             }
 
+        },
+        formatarData(data) {
+            const dTemp = new Date(data);
+
+            const formatada = dTemp.toLocaleString("pt-BR", {
+                day: "2-digit",
+                month: "long",
+                year: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit"
+            });
+            return formatada;
+        },
+        text_status(status) {
+            switch (status) {
+                case 0: return ["text-red-500", "bg-red-100", "Aberto"]; break;
+                case 1: return ["text-yellow-500", "bg-yellow-100", "Encaminhado"]; break;
+                case 2: return ["text-green-500", "bg-green-100", "Execução"]; break;
+                case 3: return ["text-red-500", "bg-red-100", "Pendente"]; break;
+                case 4: return ["text-blue-500", "bg-blue-100", "Resolvido"]; break;
+                case 5: return ["text-red-500", "bg-red-100", "Não Resolvido"]; break;
+                case 6: return ["text-blue-500", "bg-blue-100", "Sem Retorno"]; break;
+            }
+        },
+        async gravarAudio() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                this.audioChunks = [];
+                this.mediaRecorder = new MediaRecorder(stream);
+
+                this.mediaRecorder.ondataavailable = (e) => this.audioChunks.push(e.data);
+
+                this.mediaRecorder.onstop = () => {
+
+                    if (!this.saveAudio) {
+                        this.audioChunks = [];
+                        return; // <-- sai daqui sem salvar nem enviar
+                    }
+
+                    const audioBlob = new Blob(this.audioChunks, { type: 'audio/ogg' });
+                    // Cria o File com nome, tipo e data
+                    this.anexo_manifestacoes = new File([audioBlob], 'gravacao.ogg', {
+                        type: 'audio/ogg',
+                        lastModified: new Date().getTime(),
+                    });
+
+                    this.descricao_temp = "Mensagem de áudio";
+                    this.salvarManifestacao();
+
+                };
+
+                this.mediaRecorder.start();
+                this.isRecording = true;
+            }catch(error){
+                // Erro ao acessar microfone
+                if (error.name === 'NotAllowedError') {
+                alert("Permissão de microfone negada.");
+                } else if (error.name === 'NotFoundError') {
+                alert("Nenhum dispositivo de áudio foi encontrado.");
+                } else {
+                alert("Erro ao iniciar gravação: " + error.message);
+                }
+                // Opcional: limpa estado
+                this.mediaRecorder = null;
+                this.audioChunks = [];
+                this.saveAudio = false;
+                this.isRecording = false;
+            }
+        },
+
+        stopRecording() {
+            this.saveAudio = true;
+            if (this.mediaRecorder && this.isRecording) {
+                this.mediaRecorder.stop();
+                this.isRecording = false;
+            }
+        },
+        cancelRecording(){
+            this.saveAudio = false;
+            if (this.mediaRecorder && this.isRecording) {
+                this.mediaRecorder.stop();
+                this.isRecording = false;
+            }
         }
+
     },
     computed: {
 

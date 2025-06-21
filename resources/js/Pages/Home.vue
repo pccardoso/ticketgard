@@ -48,6 +48,10 @@
         name:"Home",
         data(){
           return{
+            mediaRecorder: null,
+      audioChunks: [],
+      audioUrl: null,
+      isRecording: false,
             temp_table:Object,
             page: false,
             series: [{ name: "Total Aberto", data: [] }],
