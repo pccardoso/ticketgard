@@ -189,17 +189,14 @@
                                                             clip-rule="evenodd" />
                                                     </svg>
                                                 </button>
-
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-
                     </div>
                 </div>
-
             </div>
 
             <div v-show="tab == 1">
@@ -1097,7 +1094,6 @@ export default {
                 this.isRecording = false;
             }
         },
-
         stopRecording() {
             this.saveAudio = true;
             if (this.mediaRecorder && this.isRecording) {
