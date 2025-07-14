@@ -63,7 +63,7 @@
 
             <div class="relative z-10">
                 <label>Responsável por Abertura:</label>
-                <SelectGenericSearch :lista="listUsuario" v-model="getStoreFilter.listUseAbe" :config="configSelUsu"></SelectGenericSearch>
+                <SelectGenericSearch :lista="listUsuario" v-model="listUseAbe" :config="configSelUsu"></SelectGenericSearch>
             </div>
             
         </div>
@@ -696,7 +696,7 @@
                     resp: this.getStoreFilter.listUseChe,
                     lis_dep: this.user.department,
                     id_user: "",
-                    aber: this.getStoreFilter.listUseAbe
+                    aber: this.listUseAbe
                 }).
                 then((result)=>{
 

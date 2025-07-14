@@ -108,6 +108,7 @@
         watch:{
             select(){
                 this.$emit('update:modelValue', this.select)
+                console.log("mudou")
             }
         }
     }

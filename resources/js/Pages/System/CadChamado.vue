@@ -42,6 +42,10 @@
                 <editor-content :editor="editor" class="overflow-auto"/>
             </div>
 
+            <div class="bg-blue-100 border border-blue-300 text-blue-800 px-4 py-3 rounded-lg mb-4 flex items-center my-5" role="alert">
+                <span>A <strong>edição do ticket</strong> está disponível <strong>apenas enquanto estiver aberto</strong>. Depois de atribuído a um atendente, não será mais possível alterar as informações.</span>
+            </div>
+
             <div class="grid gap-6 mb-6 md:grid-cols-3">
 
                 <div>
@@ -199,32 +203,34 @@
 
             
             },
-
             cadastrar(){
-                
-                if(this.form_temp.assunto_chamados && this.form_temp.id_departamento_chamados && this.form_temp.id_solicitacao_chamados){
-                    this.form_temp.descricao_chamados = this.conteudo                    
-                    this.form_temp.post("/cad/cha", {
-                        preserveScroll:true,
-                        onSuccess:()=>{
-                            Toast.fire({
-                                icon: "success",
-                                title: "Cadastrado com sucesso!"
-                            });
-                            this.form_temp.reset("assunto_chamados")
-                            this.form_temp.reset("id_departamento_chamados")
-                            this.form_temp.reset("id_solicitacao_chamados")
-                            this.form_temp.reset("descricao_chamados")
-                            this.form_temp.reset("file")
-                            file.value = ""
+                try{
+                    if(this.form_temp.assunto_chamados && this.form_temp.id_departamento_chamados && this.form_temp.id_solicitacao_chamados){
+                        this.form_temp.descricao_chamados = this.conteudo                    
+                        this.form_temp.post("/cad/cha", {
+                            preserveScroll:true,
+                            onSuccess:()=>{
+                                Toast.fire({
+                                    icon: "success",
+                                    title: "Cadastrado com sucesso!"
+                                });
+                                this.form_temp.reset("assunto_chamados")
+                                this.form_temp.reset("id_departamento_chamados")
+                                this.form_temp.reset("id_solicitacao_chamados")
+                                this.form_temp.reset("descricao_chamados")
+                                this.form_temp.reset("file")
+                                file.value = ""
 
-                        },
-                        onError:(erro)=>{
-                            console.log(erro);
-                        }
-                    })
-                }else{
-                    Swal.fire("Atenção", "Todos os campos são obrigatórios!", "error");
+                            },
+                            onError:(erro)=>{
+                                alert(`Erro: ${erro}`);
+                            }
+                        })
+                    }else{
+                        Swal.fire("Atenção", "Todos os campos são obrigatórios!", "error");
+                    }
+                }catch(error){
+                    alert(`Erro: ${error}`);
                 }
 
             },

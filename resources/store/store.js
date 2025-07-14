@@ -7,7 +7,6 @@ export const useExampleStore = defineStore('example', {
         listSitChe: [],
         listPriChe: [],
         listUseChe: [],
-        listUseAbe: [],
         backgroundColor: ""
     }),
     actions: {
