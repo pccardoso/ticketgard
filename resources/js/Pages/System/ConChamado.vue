@@ -58,7 +58,7 @@
 
             <div class="relative z-10">
                 <label>Responsável por Atendimento:</label>
-                <SelectGenericSearch :lista="listUsuario" v-model="getStoreFilter.listUseChe" :config="configSelUsu"></SelectGenericSearch>
+                <SelectGenericSearch :lista="listUsuario" v-model="listUseChe" :config="configSelUsu"></SelectGenericSearch>
             </div>
 
             <div class="relative z-10">
@@ -693,7 +693,7 @@
                     deps: this.getStoreFilter.listDepChe,
                     prio: this.getStoreFilter.listPriChe,
                     sits: this.getStoreFilter.listSitChe,
-                    resp: this.getStoreFilter.listUseChe,
+                    resp: this.listUseChe,
                     lis_dep: this.user.department,
                     id_user: "",
                     aber: this.listUseAbe
