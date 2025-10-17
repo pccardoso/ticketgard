@@ -54,7 +54,7 @@ export default {
       mediaRecorder: null,
       audioChunks: [],
       audioUrl: null,
-      showModal: true,
+      showModal: false,
       isRecording: false,
       temp_table: Object,
       page: false,
