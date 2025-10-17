@@ -62,27 +62,32 @@
                 </div>
             </div>
 
-            <div class="p-2 bg-gray-200 rounded-2xl w-110" v-if="this.form_temp.file.length">
+            <div v-if="form_temp.file.length" class="p-3 bg-gray-100 rounded-2xl w-110 shadow-inner">
 
-                <div class="text-center">
-                    <label>{{ atualizarQuanFiles }}</label>
-                </div>
+    <div class="text-center mb-3">
+        <span class="text-gray-700 font-medium">{{ atualizarQuanFiles }}</span>
+    </div>
 
-                <div v-for="(f, index) in form_temp.file" class="m-2 rounded-3xl pl-3 pr-3 pt-2 pb-2 bg-blue-500 text-white shadow-sm">
+    <div v-for="(f, index) in form_temp.file" :key="index"
+        class="flex items-center justify-between p-3 mb-2 bg-white rounded-xl shadow hover:shadow-lg transition-shadow duration-200">
 
-                    <label class="inline-flex">
-                        <svg class="w-5 h-5 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                            <path fill-rule="evenodd" d="M9 2.221V7H4.221a2 2 0 0 1 .365-.5L8.5 2.586A2 2 0 0 1 9 2.22ZM11 2v5a2 2 0 0 1-2 2H4v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-7Z" clip-rule="evenodd"/>
-                        </svg>
-                        {{ f.name }}
-                        <svg title="Remover anexo!" @click="excluirAnexo(index)" class="w-5 h-5 text-red-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
-                        </svg>
+        <div class="flex items-center gap-2">
+            <svg class="w-5 h-5 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                <path fill-rule="evenodd" d="M9 2.221V7H4.221a2 2 0 0 1 .365-.5L8.5 2.586A2 2 0 0 1 9 2.22ZM11 2v5a2 2 0 0 1-2 2H4v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-7Z" clip-rule="evenodd"/>
+            </svg>
+            <span class="text-gray-800 font-medium truncate max-w-[180px]">{{ f.name }}</span>
+        </div>
 
-                    </label>
-                </div>
+        <div @click="excluirAnexo(index)" class="p-1 rounded-full hover:bg-red-100 cursor-pointer transition-colors">
+            <svg class="w-5 h-5 text-red-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
+            </svg>
+        </div>
 
-            </div>
+    </div>
+
+</div>
+
 
             <br>
 
