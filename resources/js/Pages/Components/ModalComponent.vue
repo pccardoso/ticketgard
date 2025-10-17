@@ -22,13 +22,13 @@
                 </button>
 
                 <!-- Header com foto e texto -->
-                <div class="bg-blue-700 p-6 rounded-t-2xl shadow-b mb-4 flex flex-col md:flex-row items-center gap-6">
+                <div class="bg-green-700 p-6 rounded-t-2xl shadow-b mb-4 flex flex-col md:flex-row items-center gap-6">
                     <div class="flex-shrink-0">
-                        <img src="https://s2-oglobo.glbimg.com/uMVci1cIhR-98RN8rnVeJgXiHMc=/0x0:4530x2892/888x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_da025474c0c44edd99332dddb09cabe8/internal_photos/bs/2025/n/a/ygvHt7ScWiEVmjoXNZ7w/99923500-files-in-this-file-photo-taken-on-april-03-2022-us-singer-songwriter-lady-gaga-arrives.jpg"
-                            alt="Foto do instrutor" class="rounded-full w-30 h-30 object-cover shadow-lg">
+                        <img src="../../../img/paulo.jpeg"
+                            alt="Foto do instrutor" class="rounded-full w-30 h-30 object-cover shadow-lg border-white border-2">
                     </div>
                     <div>
-                        <h2 class="text-xl font-bold text-white mb-2">Pesquisa de Campo - Workshop de Desenvolvimento</h2>
+                        <h2 class="text-xl font-bold text-white mb-2">Pesquisa de Campo - Workshop de Programação</h2>
                         <p class=" text-neutral-100">Desenvolvido por Paulo Cesar - Tecnologia</p>
                     </div>
                 </div>
@@ -37,7 +37,6 @@
                 <div class="px-14 pt-6 pb-6">
                     <div id="workshopForm" class="space-y-4">
 
-                        <h2 class="text-xl font-bold mb-2">Workshop de Linguagem de Programação - Desmetificando esse mercado!</h2>
 
                         <div class="text-[12pt] text-justify" v-if="!showForm">
                             <p>
@@ -58,7 +57,7 @@
                             <div class="flex justify-center space-x-4 pt-4">
 
                                 <button class="w-32 bg-red-500 hover:bg-red-600 text-white py-3 rounded-lg font-semibold transition-all " >Não, obrigado!</button>
-                                <button class="w-42 bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-lg font-semibold transition-all " @click="showForm = true">Sim, quero participar!</button>
+                                <button class="w-42 bg-green-500 hover:bg-green-600 text-white py-3 rounded-lg font-semibold transition-all" @click="showForm = true">Sim, quero participar!</button>
 
                             </div>
                         </div>
@@ -66,20 +65,20 @@
                         <div v-if="showForm" class="grid grid-cols-2 gap-4">
                             <div>
                                 <label for="name" class="block font-medium text-slate-700 mb-1">Nome completo</label>
-                                <input type="text" id="name" name="name" required
+                                <input type="text" id="name" name="name" required v-model="dataForm.name"
                                     class="w-full p-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
                             </div>
 
                             <div>
                                 <label for="email" class="block font-medium text-slate-700 mb-1">Whatsapp:</label>
-                                <input type="email" id="email" name="email" required
+                                <input type="email" id="email" name="email" required v-model="dataForm.whatsapp"
                                     class="w-full p-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
                             </div>
 
                             <div>
                                 <label for="knowWorkshop" class="block font-medium text-slate-700 mb-1">Você já sabe o
                                     que é um workshop?</label>
-                                <select id="knowWorkshop" name="knowWorkshop" required
+                                <select id="knowWorkshop" name="knowWorkshop" required v-model="dataForm.question_1"
                                     class="w-full p-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
                                     <option value="">Selecione...</option>
                                     <option value="sim">Sim</option>
@@ -90,7 +89,7 @@
                             <div>
                                 <label for="participatedWorkshop" class="block font-medium text-slate-700 mb-1">Você já
                                     participou de algum workshop antes?</label>
-                                <select id="participatedWorkshop" name="participatedWorkshop" required
+                                <select id="participatedWorkshop" name="participatedWorkshop" required v-model="dataForm.question_2"
                                     class="w-full p-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
                                     <option value="">Selecione...</option>
                                     <option value="sim">Sim</option>
@@ -101,7 +100,7 @@
                             <div>
                                 <label for="interestProgramming" class="block font-medium text-slate-700 mb-1">Você tem
                                     interesse em aprender programação?</label>
-                                <select id="interestProgramming" name="interestProgramming" required
+                                <select id="interestProgramming" name="interestProgramming" required v-model="dataForm.question_3"
                                     class="w-full p-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
                                     <option value="">Selecione...</option>
                                     <option value="sim">Sim, quero aprender mais</option>
@@ -113,7 +112,7 @@
                             <div>
                                 <label for="perceivedDifficulty" class="block font-medium text-slate-700 mb-1">Você acha
                                     que programação é muito complicada?</label>
-                                <select id="perceivedDifficulty" name="perceivedDifficulty" required
+                                <select id="perceivedDifficulty" name="perceivedDifficulty" required v-model="dataForm.question_4"
                                     class="w-full p-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
                                     <option value="">Selecione...</option>
                                     <option value="sim">Sim, parece muito difícil</option>
@@ -126,7 +125,7 @@
                             <div>
                                 <label for="workshop1" class="block font-medium text-slate-700 mb-1">Você participaria
                                     do Workshop Gratuito?</label>
-                                <select id="workshop1" name="workshop1" required
+                                <select id="workshop1" name="workshop1" required v-model="dataForm.question_5"
                                     class="w-full p-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
                                     <option value="">Selecione...</option>
                                     <option value="sim">Sim</option>
@@ -138,7 +137,7 @@
                             <div>
                                 <label for="availability" class="block font-medium text-slate-700 mb-1">Qual horário
                                     você teria mais disponibilidade?</label>
-                                <select id="availability" name="availability" required
+                                <select id="availability" name="availability" required v-model="dataForm.question_6"
                                     class="w-full p-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
                                     <option value="">Selecione...</option>
                                     <option value="manha">Manhã</option>
@@ -153,14 +152,13 @@
 
                             <div class="col-span-2 flex justify-end">
 
-                                <button class="w-42 bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-lg font-semibold transition-all " @click="showForm = false">Enviar!</button>
+                                <button class="w-42 bg-green-500 hover:bg-green-600 text-white py-3 rounded-lg font-semibold transition-all " @click="sendForm">Enviar!</button>
 
                             </div>
 
                             <div class="text-center col-span-2 text-neutral-400">
 
                                 <p>Pesquisa de campo autorizada pelo líder do departamento.</p>
-                                <p>Desenvolvido por Paulo Cesar - Tecnologia</p>
 
                             </div>
                         </div>
@@ -175,6 +173,10 @@
 </template>
 
 <script>
+
+import axios from 'axios';
+import Swal from 'sweetalert2';
+
 export default {
     props: {
         modelValue: Boolean,
@@ -185,7 +187,18 @@ export default {
     },
     data(){
         return{
-            showForm: false
+            showForm: false,
+            dataForm:{
+                name: "",
+                whatsapp: "",
+                question_1: 0,
+                question_2: 0,
+                question_3: 0,
+                question_4: 0,
+                question_5: 0,
+                question_6: 0,
+                id_user: 6,
+            }
         }
     },
     methods: {
@@ -194,6 +207,23 @@ export default {
         },
         onOverlayClick() {
             this.close()
+        },
+        async sendForm(){
+
+            try{
+                const response = await axios.post("/cad/pesquisa", this.dataForm);
+
+                if(response.status === 201){
+                    Swal.fire("Sucesso!", response.data.message, "success");
+                }
+
+            }catch(error){
+                Swal.fire("Atenção!", error.message, "error");
+                console.log(`Erro na requisição: ${error}`);
+            }finally{
+                this.showForm = false;
+            }
+
         }
     }
 }

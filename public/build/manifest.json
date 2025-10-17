@@ -1,12 +1,16 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-BJ2Tiglf.css",
+    "file": "assets/app-Cl_hHz4P.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
   "resources/img/logo-azul.png": {
     "file": "assets/logo-azul-DS8cy5-1.png",
     "src": "resources/img/logo-azul.png"
+  },
+  "resources/img/paulo.jpeg": {
+    "file": "assets/paulo-ClxiHHnV.jpeg",
+    "src": "resources/img/paulo.jpeg"
   },
   "resources/img/ticket-white.png": {
     "file": "assets/ticket-white-BdPdNwyc.png",
@@ -17,7 +21,7 @@
     "src": "resources/img/vip.png.png"
   },
   "resources/js/app.js": {
-    "file": "assets/app-CVVIxqu5.js",
+    "file": "assets/app-C-GNtPA5.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
@@ -25,6 +29,7 @@
       "assets/app-DM2ZiFVJ.css"
     ],
     "assets": [
+      "assets/paulo-ClxiHHnV.jpeg",
       "assets/ticket-white-BdPdNwyc.png",
       "assets/vip.png-D5HfJtgS.png",
       "assets/logo-azul-DS8cy5-1.png"

@@ -9,6 +9,7 @@ use App\Http\Controllers\NotificacaoController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\GraficoController;
+use App\Http\Controllers\PesquisaCursoController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
@@ -79,6 +80,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/cad/usu', [UserController::class, "store"]);
     Route::post('/cad/man', [ManifestacaoController::class, "store"]);
     Route::post("/cad/usuario", [UserController::class, "store"]);
+    Route::post("/cad/pesquisa", [PesquisaCursoController::class, "store"]);
 
     Route::post("/lis/departamento", [DepartamentoController::class, "consultar"]);
     Route::post('/lis/solicitacao', [SolicitacaoController::class, "consultar"]);
