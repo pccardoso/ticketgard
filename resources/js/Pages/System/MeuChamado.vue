@@ -413,6 +413,7 @@
                     prio:[],
                     sits:[],
                     resp:[],
+                    soli:[],
                     lis_dep: [],
                     id_user: this.user.id,
                     aber:[]

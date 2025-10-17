@@ -61,6 +61,22 @@ class ChamadoController extends Controller
                 $sql.=")";
             }
             
+        } 
+
+         foreach ($request->input("soli") as $key => $value) {
+
+            if($key == 0){
+                $sql.=" AND ( id_solicitacao_chamados=".$value."";
+            }else if(count($request->input("soli")) == $key + 1){
+                $sql.=" OR id_solicitacao_chamados=".$value.")";
+            }else{
+                $sql.=" OR id_solicitacao_chamados=".$value."";
+            }
+
+            if(count($request->input("soli")) == 1){
+                $sql.=")";
+            }
+            
         }
 
         foreach ($request->input("prio") as $key => $value) {

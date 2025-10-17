@@ -43,7 +43,11 @@
             <div class="relative z-40">
                 <label>Departamentos:</label>
                 <Select :lista="lisDepartamento" v-model="getStoreFilter.listDepChe"></Select>
+            </div>
 
+            <div class="relative z-40">
+                <label>Solicitações:</label>
+                <SelectGenericSearch :lista="listSolicitacao" v-model="listSolChe" :config="configSelSol"></SelectGenericSearch>
             </div>
         
             <div class="relative z-30">
@@ -458,6 +462,7 @@
                 }),
                 listUsuario:{},
                 lisDepartamento: {},
+                listSolicitacao: {},
                 user: Object,
                 lista_temp: 0,
                 dataInicial: "",
@@ -468,6 +473,7 @@
                 listPriChe: [],
                 listUseChe: [],
                 listUseAbe: [],
+                listSolChe: [],
                 listaSituacao:[
                     {id: 0, name:"Aberto"},
                     {id: 1, name:"Encaminhado"},
@@ -485,6 +491,10 @@
                 configSelUsu:{
                     id: "id_users",
                     name: "name"
+                },
+                configSelSol:{
+                    id: "id_solicitacoes",
+                    name: "titulo_solicitacoes"
                 },
                 showModalInterruption:false,
                 interruptList: false,
@@ -525,6 +535,14 @@
             axios.post("/lis/departamento").
             then((response)=>{
                 this.lisDepartamento = response.data.lista
+            }).
+            catch((erro)=>{
+                console.log(erro);
+            })
+
+            axios.post("/lis/solicitacao").
+            then((response)=>{
+                this.listSolicitacao = response.data.lista
             }).
             catch((erro)=>{
                 console.log(erro);
@@ -695,6 +713,7 @@
                     sits: this.getStoreFilter.listSitChe,
                     resp: this.listUseChe,
                     lis_dep: this.user.department,
+                    soli: this.listSolChe,
                     id_user: "",
                     aber: this.listUseAbe
                 }).
