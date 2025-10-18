@@ -28,7 +28,7 @@
                             class="rounded-full w-20 h-20 object-cover shadow-lg border-white border-2">
                     </div>
                     <div>
-                        <h2 class="text-xl font-bold text-white mb-2">Pesquisa de Campo - Workshop de Programação</h2>
+                        <h2 class="text-xl font-bold text-white mb-2">Pesquisa de Campo - Workshop Gratuito de Programação</h2>
                         <p class=" text-neutral-100">Analista de TI - Tecnológo em Redes e cursando Administração Pública</p>
                         <p class=" text-neutral-100">Desenvolvedor do SafeGard e TicketGard</p>
                     </div>
