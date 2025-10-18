@@ -68,7 +68,11 @@ class PesquisaCursoController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $response = PesquisaCurso::with("user")->where("id_user", $id)->first();
+
+        return response()->json([
+            "data" => $response
+        ], 200);
     }
 
     /**

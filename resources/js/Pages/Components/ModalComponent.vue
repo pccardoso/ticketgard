@@ -12,9 +12,9 @@
 
                 <!-- Botão fechar -->
                 <button type="button"
-                    class="absolute top-4 right-4 rounded-full p-1 hover:bg-black/10 focus:outline-none" @click="close"
+                    class="absolute top-4 right-4 rounded-full p-1 hover:bg-black/10 focus:outline-none" @click="cancelSearchForm"
                     aria-label="Fechar modal">
-                    <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <svg class="h-5 w-5 text-white" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd"
                             d="M10 8.586l4.95-4.95 1.414 1.414L11.414 10l4.95 4.95-1.414 1.414L10 11.414l-4.95 4.95L3.636 14.95 8.586 10 3.636 5.05 5.05 3.636 10 8.586z"
                             clip-rule="evenodd" />
@@ -24,13 +24,15 @@
                 <!-- Header com foto e texto -->
                 <div class="bg-green-700 p-6 rounded-t-2xl shadow-b mb-4 flex flex-col md:flex-row items-center gap-6">
                     <div class="flex-shrink-0">
-                        <img src="../../../img/paulo.jpeg"
-                            alt="Foto do instrutor" class="rounded-full w-30 h-30 object-cover shadow-lg border-white border-2">
+                        <img src="../../../img/paulo.jpeg" alt="Foto do instrutor"
+                            class="rounded-full w-20 h-20 object-cover shadow-lg border-white border-2">
                     </div>
                     <div>
                         <h2 class="text-xl font-bold text-white mb-2">Pesquisa de Campo - Workshop de Programação</h2>
-                        <p class=" text-neutral-100">Desenvolvido por Paulo Cesar - Tecnologia</p>
+                        <p class=" text-neutral-100">Analista de TI - Tecnológo em Redes e cursando Administração Pública</p>
+                        <p class=" text-neutral-100">Desenvolvedor do SafeGard e TicketGard</p>
                     </div>
+
                 </div>
 
                 <!-- Corpo do modal (formulário) -->
@@ -39,9 +41,9 @@
 
 
                         <div class="text-[12pt] text-justify" v-if="!showForm">
+                            
                             <p>
-                                Fala, Guardião! 👋 Quer dar uma espiada em como funcionam as aplicações, entender a lógica por trás dos códigos? Já adianto que não é nenhum bicho de sete cabeças 😎.
-                                
+                                E aí, Guardião! 👋 Quer dar uma espiadinha em como as aplicações funcionam e entender a lógica por trás dos códigos? Que tal aprender a montar uma "telinha" como essa?
                             </p>
                             <br>
                             <p>
@@ -49,15 +51,22 @@
                             </p>
                             <br>
                             <p>
-                                Meu método é flexível: explicações simples, on-line e muita liberdade pra testar suas próprias ideias. Você vai ver que programar pode ser acessível e até divertido!
+                                Vou te mostrar um método simples, online, com explicações diretas e espaço pra você testar suas próprias ideias. Programar pode ser mais fácil e até divertido do que você imagina!
                             </p>
                             <br>
-                            <p>Portanto, se tiver interesse em participar basta se cadastrar no formulário abaixo!!!</p>
+                            <p>
+                                Então, se você quiser participar, é só clicar em "Continuar" e preencher um breve formulário. Ah, e essa pesquisa aparece só uma vez, beleza? 😉
+                            </p>
 
-                            <div class="flex justify-center space-x-4 pt-4">
 
-                                <button class="w-32 bg-red-500 hover:bg-red-600 text-white py-3 rounded-lg font-semibold transition-all " >Não, obrigado!</button>
-                                <button class="w-42 bg-green-500 hover:bg-green-600 text-white py-3 rounded-lg font-semibold transition-all" @click="showForm = true">Sim, quero participar!</button>
+                            <div class="flex justify-end space-x-4 pt-4 border-t-1 border-t-neutral-300 mt-6">
+
+                                <button
+                                    class=" bg-red-500 hover:bg-red-600 text-white py-3 px-3 rounded-lg font-semibold transition-all "
+                                    @click="cancelSearchForm">Cancelar</button>
+                                <button
+                                    class=" bg-green-500 hover:bg-green-600 text-white py-3 px-3 rounded-lg font-semibold transition-all animate-pulse hover:animate-none"
+                                    @click="showForm = true">Continuar</button>
 
                             </div>
                         </div>
@@ -82,14 +91,16 @@
                                     class="w-full p-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
                                     <option value="">Selecione...</option>
                                     <option value="sim">Sim</option>
-                                    <option value="nao">Não tenho certeza</option>
+                                    <option value="nao">Não</option>
+                                    <option value="talvez">Talvez</option>
                                 </select>
                             </div>
 
                             <div>
                                 <label for="participatedWorkshop" class="block font-medium text-slate-700 mb-1">Você já
                                     participou de algum workshop antes?</label>
-                                <select id="participatedWorkshop" name="participatedWorkshop" required v-model="dataForm.question_2"
+                                <select id="participatedWorkshop" name="participatedWorkshop" required
+                                    v-model="dataForm.question_2"
                                     class="w-full p-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
                                     <option value="">Selecione...</option>
                                     <option value="sim">Sim</option>
@@ -100,10 +111,11 @@
                             <div>
                                 <label for="interestProgramming" class="block font-medium text-slate-700 mb-1">Você tem
                                     interesse em aprender programação?</label>
-                                <select id="interestProgramming" name="interestProgramming" required v-model="dataForm.question_3"
+                                <select id="interestProgramming" name="interestProgramming" required
+                                    v-model="dataForm.question_3"
                                     class="w-full p-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
                                     <option value="">Selecione...</option>
-                                    <option value="sim">Sim, quero aprender mais</option>
+                                    <option value="sim">Sim, quero aprender</option>
                                     <option value="talvez">Talvez, dependendo do conteúdo</option>
                                     <option value="nao">Não tenho interesse</option>
                                 </select>
@@ -112,11 +124,12 @@
                             <div>
                                 <label for="perceivedDifficulty" class="block font-medium text-slate-700 mb-1">Você acha
                                     que programação é muito complicada?</label>
-                                <select id="perceivedDifficulty" name="perceivedDifficulty" required v-model="dataForm.question_4"
+                                <select id="perceivedDifficulty" name="perceivedDifficulty" required
+                                    v-model="dataForm.question_4"
                                     class="w-full p-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
                                     <option value="">Selecione...</option>
                                     <option value="sim">Sim, parece muito difícil</option>
-                                    <option value="umPouco">Um pouco, mas quero tentar</option>
+                                    <option value="um_pouco">Um pouco, mas quero tentar</option>
                                     <option value="nao">Não, quero aprender sem medo</option>
                                 </select>
                             </div>
@@ -147,12 +160,14 @@
                                 </select>
                             </div>
 
-                           
+
 
 
                             <div class="col-span-2 flex justify-end">
 
-                                <button class="w-42 bg-green-500 hover:bg-green-600 text-white py-3 rounded-lg font-semibold transition-all " @click="sendForm">Enviar!</button>
+                                <button
+                                    class="w-42 bg-green-500 hover:bg-green-600 text-white py-3 rounded-lg font-semibold transition-all "
+                                    @click="sendForm">Enviar!</button>
 
                             </div>
 
@@ -176,6 +191,7 @@
 
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { usePage } from '@inertiajs/vue3';
 
 export default {
     props: {
@@ -185,20 +201,21 @@ export default {
             default: ''
         }
     },
-    data(){
-        return{
+    data() {
+        return {
             showForm: false,
-            dataForm:{
+            dataForm: {
                 name: "",
                 whatsapp: "",
-                question_1: 0,
-                question_2: 0,
-                question_3: 0,
-                question_4: 0,
-                question_5: 0,
-                question_6: 0,
-                id_user: 6,
-            }
+                question_1: "",
+                question_2: "",
+                question_3: "",
+                question_4: "",
+                question_5: "",
+                question_6: "",
+                id_user: 0
+            },
+            userSession: {}
         }
     },
     methods: {
@@ -208,23 +225,54 @@ export default {
         onOverlayClick() {
             this.close()
         },
-        async sendForm(){
+        async sendForm() {
 
-            try{
+            try {
                 const response = await axios.post("/cad/pesquisa", this.dataForm);
 
-                if(response.status === 201){
+                if (response.status === 201) {
                     Swal.fire("Sucesso!", response.data.message, "success");
                 }
 
-            }catch(error){
+            } catch (error) {
                 Swal.fire("Atenção!", error.message, "error");
                 console.log(`Erro na requisição: ${error}`);
-            }finally{
-                this.showForm = false;
+            } finally {
+                this.close();
             }
 
-        }
+        },
+        async cancelSearchForm() {
+            try {
+                const response = await axios.post("/cad/pesquisa", {
+                    ...this.dataForm,
+                    name: "---",
+                    whatsapp: "---",
+                    question_1: "---",
+                    question_2: "---",
+                    question_3: "---",
+                    question_4: "---",
+                    question_5: "---",
+                    question_6: "---"
+                });
+
+                if (response.status === 201) {
+                    Swal.fire("Sucesso!", "Obrigado por contribuir com a pesquisa!", "success");
+                }
+
+            } catch (error) {
+                Swal.fire("Atenção!", error.message, "error");
+                console.log(`Erro na requisição: ${error}`);
+            } finally {
+                this.close();
+            }
+        },
+
+    },
+    mounted() {
+        this.userSession = usePage();
+        this.dataForm.id_user = this.userSession?.props?.auth?.user?.id
+        this.dataForm.name = this.userSession?.props?.auth?.user?.name
     }
 }
 </script>

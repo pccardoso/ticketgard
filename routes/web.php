@@ -88,6 +88,7 @@ Route::middleware('auth')->group(function () {
     Route::post("/lis/usuario/{id_departamento}", [UserController::class, "listarPorDepart"]);
     Route::post("/lis/manifestacoes/{id}", [ManifestacaoController::class, "consultar"]);
     Route::post("/lis/anexos/{id}", [ChamadoController::class, "listarAnexos"]);
+    Route::get("/val/pesquisa/{id}", [PesquisaCursoController::class, "show"]);
 
     // ROTAS PARA ALTERAR OS STATUS DOS ATENDIMENTOS
     Route::post("/upd/cha", [ChamadoController::class, "update"]);

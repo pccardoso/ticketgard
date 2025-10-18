@@ -6,7 +6,7 @@
 
   <TitlePage titulo="Home">Visão dos meus Tickets</TitlePage>
 
-  <ModalComponent v-model="showModal" />
+  <ModalComponent v-model="showModal" :idUser="idUserTemp"/>
 
   <div class="grid md:grid-cols-1 sm:grid-cols-1 gap-6">
 
@@ -51,6 +51,8 @@ export default {
   name: "Home",
   data() {
     return {
+      teste: "",
+      idUserTemp: 0,
       mediaRecorder: null,
       audioChunks: [],
       audioUrl: null,
@@ -113,13 +115,20 @@ export default {
     TitlePage, ButtonPrimary, Head, SelectGenericSearch, TableDefault, apexchart: VueApexCharts, ModalComponent
   },
   async mounted() {
-    const page = usePage()
-    this.teste = page
+
+    const page = usePage();
+    this.teste = page;
+    this.idUserTemp = this.teste?.props?.auth?.user?.id;
 
     try {
       const response = await axios.get("/charts/count");
       this.series[0].data = response.data.quantidade;
-      console.log(response);
+
+      const searchResponse = await axios.get(`/val/pesquisa/${parseInt(this.idUserTemp)}`);
+
+      console.log(searchResponse.data);
+      
+      this.showModal = searchResponse.data.data ? false : true;
 
     } catch (error) {
       console.log(error);
