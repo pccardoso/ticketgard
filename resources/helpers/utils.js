@@ -26,6 +26,15 @@ export const sendEmail = (data) => {
 
     axios.post('https://webhook.mundoevogard.com/webhook/notificacaoticketgard', data);
 
+    try{
+
+      const response = axios.post("/send/notification", data);
+      console.log(response);
+
+    }catch(error){
+      console.log(error);
+    }
+
 }
 
 export const validateForm = (data, attributes, labels) => {
@@ -36,4 +45,15 @@ export const validateForm = (data, attributes, labels) => {
     index++;
   }
   return fieldsErros;
+}
+
+export const getUser = async (id) => {
+  try{
+
+    const response = await axios.get(`/con/user/${id}`);
+    return response.data;
+
+  }catch(error){
+    console.log(`Erro na requisição: ${error}`);
+  }
 }

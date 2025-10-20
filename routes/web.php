@@ -13,6 +13,7 @@ use App\Http\Controllers\PesquisaCursoController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
+use App\Http\Controllers\NotificationController;
 
 //ROTAS DESPROTEGIDAS
 Route::post("/teste",[ChamadoController::class, "index2"]);
@@ -27,6 +28,9 @@ Route::match(["get", "post"],"/login", function(){
 // ROTAS PROTEGIDAS
 Route::middleware('auth')->group(function () {
 
+    Route::post("/send/notification", [NotificationController::class, "sendTestNotification"]);
+    Route::post("/send/token", [NotificationController::class, "saveToken"]);
+
     Route::match(['post','get'],"/", function(){
         return Inertia::render("Home");
     })->name("home");
@@ -38,6 +42,10 @@ Route::middleware('auth')->group(function () {
     Route::get("/cad/solicitacao", function(){
         return Inertia::render("System/CadSolicitacao");
     })->name("form.cad.solicitacao");
+
+    Route::get("/edi/notify", function(){
+        return Inertia::render("System/Configuracao");
+    })->name("form.cad.configuracao");
 
     Route::get("/cad/chamado", function(){
         return Inertia::render("System/CadChamado");
@@ -72,6 +80,7 @@ Route::middleware('auth')->group(function () {
         return Inertia::render("System/MeuChamado");
     })->name("meuchamado");
     Route::post("/con/pendencia/{id}", [ChamadoController::class, "listarPendencia"]);
+    Route::get("/con/user/{id}", [UserController::class, "show"]);
 
     // ROTAS PARA CADASTROS
     Route::post("/cad/dep", [DepartamentoController::class, "store"]);
