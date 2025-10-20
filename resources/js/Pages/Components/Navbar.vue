@@ -240,6 +240,7 @@
                         </Link>
                      </li>
 
+                     <!--
                      <li>
                         <Link href="/edi/notify"
                            class="flex items-center w-full p-2 text-white transition duration-400 rounded-lg pl-11 group hover:bg-black">
@@ -253,6 +254,7 @@
                         Notificações
                         </Link>
                      </li>
+                     -->
                   </ul>
                </li>
 
