@@ -68,7 +68,21 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $result = User::find($id);
+
+        if(!$result){
+            return response()->json([
+                "status" => 200,
+                "message" => "Usuário não encontrado",
+                "data" => $result
+            ], 200);
+        }
+
+        return response()->json([
+            "status" => 200,
+            "message" => "Usuário encontrado!",
+            "data" => $result
+        ], 200);
     }
 
     /**
@@ -98,6 +112,25 @@ class UserController extends Controller
 
         return to_route("con.usuario");
     }
+
+    public function updateConfig(Request $request)
+    {
+        $validated = $request->validate([
+            'notify_email' => 'boolean|required',
+            'notify_popup' => 'boolean|required',
+        ]);
+
+        $user = Auth::user();
+
+        $user->update($validated);
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'Configurações atualizadas com sucesso!',
+            'data' => $user->refresh(),
+        ], 200);
+    }
+
 
     public function alterarsenha(Request $request){
         $dep = User::find($request->input("id_users"));

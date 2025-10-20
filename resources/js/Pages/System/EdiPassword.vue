@@ -13,6 +13,7 @@
             <p class="text-gray-500 text-2xl mb-2">Formulário de Senha</p>
 
             <div class="grid gap-6 mb-2 md:grid-cols-3 ">
+                
                 <div>
                     <Label>Nova Senha:</Label>
                     <input id="senha1" v-model="this.form_temp.senha1" type="password"class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Título da solicitação..." />

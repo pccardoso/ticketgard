@@ -46,7 +46,8 @@ class HandleInertiaRequests extends Middleware
                     "department" => json_decode(Auth::user()->lista_departamento_users),
                     "adm" => Auth::user()->administrador,
                     "res_chamados" => Auth::user()->res_chamados,
-                    "vip" => Auth::user()->vip
+                    "vip" => Auth::user()->vip,
+                    "token" => Auth::user()->token_firebase,
                 ] : null
             ],
         ]);

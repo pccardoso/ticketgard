@@ -908,6 +908,7 @@ export default {
 
                         this.user.id != this.result['chamado'].id_criador_chamados
                             ? sendEmail({
+                                id_destinatario: this.result['chamado'].id_criador_chamados,
                                 email: this.result['user'].email,
                                 msg: eDesMan.value,
                                 status: "Nova Mensagem",
