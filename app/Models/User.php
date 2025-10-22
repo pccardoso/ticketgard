@@ -30,7 +30,15 @@ class User extends Authenticatable
         'administrador',
         'res_chamados',
         'lista_departamento_users',
-        'vip'
+        'vip',
+        'notify_email',
+        'notify_popup',
+        'token_firebase'
+    ];
+
+    protected $casts = [
+        "notify_email" => "boolean",
+        "notify_popup" => "boolean"
     ];
 
     /**

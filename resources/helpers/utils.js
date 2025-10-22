@@ -23,9 +23,10 @@ export const getTimeCurrentUtils = () => {
 }
 
 export const sendEmail = (data) => {
-
     axios.post('https://webhook.mundoevogard.com/webhook/notificacaoticketgard', data);
+}
 
+export const sendNotifyFirebase = (data) => {
     try{
 
       const response = axios.post("/send/notification", data);
@@ -34,7 +35,6 @@ export const sendEmail = (data) => {
     }catch(error){
       console.log(error);
     }
-
 }
 
 export const validateForm = (data, attributes, labels) => {
@@ -51,6 +51,17 @@ export const getUser = async (id) => {
   try{
 
     const response = await axios.get(`/con/user/${id}`);
+    return response.data;
+
+  }catch(error){
+    console.log(`Erro na requisição: ${error}`);
+  }
+}
+
+export const updateNotifyUser = async (payload) =>{
+  try{
+    
+    const response = await axios.post("/upd/notify", payload);
     return response.data;
 
   }catch(error){
