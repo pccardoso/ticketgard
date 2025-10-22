@@ -121,6 +121,7 @@ Route::middleware('auth')->group(function () {
     Route::post("/upd/usu", [UserController::class, "update"]);
     Route::post("/upd/cha", [ChamadoController::class, "update"]);
     Route::post("/salvar/senha", [UserController::class, "alterarsenha"]);
+    Route::post("/upd/notify", [UserController::class, "updateConfig"]);
 
     // ROTAS PARA GERENCIAR LOGIN
     Route::get("/logout", [LoginController::class, "logout"]);

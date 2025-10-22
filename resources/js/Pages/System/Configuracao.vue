@@ -35,7 +35,7 @@
 
         </div>
 
-        <ButtonPrimary @click="validar()" class="inline-flex">
+        <ButtonPrimary @click="updateNotify" class="inline-flex">
 
             <svg class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                 fill="currentColor" viewBox="0 0 24 24">
@@ -64,7 +64,8 @@ import ButtonDanger from "../Components/ButtonDanger.vue";
 import { usePage } from "@inertiajs/vue3";
 import Label from "../Components/Label.vue";
 import { Head } from "@inertiajs/vue3";
-import { getUser } from "../../../helpers/utils";
+import { getUser, updateNotifyUser } from "../../../helpers/utils";
+import Swal from "sweetalert2";
 
 export default {
     name: "ConSolicitacao",
@@ -88,12 +89,30 @@ export default {
         console.log(response);
 
         if(response.status == 200){
-            this.formTemp.notifyEmail = response.data.notify_email ? true : false;
-            this.formTemp.notifyPopup = response.data.notify_popup ? true : false;
+            this.formTemp.notifyEmail = response.data.notify_email;
+            this.formTemp.notifyPopup = response.data.notify_popup;
         }
     },
     methods: {
+        async updateNotify(){
 
+            try{
+                
+                const response = await updateNotifyUser({
+                    notify_email: this.formTemp.notifyEmail,
+                    notify_popup: this.formTemp.notifyPopup
+                });
+
+                if(response.status === 200){
+                    Swal.fire("Atenção!", "Configurações atualizadas com sucesso!", "success");
+                }
+
+            }catch(error){
+                Swal.fire("Atenção!", "Erro na requisição, contatar o departamento de tecnologia!", "error");
+                console.log(error);
+            }
+
+        }
     }
 
 }

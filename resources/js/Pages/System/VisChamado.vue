@@ -4,8 +4,6 @@
         <title>Visualizar Ticket - Ticket Gard</title>
     </Head>
 
-
-
     <TitlePage titulo="Histórico do Ticket"></TitlePage>
 
     <div class="flex flex-col md:flex-col">
@@ -687,7 +685,7 @@ import LoadingChat from '../Components/LoadingChat.vue';
 import { formatDateTexPtHelpers } from "../../../helpers/format.js";
 import { Head } from '@inertiajs/vue3';
 import Swal from 'sweetalert2';
-import { sendEmail } from '../../../helpers/utils.js';
+import { sendEmail, sendNotifyFirebase } from '../../../helpers/utils.js';
 import { useExampleStore } from "../../../store/store.js";
 
 export default {
@@ -904,18 +902,29 @@ export default {
                         Toast.fire({
                             title: "Mensagem enviada com sucesso!",
                             icon: "success"
-                        })
+                        });
 
-                        this.user.id != this.result['chamado'].id_criador_chamados
-                            ? sendEmail({
+                        if(this.user.id != this.result['chamado'].id_criador_chamados){
+                            //enviando notiifcações
+
+                            const payloadNotify = {
                                 id_destinatario: this.result['chamado'].id_criador_chamados,
                                 email: this.result['user'].email,
                                 msg: eDesMan.value,
                                 status: "Nova Mensagem",
                                 codigo: this.result['chamado'].id_chamados,
                                 remetente: this.user.name
-                            })
-                            : false;
+                            };
+
+                            if(this.result['user'].notify_email){
+                                sendEmail(payloadNotify);
+                            }
+
+                            if(this.result['user'].notify_popup){
+                                console.log(payloadNotify);
+                                sendNotifyFirebase(payloadNotify);
+                            }
+                        }
 
                         eDesMan.value = "";
                         fileInput2.value = "";
