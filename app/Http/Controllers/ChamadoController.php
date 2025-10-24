@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Notificacao;
+use App\Jobs\NotificationDepartamentJob;
 
 class ChamadoController extends Controller
 {
@@ -345,6 +346,8 @@ class ChamadoController extends Controller
                 "tipo_notificacao" => 0,
                 "id_manifestacao_notificacao" => $manifest->id_manifestacoes
             ]);
+
+            NotificationDepartamentJob::dispatch($chamado->id_chamados);
 
         }
 
