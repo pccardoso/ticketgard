@@ -7,6 +7,7 @@ use Illuminate\Foundation\Queue\Queueable;
 use App\Models\Chamado;
 use App\Models\User;
 use Illuminate\Support\Facades\Log;
+use App\Jobs\NotificationUserJob;
 
 class NotificationDepartamentJob implements ShouldQueue
 {
@@ -29,15 +30,34 @@ class NotificationDepartamentJob implements ShouldQueue
     {
         
         $resultChamado = Chamado::find($this->id_chamado);
+
+        if($resultChamado){
     
-        $usersToNotify = User::where('lista_departamento_users', 'LIKE', "[{$resultChamado->id_departamento_chamados}]") 
-            ->orWhere('lista_departamento_users', 'LIKE', "[{$resultChamado->id_departamento_chamados},%") 
-            ->orWhere('lista_departamento_users', 'LIKE', "%,{$resultChamado->id_departamento_chamados},%") 
-            ->orWhere('lista_departamento_users', 'LIKE', "%,{$resultChamado->id_departamento_chamados}]") 
-            ->get();
+            $usersToNotify = User::where('lista_departamento_users', 'LIKE', "[{$resultChamado->id_departamento_chamados}]") 
+                ->orWhere('lista_departamento_users', 'LIKE', "[{$resultChamado->id_departamento_chamados},%") 
+                ->orWhere('lista_departamento_users', 'LIKE', "%,{$resultChamado->id_departamento_chamados},%") 
+                ->orWhere('lista_departamento_users', 'LIKE', "%,{$resultChamado->id_departamento_chamados}]") 
+                ->get();
+            
+            foreach ($usersToNotify as $key => $user) {
+
+                Log::info("Encontrado {$user->name} para o departamento do ticket {$this->id_chamado}");
+
+                if($user->token_firebase){
+
+                    NotificationUserJob::dispatch(
+                        $user->token_firebase,
+                        "Novo Ticket",
+                        "{$resultChamado->nome_criador_chamados} abriu ticket de Nº {$this->id_chamado}!",
+                        $this->id_chamado
+                    );
+
+                }
+
+            }
         
-        foreach ($usersToNotify as $key => $user) {
-            Log::info("Encontrado {$user->name} para o departamento do ticket {$this->id_chamado}");
+        }else{
+            Log::info("Chamado de Nº {$this->id_chamado} não encontrado");
         }
 
     }

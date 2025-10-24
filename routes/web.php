@@ -28,16 +28,6 @@ Route::match(["get", "post"],"/login", function(){
     return Inertia::render("Login/Login");
 })->name("login");
 
-Route::get("tes/job", function(){
-    TestQueueJob::dispatch();
-    return "Job de teste despachado! Verifique a tabela 'jobs' e o Cron Job.";
-});
-
-Route::get("tes/job2/{id_ticket}", function($id_ticket){
-    NotificationDepartamentJob::dispatch($id_ticket);
-    return "Job de teste despachado! Verifique a tabela 'jobs' e o Cron Job.";
-});
-
 // ROTAS PROTEGIDAS
 Route::middleware('auth')->group(function () {
 
