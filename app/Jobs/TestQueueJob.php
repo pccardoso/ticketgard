@@ -6,6 +6,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Facades\Log;
 
+
 class TestQueueJob implements ShouldQueue
 {
     use Queueable;
@@ -15,7 +16,7 @@ class TestQueueJob implements ShouldQueue
      */
     public function __construct()
     {
-        //
+
     }
 
     /**
@@ -23,6 +24,8 @@ class TestQueueJob implements ShouldQueue
      */
     public function handle(): void
     {
+
+        
         $timestamp = now()->toDateTimeString();
         Log::info("SUCCESS: O job de teste de fila foi executado com sucesso em: {$timestamp}");
     }
