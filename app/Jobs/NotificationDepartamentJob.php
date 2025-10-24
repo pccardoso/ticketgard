@@ -5,9 +5,11 @@ namespace App\Jobs;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use App\Models\Chamado;
+use App\Models\Departamento;
 use App\Models\User;
 use Illuminate\Support\Facades\Log;
 use App\Jobs\NotificationUserJob;
+
 
 class NotificationDepartamentJob implements ShouldQueue
 {
@@ -49,9 +51,13 @@ class NotificationDepartamentJob implements ShouldQueue
 
                 if($user->token_firebase){
 
+                    $resultDepartamento = Departamento::find($resultChamado->id_departamento_chamados);
+
+                    $nameDepartamento = $resultDepartamento->nome_departamentos;
+
                     NotificationUserJob::dispatch(
                         $user->token_firebase,
-                        "Novo Ticket",
+                        "Novo Ticket (${$nameDepartamento})",
                         "{$resultChamado->nome_criador_chamados} abriu ticket de Nº {$this->id_chamado}!",
                         $this->id_chamado
                     );
