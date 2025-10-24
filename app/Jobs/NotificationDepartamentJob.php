@@ -33,11 +33,15 @@ class NotificationDepartamentJob implements ShouldQueue
 
         if($resultChamado){
     
-            $usersToNotify = User::where('lista_departamento_users', 'LIKE', "[{$resultChamado->id_departamento_chamados}]") 
-                ->orWhere('lista_departamento_users', 'LIKE', "[{$resultChamado->id_departamento_chamados},%") 
-                ->orWhere('lista_departamento_users', 'LIKE', "%,{$resultChamado->id_departamento_chamados},%") 
-                ->orWhere('lista_departamento_users', 'LIKE', "%,{$resultChamado->id_departamento_chamados}]") 
-                ->get();
+            $usersToNotify = User::where(function ($query) use ($resultChamado) {
+                $query->where('lista_departamento_users', 'LIKE', "[{$resultChamado->id_departamento_chamados}]")
+                    ->orWhere('lista_departamento_users', 'LIKE', "[{$resultChamado->id_departamento_chamados},%")
+                    ->orWhere('lista_departamento_users', 'LIKE', "%,{$resultChamado->id_departamento_chamados},%")
+                    ->orWhere('lista_departamento_users', 'LIKE', "%,{$resultChamado->id_departamento_chamados}]");
+            })
+            ->where('res_chamados', 1)
+            ->where('id_users', "!=", $resultChamado->id_criador_chamados)
+            ->get();
             
             foreach ($usersToNotify as $key => $user) {
 
