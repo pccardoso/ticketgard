@@ -14,7 +14,9 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use App\Jobs\TestQueueJob;
+use App\Jobs\NotificationDepartamentJob;
 use App\Http\Controllers\NotificationController;
+
 
 //ROTAS DESPROTEGIDAS
 Route::post("/teste",[ChamadoController::class, "index2"]);
@@ -28,6 +30,11 @@ Route::match(["get", "post"],"/login", function(){
 
 Route::get("tes/job", function(){
     TestQueueJob::dispatch();
+    return "Job de teste despachado! Verifique a tabela 'jobs' e o Cron Job.";
+});
+
+Route::get("tes/job2/{id_ticket}", function($id_ticket){
+    NotificationDepartamentJob::dispatch($id_ticket);
     return "Job de teste despachado! Verifique a tabela 'jobs' e o Cron Job.";
 });
 
