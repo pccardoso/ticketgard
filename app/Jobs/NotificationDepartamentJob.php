@@ -57,7 +57,7 @@ class NotificationDepartamentJob implements ShouldQueue
 
                     NotificationUserJob::dispatch(
                         $user->token_firebase,
-                        "Novo Ticket (${$nameDepartamento})",
+                        "Novo Ticket - {$nameDepartamento}",
                         "{$resultChamado->nome_criador_chamados} abriu ticket de Nº {$this->id_chamado}!",
                         $this->id_chamado
                     );
