@@ -37,7 +37,7 @@ class NotificationDepartamentJob implements ShouldQueue
             ->orWhere('lista_departamento_users', 'LIKE', "%,{$this->id_chamado}]") 
             ->get();
         
-        foreach ($userDepartaments as $key => $user) {
+        foreach ($usersToNotify as $key => $user) {
             Log::info("Encontrado {$user->name} para o departamento do ticket {$this->id_chamado}");
         }
 
