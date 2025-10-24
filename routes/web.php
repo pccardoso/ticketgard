@@ -13,6 +13,7 @@ use App\Http\Controllers\PesquisaCursoController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
+use App\Jobs\TestQueueJob;
 use App\Http\Controllers\NotificationController;
 
 //ROTAS DESPROTEGIDAS
@@ -24,6 +25,11 @@ Route::post("/validar/login", [LoginController::class, "login"]);
 Route::match(["get", "post"],"/login", function(){
     return Inertia::render("Login/Login");
 })->name("login");
+
+Route::get("tes/job", function(){
+    TestQueueJob::dispatch();
+    return "Job de teste despachado! Verifique a tabela 'jobs' e o Cron Job.";
+});
 
 // ROTAS PROTEGIDAS
 Route::middleware('auth')->group(function () {
