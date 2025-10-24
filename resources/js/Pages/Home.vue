@@ -6,6 +6,70 @@
 
   <TitlePage titulo="Home">Visão dos meus Tickets</TitlePage>
 
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6 mb-6">
+
+  <!-- Card 2 -->
+  <div
+    class="bg-gradient-to-r from-indigo-500 to-blue-500 text-white rounded-2xl shadow-lg p-6 flex items-start gap-4 hover:scale-[1.02] transition-transform duration-300"
+  >
+    <div
+      class="flex items-center justify-center h-12 w-12 rounded-xl bg-white/20 backdrop-blur-sm"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-7 w-7 text-white"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M13 10V3L4 14h7v7l9-11h-7z"
+        />
+      </svg>
+    </div>
+    <div>
+      <h3 class="text-lg font-semibold mb-1">Personalização de Notificações</h3>
+      <p class="text-sm text-white/90 leading-relaxed">
+        É possível configurar notificações por e-mail e pop-up para o responsável pela abertura do ticket. Clique em Meu Usário > Notificações.
+      </p>
+    </div>
+  </div>
+
+  <!-- Card 3 -->
+  <div
+    class="bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-2xl shadow-lg p-6 flex items-start gap-4 hover:scale-[1.02] transition-transform duration-300"
+  >
+    <div
+      class="flex items-center justify-center h-12 w-12 rounded-xl bg-white/20 backdrop-blur-sm"
+    >
+      <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-7 w-7 text-white"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+      />
+    </svg>
+    </div>
+    <div>
+      <h3 class="text-lg font-semibold mb-1">Integrantes de Departamentos</h3>
+      <p class="text-sm text-white/90 leading-relaxed">
+        Os responsáveis por responder tickets podem receber notificações pop-up de novos tickets, desde que tenham autorizado o navegador.
+      </p>
+    </div>
+  </div>
+</div>
+
+
   <ModalComponent v-model="showModal" :idUser="idUserTemp"/>
 
   <div class="grid md:grid-cols-1 sm:grid-cols-1 gap-6">
