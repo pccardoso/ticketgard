@@ -56,7 +56,12 @@ class ExportPDFController extends Controller
             ->get();
 
 
-        $pdf = Pdf::loadView('template.pdf', ["result" => $chamadoResult])->setPaper('a4', 'landscape');
+        $pdf = Pdf::loadView('template.pdf', [
+            "result" => $chamadoResult,
+            "sum" => count($chamadoResult),
+            "start" => $dataInicial,
+            "end" => $dataFinal
+        ])->setPaper('a4', 'landscape');
         return $pdf->stream('Relatorio.pdf');
     }
 

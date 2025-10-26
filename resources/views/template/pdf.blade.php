@@ -53,7 +53,7 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
     }
 
     .title-logo {
@@ -118,6 +118,13 @@
     .status-5 { color: #a31616; font-weight: bold; }
     .status-6 { color: #1637a3; font-weight: bold; }
 
+    .box-filter{
+      margin-bottom: 8px;
+      background-color: rgb(235, 235, 235);
+      border-radius: 5px;
+      padding: 8px;
+    }
+
     @media print {
       body { background: white; }
       .card, .filter-box { box-shadow: none; }
@@ -136,6 +143,13 @@
   </footer>
 
   <main>
+
+    <div class="box-filter">
+
+      <label><strong>Total encontrado:</strong> {{$sum}} ticket(s).</label> <br>
+      <label><strong>Período selecionado:</strong> {{$start}} a {{$end}}</label>
+
+    </div>
 
   <table>
     <thead>
