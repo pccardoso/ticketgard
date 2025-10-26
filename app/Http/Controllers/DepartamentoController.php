@@ -13,7 +13,7 @@ class DepartamentoController extends Controller
      */
     public function index()
     {   
-        $lista = Departamento::all();
+        $lista = Departamento::with("solicitacoes")->get();
         return Inertia::render("System/ConDepartamento", compact("lista"));
     }
 
@@ -40,7 +40,7 @@ class DepartamentoController extends Controller
     }
 
     public function consultar(){
-        $lista = Departamento::all();
+        $lista = Departamento::with('solicitacoes')->get();
         return compact("lista");
     }
 

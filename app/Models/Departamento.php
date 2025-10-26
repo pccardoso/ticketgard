@@ -18,4 +18,10 @@ class Departamento extends Model
     ];
 
     protected $primaryKey = 'id_departamentos';
+
+    public function solicitacoes()
+    {
+        return $this->hasMany(Solicitacao::class, "id_departamento_solicitacoes", "id_departamentos");
+    }
+
 }

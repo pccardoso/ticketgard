@@ -68,3 +68,45 @@ export const updateNotifyUser = async (payload) =>{
     console.log(`Erro na requisição: ${error}`);
   }
 }
+
+export const exportPdf = async (payload) => {
+  try{
+    await axios.post('/export-pdf', {
+      ...payload,
+      data_inicial: payload.data_inicial?.toISOString().split('T')[0],
+      data_final: payload.data_final?.toISOString().split('T')[0],
+    }, {
+        responseType: 'blob' // importante!
+    }).then(response => {
+        const file = new Blob([response.data], { type: 'application/pdf' });
+        const fileURL = URL.createObjectURL(file);
+        window.open(fileURL); // abre em nova aba
+    });
+
+  }catch(error){
+    console.log(`Erro na requisição: ${error}`);
+    throw error;
+  }
+}
+
+export const getAllDepartament = async () => {
+  try{
+
+    const response = await axios.post("/lis/departamento");
+    return response.data;
+
+  }catch(error){
+    console.log(`Erro na requisição: ${error}`);
+  }
+}
+
+export const getAllUsers = async () => {
+  try{
+
+    const response = await axios.post("/lis/usuario");
+    return response.data;
+
+  }catch(error){
+    throw error;
+  }
+}

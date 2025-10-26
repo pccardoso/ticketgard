@@ -16,6 +16,7 @@ use Inertia\Inertia;
 use App\Jobs\TestQueueJob;
 use App\Jobs\NotificationDepartamentJob;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\ExportPDFController;
 
 
 //ROTAS DESPROTEGIDAS
@@ -28,8 +29,12 @@ Route::match(["get", "post"],"/login", function(){
     return Inertia::render("Login/Login");
 })->name("login");
 
+Route::get("/pp", [ChamadoController::class, "export"]);
+
 // ROTAS PROTEGIDAS
 Route::middleware('auth')->group(function () {
+
+    Route::post("/export-pdf", [ExportPDFController::class, "create"]);
 
     Route::post("/send/notification", [NotificationController::class, "sendTestNotification"]);
     Route::post("/send/token", [NotificationController::class, "saveToken"]);
@@ -41,6 +46,10 @@ Route::middleware('auth')->group(function () {
     Route::get("/cad/departamento", function(){
         return Inertia::render("System/CadDepartamento");
     })->name("form.cad.departamento");
+
+    Route::get("/relatorio", function(){
+        return Inertia::render("System/Relatorio");
+    })->name("relatorio");
 
     Route::get("/cad/solicitacao", function(){
         return Inertia::render("System/CadSolicitacao");

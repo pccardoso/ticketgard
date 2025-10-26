@@ -25,4 +25,19 @@ class Chamado extends Model
 
     protected $table = "chamados";
     protected $primaryKey = 'id_chamados';
+
+    public function departamento()
+    {
+        return $this->belongsTo(Departamento::class, "id_departamento_chamados", "id_departamentos");
+    }
+
+    public function solicitacao()
+    {
+        return $this->belongsTo(Solicitacao::class, "id_solicitacao_chamados", "id_solicitacoes");
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, "id_user_chamados", "id_users");
+    }
 }

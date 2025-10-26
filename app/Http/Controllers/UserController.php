@@ -15,7 +15,6 @@ class UserController extends Controller
      */
     public function index()
     {
-        $listaUsuarios = User::all();
         $listaUsuarios = DB::table("users")->get();
         return Inertia::render("System/ConUsuario", compact("listaUsuarios"));
     }

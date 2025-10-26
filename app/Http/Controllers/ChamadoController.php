@@ -13,12 +13,19 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Notificacao;
 use App\Jobs\NotificationDepartamentJob;
+use App\Http\Controllers\ExportPDFController;
 
 class ChamadoController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+
+    protected $pdf;
+
+    public function __construct (ExportPDFController $pdf){
+        $this->pdf = $pdf;
+    }
     
     public function dataen($data){
 
@@ -543,6 +550,22 @@ class ChamadoController extends Controller
 
         return compact("lista");
 
+
+    }
+
+    public function export(){
+
+        /*$request->validate([
+            "departamento" => "required|integer",
+            "solicitacao" => "required|integer",
+            "data_inicial" => "required|text",
+            "data_final" => "required|text",
+            "responsavel" => "required|integer"
+        ]);*/
+
+        $chamadoResult = Chamado::with("departamento", "solicitacao")->where("id_departamento_chamados", 1)->get();
+
+        $this->pdf->create();
 
     }
 
