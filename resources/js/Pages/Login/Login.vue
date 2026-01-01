@@ -15,15 +15,13 @@
                             <img src="../../../img/logo-azul.png" class="w-70" alt="Imagem Centralizada">
                         </div>
 
-                        <h5 class="text-xl text-gray-900  text-center">Autenticação</h5>
-
                         <div>
-                            <label for="text" class="block mb-2 text-sm font-medium text-gray-900 ">E-mail:</label>
+                            <label for="text" class="block mb-2 text-sm font-medium text-gray-500 ">E-mail:</label>
                             <input type="text" v-model="form.email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="exemple@exemple.com" />
                             <label class="text-red-500 font-bold mb-5" v-if="form.errors.email">{{ form.errors.email }}</label>
                         </div>
                         <div>
-                            <label for="password" class="block mb-2 text-sm font-medium text-gray-900 ">Senha</label>
+                            <label for="password" class="block mb-2 text-sm font-medium text-gray-500 ">Senha</label>
                             <input type="password" v-model="form.password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " />
                             <label class="text-red-500 font-bold mb-5" v-if="form.errors.password">{{ form.errors.password }}</label>
                         </div>

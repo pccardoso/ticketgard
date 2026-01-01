@@ -27,6 +27,7 @@
         "@vuepic/vue-datepicker": "^11.0.2",
         "@vueup/vue-quill": "^1.2.0",
         "apexcharts": "^4.7.0",
+        "canvas-confetti": "^1.9.4",
         "chart.js": "^4.4.9",
         "emoji-picker-element": "^1.27.0",
         "firebase": "^12.4.0",
