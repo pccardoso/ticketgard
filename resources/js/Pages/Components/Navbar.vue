@@ -948,7 +948,7 @@ export default {
       //buscar por novos tickets dentro do início/fim programado.
       if (this.user.res_chamados) {
 
-         this.setInNotification = setInterval(() => {
+         /*this.setInNotification = setInterval(() => {
 
             //hora atual que entra no loop
             this.timeEnd = getTimeCurrentUtils();
@@ -983,7 +983,7 @@ export default {
             this.timeStart = this.timeEnd;
 
 
-         }, (5000));
+         }, (5000));*/
 
       }
 
